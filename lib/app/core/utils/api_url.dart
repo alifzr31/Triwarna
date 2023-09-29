@@ -34,5 +34,6 @@ class EndPoint {
 }
 
 class StorageUrl {
+  static const String profile = '/profile';
   static const String qr = '/qr/members';
 }
