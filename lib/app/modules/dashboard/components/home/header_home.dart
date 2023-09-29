@@ -107,12 +107,13 @@ class HeaderHome extends StatelessWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    BaseText(
-                                      text:
-                                          controller.profile.value?.noMember ??
-                                              '',
-                                      size: 16,
-                                      bold: FontWeight.w600,
+                                    Text(
+                                      controller.noMember.value ?? '',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        letterSpacing: Get.width < 390 ? 2 : 3,
+                                      ),
                                     ),
                                     BaseText(
                                       text:

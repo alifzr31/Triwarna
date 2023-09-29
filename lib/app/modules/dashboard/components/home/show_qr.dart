@@ -7,6 +7,7 @@ void showQR(Gradient? gradient, String qrImage, String noMember, String contact)
   Get.dialog(
     AlertDialog(
       backgroundColor: Colors.transparent,
+      elevation: 0,
       content: Container(
         height: 300,
         width: 300,

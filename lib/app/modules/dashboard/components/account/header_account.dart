@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_shimmer.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/components/pointvoucher_box.dart';
+import 'package:triwarna_rebuild/app/core/utils/api_url.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/core/values/gradients.dart';
+import 'package:triwarna_rebuild/app/modules/dashboard/components/home/show_qr.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/member_card.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
 
@@ -40,20 +42,38 @@ class HeaderAccount extends StatelessWidget {
                             : GradientColor.platinum,
                     child: Padding(
                       padding: const EdgeInsets.all(15),
-                      child: Row(
+                      child: Column(
                         children: [
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Row(
                               children: [
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      Expanded(
+                                        child: Row(
+                                          children: [
+                                            CircleAvatar(
+                                              radius: 35,
+                                              backgroundImage: Image.network(
+                                                      '${ApiUrl.baseStorageUrl}${StorageUrl.profile}/${controller.profile.value?.image}')
+                                                  .image,
+                                            ),
+                                            const SizedBox(width: 5),
+                                            SvgPicture.asset(
+                                              'assets/images/gold_medal.svg',
+                                              width: 30,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 5),
                                       BaseText(
-                                        text: controller
-                                                .profile.value?.noMember ??
+                                        text: controller.profile.value?.name
+                                                .toString()
+                                                .capitalize ??
                                             '',
                                         size: 16,
                                         bold: FontWeight.w600,
@@ -66,30 +86,43 @@ class HeaderAccount extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                Container(
-                                  height: 40,
-                                  width: 155,
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    color: softPurpleColor,
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Center(
-                                    child: BaseText(
-                                      text:
-                                          '${controller.profile.value?.loyalty} MEMBER',
-                                      bold: FontWeight.w600,
-                                      color: purpleColor,
+                                const SizedBox(width: 10),
+                                if (controller.profile.value != null)
+                                  InkWell(
+                                    onTap: () {
+                                      showQR(
+                                        controller.profile.value?.loyalty
+                                                    ?.toLowerCase() ==
+                                                'silver'
+                                            ? GradientColor.silver
+                                            : controller.profile.value?.loyalty
+                                                        ?.toLowerCase() ==
+                                                    'gold'
+                                                ? GradientColor.gold
+                                                : GradientColor.platinum,
+                                        controller.profile.value?.noMember ??
+                                            '',
+                                        controller.profile.value?.noMember ??
+                                            '',
+                                        controller.profile.value?.contact ?? '',
+                                      );
+                                    },
+                                    child: Image.network(
+                                      '${ApiUrl.baseStorageUrl}/${StorageUrl.qr}/${controller.profile.value?.noMember}.png',
+                                      width: 110,
                                     ),
                                   ),
-                                ),
                               ],
                             ),
                           ),
-                          const SizedBox(width: 15),
-                          SvgPicture.asset(
-                            'assets/images/member_medal.svg',
-                            width: 80,
+                          const SizedBox(height: 15),
+                          Text(
+                            controller.noMember.value ?? '',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: Get.width < 390 ? 4 : 5,
+                            ),
                           ),
                         ],
                       ),
@@ -115,10 +148,7 @@ class HeaderAccount extends StatelessWidget {
                                 ),
                               )
                             : BaseText(
-                                text: controller.profile.value?.name
-                                        .toString()
-                                        .capitalize ??
-                                    '',
+                                text: controller.profile.value?.contact ?? '',
                                 bold: FontWeight.w600,
                               ),
                         if (controller.profile.value == null)
@@ -135,7 +165,7 @@ class HeaderAccount extends StatelessWidget {
                                 ),
                               )
                             : BaseText(
-                                text: controller.profile.value?.contact ?? '',
+                                text: '${controller.profile.value?.birthPlace}, ${controller.birthDate.value}',
                                 color: Colors.grey.shade600,
                               ),
                       ],

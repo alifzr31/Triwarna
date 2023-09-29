@@ -97,7 +97,7 @@ class MemberCard extends StatelessWidget {
                         const SizedBox(width: 10),
                         SvgPicture.asset(
                           'assets/images/member_medal.svg',
-                          width: 80,
+                          width: 90,
                         ),
                       ],
                     ),
