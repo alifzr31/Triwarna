@@ -126,8 +126,10 @@ class ProfileController extends GetxController {
         selectJk.value = userController.profile.value?.gender;
         alamatController.value.text =
             userController.profile.value?.address ?? '';
-        kelurahanController.value.text =
-            userController.profile.value?.village.toString().capitalize ?? '';
+        if (userController.profile.value?.village != null) {
+          kelurahanController.value.text =
+              userController.profile.value?.village ?? '';
+        }
         selectKelurahan.value = userController.profile.value?.villageId;
         selectAgama.value = userController.profile.value?.religion;
         selectPendidikan.value = userController.profile.value?.education;
@@ -145,7 +147,7 @@ class ProfileController extends GetxController {
         }
         selectStatus.value = userController.profile.value?.maritalStatus;
       }
-      
+
       fetchKelurahan();
     }
     super.onInit();
