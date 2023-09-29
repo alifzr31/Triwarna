@@ -78,7 +78,12 @@ class DashboardController extends GetxController {
       if (profile.value != null) {
         final formatter = DateFormat('dd MMMM yyyy');
         addSpaces(profile.value?.noMember ?? '');
-        birthDate.value = formatter.format(profile.value?.birthDate ?? DateTime(0000));
+        if (profile.value?.birthDate != null) {
+          birthDate.value =
+              formatter.format(profile.value!.birthDate!);
+        } else {
+          birthDate.value = null;
+        }
       }
     }
     await fetchContent();

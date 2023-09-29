@@ -149,41 +149,72 @@ class HeaderAccount extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        controller.profile.value == null
-                            ? BaseShimmer(
-                                child: Container(
-                                  height: 16,
-                                  width: 150,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade300,
-                                    borderRadius: BorderRadius.circular(4),
+                        Row(
+                          children: [
+                            const Icon(EvaIcons.smartphone),
+                            const SizedBox(width: 5),
+                            controller.profile.value == null
+                                ? BaseShimmer(
+                                    child: Container(
+                                      height: 16,
+                                      width: 150,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.shade300,
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                    ),
+                                  )
+                                : BaseText(
+                                    text: controller.profile.value?.contact ??
+                                        '-',
+                                    bold: FontWeight.w600,
                                   ),
-                                ),
-                              )
-                            : BaseText(
-                                text: controller.profile.value?.contact ?? '',
-                                bold: FontWeight.w600,
-                              ),
-                        if (controller.profile.value == null)
-                          const SizedBox(height: 3),
-                        controller.profile.value == null
-                            ? BaseShimmer(
-                                child: Container(
-                                  height: 16,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade300,
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                ),
-                              )
-                            : BaseText(
-                                text:
-                                    '${controller.profile.value?.birthPlace}, ${controller.birthDate.value}',
-                                color: Colors.grey.shade600,
-                              ),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Row(
+                          children: [
+                            const Icon(EvaIcons.calendar),
+                            const SizedBox(width: 5),
+                            Expanded(
+                              child: controller.profile.value == null
+                                  ? BaseShimmer(
+                                      child: Container(
+                                        height: 16,
+                                        width: 100,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey.shade300,
+                                          borderRadius:
+                                              BorderRadius.circular(4),
+                                        ),
+                                      ),
+                                    )
+                                  : controller.profile.value?.birthPlace ==
+                                              null &&
+                                          controller.birthDate.value == null
+                                      ? BaseText(text: '-')
+                                      : controller.profile.value?.birthPlace !=
+                                                  null &&
+                                              controller.birthDate.value == null
+                                          ? BaseText(
+                                              text:
+                                                  '${controller.profile.value?.birthPlace}, -')
+                                          : controller.profile.value
+                                                          ?.birthPlace ==
+                                                      null &&
+                                                  controller.birthDate.value !=
+                                                      null
+                                              ? BaseText(
+                                                  text:
+                                                      '-, ${controller.birthDate.value}')
+                                              : BaseText(
+                                                  text:
+                                                      '${controller.profile.value?.birthPlace}, ${controller.birthDate.value}',
+                                                ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),
