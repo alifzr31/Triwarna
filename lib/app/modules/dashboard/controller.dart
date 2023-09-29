@@ -7,6 +7,7 @@ import 'package:flutter_sliding_box/flutter_sliding_box.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:triwarna_rebuild/app/core/values/snackbars.dart';
@@ -58,6 +59,8 @@ class DashboardController extends GetxController {
   final selectedLong = Rx<double?>(null);
 
   final findStore = Rx<String?>(null);
+  final noMember = Rx<String?>(null);
+  final birthDate = Rx<String?>(null);
 
   @override
   void onInit() async {
@@ -71,6 +74,12 @@ class DashboardController extends GetxController {
       await fetchProfile();
       await fetchLottery();
       scrollController.value.addListener(onScroll);
+
+      if (profile.value != null) {
+        final formatter = DateFormat('dd MMMM yyyy');
+        addSpaces(profile.value?.noMember ?? '');
+        birthDate.value = formatter.format(profile.value?.birthDate ?? DateTime(0000));
+      }
     }
     await fetchContent();
     await fetchLocation();
@@ -334,5 +343,14 @@ class DashboardController extends GetxController {
       await fetchContent();
       await refreshLocation();
     });
+  }
+
+  void addSpaces(String input) {
+    List<String> chunks = [];
+    int length = input.length;
+    for (int i = 0; i < length; i += 4) {
+      chunks.add(input.substring(i, i + 4 < length ? i + 4 : length));
+    }
+    noMember.value = chunks.join(' ');
   }
 }
