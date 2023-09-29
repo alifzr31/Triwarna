@@ -1,3 +1,4 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -55,12 +56,26 @@ class HeaderAccount extends StatelessWidget {
                                       Expanded(
                                         child: Row(
                                           children: [
-                                            CircleAvatar(
-                                              radius: 35,
-                                              backgroundImage: Image.network(
-                                                      '${ApiUrl.baseStorageUrl}${StorageUrl.profile}/${controller.profile.value?.image}')
-                                                  .image,
-                                            ),
+                                            controller.profile.value?.image !=
+                                                    null
+                                                ? CircleAvatar(
+                                                    radius: 35,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    backgroundImage: Image.network(
+                                                            '${ApiUrl.baseStorageUrl}${StorageUrl.profile}/${controller.profile.value?.image}')
+                                                        .image,
+                                                  )
+                                                : const CircleAvatar(
+                                                    radius: 35,
+                                                    child: Center(
+                                                      child: Icon(
+                                                        EvaIcons.person,
+                                                        size: 40,
+                                                        color: purpleColor,
+                                                      ),
+                                                    ),
+                                                  ),
                                             const SizedBox(width: 5),
                                             SvgPicture.asset(
                                               'assets/images/gold_medal.svg',
@@ -165,7 +180,8 @@ class HeaderAccount extends StatelessWidget {
                                 ),
                               )
                             : BaseText(
-                                text: '${controller.profile.value?.birthPlace}, ${controller.birthDate.value}',
+                                text:
+                                    '${controller.profile.value?.birthPlace}, ${controller.birthDate.value}',
                                 color: Colors.grey.shade600,
                               ),
                       ],
