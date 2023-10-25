@@ -15,12 +15,12 @@ class MenuAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Get.width <= 412 ? normalPhone(context) : largePhone(context);
+    return Get.width <= 442 ? normalPhone(context) : largePhone(context);
   }
 
   Widget normalPhone(BuildContext context) {
     return SizedBox(
-      height: 400,
+      height: 500,
       width: Get.width,
       child: Padding(
         padding: const EdgeInsets.only(top: 15),
@@ -94,6 +94,17 @@ class MenuAccount extends StatelessWidget {
                               title: 'Hubungi Kami',
                               subtitle:
                                   'Hubungi kami apabila terdapat kesalahan sistem',
+                              onTap: () {},
+                            ),
+                            BaseListTile(
+                              leading: const Icon(
+                                EvaIcons.trash2,
+                                size: 30,
+                                color: Colors.red,
+                              ),
+                              title: 'Hapus Akun',
+                              subtitle:
+                                  'Hapus akun akan membuatmu berhenti menjadi member Triwarna',
                               onTap: () {},
                             ),
                           ],

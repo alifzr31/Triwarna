@@ -6,8 +6,4 @@ class VoucherProvider extends DioClient {
   Future<Response> fetchVoucher() async {
     return await get(EndPoint.voucher);
   }
-
-  Future<Response> fetchTracking(serialNumber) async {
-    return await get('${EndPoint.voucher}/$serialNumber');
-  }
 }

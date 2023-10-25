@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 
 class BaseButton extends StatelessWidget {
@@ -22,7 +23,8 @@ class BaseButton extends StatelessWidget {
         backgroundColor: bgColor,
         foregroundColor: fgColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(
+              Get.currentRoute == '/redeemPoint' ? 5 : 10),
         ),
         padding: const EdgeInsets.symmetric(horizontal: 10),
       ),

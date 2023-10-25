@@ -1,14 +1,18 @@
 class ApiUrl {
-  static const String baseUrl = 'https://member.triwarna.co.id/api';
-  static const String baseStorageUrl = 'https://member.triwarna.co.id/storage';
+  static const String baseUrl = 'http://staging.triwarna.co.id/api';
+  static const String baseStorageUrl = 'http://staging.triwarna.co.id/storage';
   static EndPoint endPoint = EndPoint();
   static StorageUrl storageUrl = StorageUrl();
 }
 
 class EndPoint {
+  static const String fcmtoken = '/fcm_token';
+  
   // AUTH
   static const String login = '/login';
   static const String register = '/register';
+  static const String identifyForgotPassword = '/identify';
+  static const String sendForgotPassword = '/send-forgot-password';
   static const String verify = '/send-verify-email';
   static const String logout = '/logout';
   
@@ -36,4 +40,5 @@ class EndPoint {
 class StorageUrl {
   static const String profile = '/profile';
   static const String qr = '/qr/members';
+  static const String prize = '/prizes';
 }

@@ -9,7 +9,8 @@ class ContentsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BaseAppBar(
+      backgroundColor: Colors.white,
+      appBar: const BaseAppBar(
         bgColor: softPurpleColor,
         fgColor: purpleColor,
         title: 'Event dan Promo',

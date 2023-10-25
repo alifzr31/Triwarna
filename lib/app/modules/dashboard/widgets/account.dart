@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:triwarna_rebuild/app/components/base_appbar.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/account/header_account.dart';
@@ -12,7 +13,12 @@ class AccountTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Get.width <= 412 ? normalPhone() : largePhone(),
+      appBar: const BaseAppBar(
+        bgColor: softPurpleColor,
+        title: '',
+        preferredSize: Size.zero,
+      ),
+      body: Get.width <= 442 ? normalPhone() : largePhone(),
     );
   }
 

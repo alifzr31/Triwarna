@@ -33,7 +33,7 @@ class LotteryContoller extends GetxController {
       detailLottery.value = body;
     } on DioException catch (e) {
       if (e.response?.statusCode == 500) {
-        failedSnackbar('Load Detail Undian Gagal', e.response?.data.toString() ?? '');
+        failedSnackbar('Load Detail Undian Gagal', 'Ups sepertinya terjadi kesalahan');
       }
     } finally {
       isLoading.value = false;

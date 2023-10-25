@@ -2,6 +2,7 @@ import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:triwarna_rebuild/app/components/base_shimmer.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/components/pointvoucher_box.dart';
@@ -25,7 +26,9 @@ class HeaderAccount extends StatelessWidget {
       child: Obx(
         () => Column(
           children: [
-            controller.profile.value == null && controller.token.value != null
+            controller.profile.value == null &&
+                        controller.token.value != null &&
+                    controller.noMember.value == null
                 ? BaseShimmer(
                     child: MemberCard(
                       color: Colors.grey.shade300,
@@ -56,29 +59,74 @@ class HeaderAccount extends StatelessWidget {
                                       Expanded(
                                         child: Row(
                                           children: [
-                                            controller.profile.value?.image !=
-                                                    null
-                                                ? CircleAvatar(
-                                                    radius: 35,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    backgroundImage: Image.network(
-                                                            '${ApiUrl.baseStorageUrl}${StorageUrl.profile}/${controller.profile.value?.image}')
-                                                        .image,
-                                                  )
-                                                : const CircleAvatar(
-                                                    radius: 35,
-                                                    child: Center(
-                                                      child: Icon(
-                                                        EvaIcons.person,
-                                                        size: 40,
-                                                        color: purpleColor,
+                                            if (controller
+                                                    .profile.value?.image !=
+                                                null)
+                                              InkWell(
+                                                onTap: () {
+                                                  Get.dialog(
+                                                    Center(
+                                                      child: SizedBox(
+                                                        height:
+                                                            Get.height * 0.7,
+                                                        width: Get.width * 0.7,
+                                                        child: PhotoView(
+                                                          imageProvider:
+                                                              Image.network(
+                                                                      '${ApiUrl.baseStorageUrl}${StorageUrl.profile}/${controller.profile.value?.image}')
+                                                                  .image,
+                                                          backgroundDecoration:
+                                                              const BoxDecoration(
+                                                            color: Colors
+                                                                .transparent,
+                                                          ),
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
+                                                  );
+                                                },
+                                                child: CircleAvatar(
+                                                  radius: 35,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  backgroundImage:
+                                                      Image.network(
+                                                    '${ApiUrl.baseStorageUrl}${StorageUrl.profile}/${controller.profile.value?.image}',
+                                                  ).image,
+                                                ),
+                                              ),
+                                            // controller.profile.value?.image !=
+                                            //         null
+                                            //     ? CircleAvatar(
+                                            //         radius: 35,
+                                            //         backgroundColor:
+                                            //             Colors.transparent,
+                                            //         backgroundImage: Image.network(
+                                            //                 '${ApiUrl.baseStorageUrl}${StorageUrl.profile}/${controller.profile.value?.image}')
+                                            //             .image,
+                                            //       )
+                                            //     : const CircleAvatar(
+                                            //         radius: 35,
+                                            //         child: Center(
+                                            //           child: Icon(
+                                            //             EvaIcons.person,
+                                            //             size: 40,
+                                            //             color: purpleColor,
+                                            //           ),
+                                            //         ),
+                                            //       ),
                                             const SizedBox(width: 5),
                                             SvgPicture.asset(
-                                              'assets/images/gold_medal.svg',
+                                              controller.profile.value?.loyalty
+                                                          ?.toLowerCase() ==
+                                                      'silver'
+                                                  ? 'assets/images/silver_medal.svg'
+                                                  : controller.profile.value
+                                                              ?.loyalty
+                                                              ?.toLowerCase() ==
+                                                          'gold'
+                                                      ? 'assets/images/gold_medal.svg'
+                                                      : 'assets/images/platinum_medal.svg',
                                               width: 30,
                                             )
                                           ],
@@ -168,7 +216,7 @@ class HeaderAccount extends StatelessWidget {
                                 : BaseText(
                                     text: controller.profile.value?.contact ??
                                         '-',
-                                    bold: FontWeight.w600,
+                                    bold: FontWeight.w500,
                                   ),
                           ],
                         ),
@@ -210,7 +258,8 @@ class HeaderAccount extends StatelessWidget {
                                                       '-, ${controller.birthDate.value}')
                                               : BaseText(
                                                   text:
-                                                      '${controller.profile.value?.birthPlace}, ${controller.birthDate.value}',
+                                                      '${controller.profile.value?.birthPlace.toString().capitalize}, ${controller.birthDate.value}',
+                                                  bold: FontWeight.w500,
                                                 ),
                             ),
                           ],

@@ -30,7 +30,7 @@ class HeaderHome extends StatelessWidget {
                     children: [
                       const BaseText(
                         text: 'Selamat Datang di Triwarna!',
-                        size: 18,
+                        size: 16,
                         bold: FontWeight.w600,
                       ),
                       BaseText(
@@ -48,13 +48,13 @@ class HeaderHome extends StatelessWidget {
                         children: [
                           BaseText(
                             text: 'Halo, ',
-                            size: 18,
+                            size: 16,
                             bold: FontWeight.w500,
                           ),
                           controller.profile.value == null
                               ? BaseShimmer(
                                   child: Container(
-                                    height: 18,
+                                    height: 16,
                                     width: 200,
                                     decoration: BoxDecoration(
                                       color: Colors.grey.shade300,
@@ -67,7 +67,7 @@ class HeaderHome extends StatelessWidget {
                                           .toString()
                                           .capitalize ??
                                       '',
-                                  size: 18,
+                                  size: 16,
                                   bold: FontWeight.w600,
                                 ),
                         ],
@@ -81,7 +81,8 @@ class HeaderHome extends StatelessWidget {
                     ],
                   ),
             const SizedBox(height: 20),
-            controller.profile.value == null && controller.token.value != null
+            controller.profile.value == null && controller.noMember.value == null &&
+                    controller.token.value != null
                 ? BaseShimmer(
                     child: MemberCard(
                       color: Colors.grey.shade300,

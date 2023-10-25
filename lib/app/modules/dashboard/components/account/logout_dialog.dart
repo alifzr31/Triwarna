@@ -16,14 +16,14 @@ void logoutDialog(BuildContext context) {
     headerAnimationLoop: true,
     btnCancel: BaseButton(
       bgColor: yellowColor,
-      fgColor: purpleColor,
+      fgColor: Colors.white,
       label: 'Tidak',
       onPressed: () => Get.back(),
     ),
     btnOkColor: purpleColor,
     btnOk: BaseButton(
       bgColor: purpleColor,
-      fgColor: yellowColor,
+      fgColor: Colors.white,
       label: 'Ya',
       onPressed: () {
         Get.back();

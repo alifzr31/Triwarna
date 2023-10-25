@@ -9,7 +9,7 @@ class CreatePinPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BaseAppBar(
+      appBar: const BaseAppBar(
         bgColor: softPurpleColor,
         fgColor: purpleColor,
         title: 'Buat PIN',

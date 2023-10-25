@@ -15,29 +15,63 @@ String listLotteryToJson(List<Lottery> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Lottery {
+  String? docNum;
   String? noStruk;
-  String? transactionNumber;
-  DateTime? date;
-  String? couponTotal;
+  DateTime? tanggal;
+  String? total;
+  List<KuponDetail>? kuponDetail;
 
   Lottery({
+    this.docNum,
     this.noStruk,
-    this.transactionNumber,
-    this.date,
-    this.couponTotal,
+    this.tanggal,
+    this.total,
+    this.kuponDetail,
   });
 
   factory Lottery.fromJson(Map<String, dynamic> json) => Lottery(
+        docNum: json["DocNum"],
         noStruk: json["no_struk"],
-        transactionNumber: json["transaction_number"],
-        date: json["date"] == null ? null : DateTime.parse(json["date"]),
-        couponTotal: json["coupon_total"],
+        tanggal:
+            json["tanggal"] == null ? null : DateTime.parse(json["tanggal"]),
+        total: json["total"],
+        kuponDetail: json["kupon_detail"] == null
+            ? []
+            : List<KuponDetail>.from(
+                json["kupon_detail"]!.map((x) => KuponDetail.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
+        "DocNum": docNum,
         "no_struk": noStruk,
-        "transaction_number": transactionNumber,
-        "date": date?.toIso8601String(),
-        "coupon_total": couponTotal,
+        "tanggal": tanggal?.toIso8601String(),
+        "total": total,
+        "kupon_detail": kuponDetail == null
+            ? []
+            : List<dynamic>.from(kuponDetail!.map((x) => x.toJson())),
+      };
+}
+
+class KuponDetail {
+  String? noTransaksi;
+  String? preFix;
+  String? noUndian;
+
+  KuponDetail({
+    this.noTransaksi,
+    this.preFix,
+    this.noUndian,
+  });
+
+  factory KuponDetail.fromJson(Map<String, dynamic> json) => KuponDetail(
+        noTransaksi: json["no_transaksi"],
+        preFix: json["String"],
+        noUndian: json["no_undian"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "no_transaksi": noTransaksi,
+        "PreFix": preFix,
+        "no_undian": noUndian,
       };
 }

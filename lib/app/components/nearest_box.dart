@@ -22,14 +22,16 @@ class NearestBox extends StatelessWidget {
     return SizedBox(
       width: 170,
       child: Card(
-        color: Colors.grey.shade200,
+        color: Colors.white,
+        elevation: 3,
+        surfaceTintColor: Colors.white,
+        clipBehavior: Clip.antiAlias,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(10),
             bottomRight: Radius.circular(10),
           ),
         ),
-        margin: const EdgeInsets.only(right: 10),
         child: InkWell(
           onTap: onTap,
           child: Column(
@@ -50,6 +52,7 @@ class NearestBox extends StatelessWidget {
                       const SizedBox(height: 5),
                       BaseText(
                         text: address,
+                        size: 12,
                         color: Colors.grey.shade600,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -62,12 +65,7 @@ class NearestBox extends StatelessWidget {
                 height: 20,
                 width: Get.width,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  color: yellowColor.withOpacity(0.5),
-                  borderRadius: const BorderRadius.only(
-                    bottomRight: Radius.circular(10),
-                  ),
-                ),
+                color: yellowColor.withOpacity(0.5),
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Text(

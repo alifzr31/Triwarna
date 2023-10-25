@@ -30,6 +30,8 @@ class LoginController extends GetxController {
       'password': passwordController.value.text,
     });
 
+    print(formData.fields);
+
     loading.value = true;
 
     showLoading();
@@ -51,7 +53,7 @@ class LoginController extends GetxController {
     } on dio.DioException catch (e) {
       Get.back();
       if (e.response?.statusCode == 500) {
-        failedSnackbar('Log In Gagal', 'Ups telah terjadi sesuatu');
+        failedSnackbar('Log In Gagal', 'Ups sepertinya terjadi kesalahan');
       } else {
         infoSnackbar('Log In Gagal', e.response?.data['message']);
       }

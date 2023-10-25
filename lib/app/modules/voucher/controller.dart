@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/core/values/snackbars.dart';
-import 'package:triwarna_rebuild/app/data/models/tracking.dart';
 import 'package:triwarna_rebuild/app/data/models/voucher.dart';
 import 'package:triwarna_rebuild/app/data/providers/voucher_provider.dart';
+import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
 
 class VoucherController extends GetxController {
   final VoucherProvider voucherProvider;
@@ -13,14 +13,17 @@ class VoucherController extends GetxController {
   VoucherController({required this.voucherProvider});
 
   final voucher = <Voucher>[].obs;
-  final voucherLoading = true.obs;
-
-  final serialNumber = Rx<String?>(null);
-  final tracking = <Tracking>[].obs;
-  final trackingLoading = false.obs;
+  final isLoading = true.obs;
+  final loyaltyLevel = Rx<String?>(null);
 
   @override
   void onInit() {
+    final userController = Get.find<DashboardController>();
+    if (userController.token.value != null) {
+      if (userController.profile.value != null) {
+        loyaltyLevel.value = userController.profile.value?.loyalty;
+      }
+    }
     fetchVoucher();
     super.onInit();
   }
@@ -28,7 +31,6 @@ class VoucherController extends GetxController {
   @override
   void onClose() {
     voucher.clear();
-    tracking.clear();
     super.onClose();
   }
 
@@ -41,39 +43,19 @@ class VoucherController extends GetxController {
 
       voucher.value = body;
     } on DioException catch (e) {
-      if (e.response?.statusCode == 500) {
-        failedSnackbar(
-            'Load Voucher Gagal', 'Ups sepertinya terjadi kesalahan');
-      }
+      failedSnackbar(
+        'Ups sepertinya terjadi kesalahan',
+        'code:${e.response?.statusCode}',
+      );
     } finally {
-      voucherLoading.value = false;
-      update();
-    }
-  }
-
-  Future<void> fetchTracking() async {
-    trackingLoading.value = true;
-
-    try {
-      final response = await voucherProvider.fetchTracking(serialNumber.value);
-      final List<Tracking> body = response.data['data'] == null
-          ? []
-          : listTrackingFromJson(jsonEncode(response.data['data']));
-
-      tracking.value = body;
-    } on DioException catch (e) {
-      if (e.response?.statusCode == 500) {
-        failedSnackbar(
-            'Load Lacak Hadiah Gagal', 'Ups sepertinya terjadi kesalahan');
-      }
-    } finally {
-      trackingLoading.value = false;
+      isLoading.value = false;
       update();
     }
   }
 
   Future<void> refreshVoucher() async {
     await Future.delayed(const Duration(milliseconds: 2500), () {
+      isLoading.value = true;
       fetchVoucher();
     });
   }

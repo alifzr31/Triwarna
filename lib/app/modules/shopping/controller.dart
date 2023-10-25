@@ -16,8 +16,10 @@ class ShoppingController extends GetxController {
   final shoppingHistoryLoading = true.obs;
 
   final docnum = Rx<String?>(null);
-  final detailShoppingHistory = <DetailShoppingHistory>[].obs;
-  final detailShoppingHistoryLoading = false.obs;
+  final date = Rx<String?>(null);
+  final total = Rx<String?>(null);
+  final shoppingDetail = <ShoppingDetail>[].obs;
+  final shoppingDetailLoading = false.obs;
 
   @override
   void onInit() {
@@ -50,31 +52,32 @@ class ShoppingController extends GetxController {
     }
   }
 
-  Future<void> fetchDetailShoppingHistory() async {
-    detailShoppingHistoryLoading.value = true;
+  Future<void> fetchShoppingDetail() async {
+    shoppingDetailLoading.value = true;
 
     try {
       final response =
-          await shoppingProvider.fetchDetailShoppingHistory(docnum.value);
-      final List<DetailShoppingHistory> body = response.data['data'] == null
+          await shoppingProvider.fetchShoppingDetail(docnum.value);
+      final List<ShoppingDetail> body = response.data['data'] == null
           ? []
-          : listDetailShoppingHistoryFromJson(
+          : listShoppingDetailFromJson(
               jsonEncode(response.data['data']));
 
-      detailShoppingHistory.value = body;
+      shoppingDetail.value = body;
     } on DioException catch (e) {
       if (e.response?.statusCode == 500) {
         failedSnackbar('Load Detail Riwayat Belanja Gagal',
             'Ups sepertinya terjadi kesalahan');
       }
     } finally {
-      detailShoppingHistoryLoading.value = false;
+      shoppingDetailLoading.value = false;
       update();
     }
   }
 
   Future<void> refreshShoppingHistory() async {
     await Future.delayed(const Duration(milliseconds: 2500), () {
+      shoppingHistoryLoading.value = true;
       fetchShoppingHistory();
     });
   }

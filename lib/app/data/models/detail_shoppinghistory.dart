@@ -1,30 +1,30 @@
 // To parse this JSON data, do
 //
-//     final detailShoppingHistory = detailShoppingHistoryFromJson(jsonString);
+//     final shoppingDetail = shoppingDetailFromJson(jsonString);
 
 import 'dart:convert';
 
-DetailShoppingHistory detailShoppingHistoryFromJson(String str) =>
-    DetailShoppingHistory.fromJson(json.decode(str));
 
-String detailShoppingHistoryToJson(DetailShoppingHistory data) =>
-    json.encode(data.toJson());
+ShoppingDetail shoppingDetailFromJson(String str) =>
+    ShoppingDetail.fromJson(json.decode(str));
 
-List<DetailShoppingHistory> listDetailShoppingHistoryFromJson(String str) =>
-    List<DetailShoppingHistory>.from(
-        json.decode(str).map((x) => DetailShoppingHistory.fromJson(x)));
+String shoppingDetailToJson(ShoppingDetail data) => json.encode(data.toJson());
 
-String listDetailShoppingHistoryToJson(List<DetailShoppingHistory> data) =>
+List<ShoppingDetail> listShoppingDetailFromJson(String str) =>
+    List<ShoppingDetail>.from(
+        json.decode(str).map((x) => ShoppingDetail.fromJson(x)));
+
+String listShoppingDetailToJson(List<ShoppingDetail> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class DetailShoppingHistory {
+class ShoppingDetail {
   String? itemCode;
   String? dscription;
   String? qty;
   String? harga;
   String? subTotal;
 
-  DetailShoppingHistory({
+  ShoppingDetail({
     this.itemCode,
     this.dscription,
     this.qty,
@@ -32,8 +32,7 @@ class DetailShoppingHistory {
     this.subTotal,
   });
 
-  factory DetailShoppingHistory.fromJson(Map<String, dynamic> json) =>
-      DetailShoppingHistory(
+  factory ShoppingDetail.fromJson(Map<String, dynamic> json) => ShoppingDetail(
         itemCode: json["ItemCode"],
         dscription: json["Dscription"],
         qty: json["Qty"],

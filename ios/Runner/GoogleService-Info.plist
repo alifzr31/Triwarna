@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAlXKifqNZ4HZ1fI4Kls7h_p1HwHtoOJlU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>875009677553</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.triwarnaRebuild</string>
+	<key>PROJECT_ID</key>
+	<string>triwarna-member-ed423</string>
+	<key>STORAGE_BUCKET</key>
+	<string>triwarna-member-ed423.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:875009677553:ios:9a011c7814e289f7533150</string>
+</dict>
+</plist>

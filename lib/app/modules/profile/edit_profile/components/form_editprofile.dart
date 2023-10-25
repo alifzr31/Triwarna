@@ -33,6 +33,13 @@ class FormEditProfile extends StatelessWidget {
                         label: 'Nama Lengkap',
                         hint: 'Masukkan nama lengkap anda',
                         controller: controller.namaController.value,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Nama lengkap tidak boleh kosong';
+                          }
+
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 15),
                       BaseFormGroupField(
@@ -51,6 +58,13 @@ class FormEditProfile extends StatelessWidget {
                         label: 'Tempat Lahir',
                         hint: 'Masukkan tempat lahir anda',
                         controller: controller.tempatLahirController.value,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Tempat lahir tidak boleh kosong';
+                          }
+
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 15),
                       BaseFormGroupField(
@@ -74,6 +88,13 @@ class FormEditProfile extends StatelessWidget {
                             },
                           );
                         },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Tanggal lahir tidak boleh kosong';
+                          }
+
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 15),
                       BaseFormGroupDropdown(
@@ -90,12 +111,26 @@ class FormEditProfile extends StatelessWidget {
                             .toList(),
                         onChanged: (value) =>
                             controller.selectJk.value = value.toString(),
+                        validator: (value) {
+                          if (controller.selectJk.value == null) {
+                            return 'Jenis kelamin tidak boleh kosong';
+                          }
+
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 15),
                       BaseTextArea(
                         label: 'Alamat',
                         hint: 'Masukkan alamat rumah anda',
                         controller: controller.alamatController.value,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Alamat tidak boleh kosong';
+                          }
+
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 15),
                       const Align(
@@ -112,6 +147,12 @@ class FormEditProfile extends StatelessWidget {
                           controller: controller.kelurahanController.value,
                           decoration: InputDecoration(
                             hintText: 'Kelurahan/Desa',
+                            helperText: '*Silahkan ketik nama kelurahan/desa atau nama kecamatan untuk mencari',
+                            helperMaxLines: 2,
+                            helperStyle: const TextStyle(
+                              color: Colors.red,
+                              fontStyle: FontStyle.italic,
+                            ),
                             contentPadding: const EdgeInsets.all(15),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -120,7 +161,7 @@ class FormEditProfile extends StatelessWidget {
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return 'Masukkan kelurahan/desa anda';
+                            return 'Kelurahan/Desa tidak boleh kosong';
                           }
 
                           return null;
@@ -133,10 +174,15 @@ class FormEditProfile extends StatelessWidget {
                                   '';
                         },
                         suggestionsCallback: (pattern) => controller.kelurahan
-                            .where((e) => e.namaKelurahan
-                                .toString()
-                                .toLowerCase()
-                                .contains(pattern))
+                            .where((e) =>
+                                e.namaKelurahan
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(pattern) ||
+                                e.namaKecamatan
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(pattern))
                             .toList(),
                         itemBuilder: (context, suggest) {
                           return ListTile(
@@ -168,6 +214,13 @@ class FormEditProfile extends StatelessWidget {
                             .toList(),
                         onChanged: (value) =>
                             controller.selectAgama.value = value.toString(),
+                        validator: (value) {
+                          if (controller.selectAgama.value == null) {
+                            return 'Agama tidak boleh kosong';
+                          }
+
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 15),
                       BaseFormGroupDropdown(
@@ -184,6 +237,13 @@ class FormEditProfile extends StatelessWidget {
                             .toList(),
                         onChanged: (value) =>
                             controller.selectIdentitas.value = value.toString(),
+                        validator: (value) {
+                          if (controller.selectIdentitas.value == null) {
+                            return 'Jenis identitas tidak boleh kosong';
+                          }
+
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 15),
                       BaseFormGroupField(
@@ -191,6 +251,20 @@ class FormEditProfile extends StatelessWidget {
                         hint: 'Masukkan no. identitan anda',
                         controller: controller.noIndentitasController.value,
                         keyboardType: TextInputType.number,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'No. identitas tidak boleh kosong';
+                          } else {
+                            if (controller.selectIdentitas.value == 'KTP' &&
+                                    value.length < 16 ||
+                                controller.selectIdentitas.value == 'SIM' &&
+                                    value.length < 10) {
+                              return 'No. identitas tidak valid';
+                            }
+                          }
+
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 15),
                       BaseFormGroupDropdown(
@@ -207,6 +281,13 @@ class FormEditProfile extends StatelessWidget {
                             .toList(),
                         onChanged: (value) => controller
                             .selectPendidikan.value = value.toString(),
+                        validator: (value) {
+                          if (controller.selectPendidikan.value == null) {
+                            return 'Pendidikan terakhir tidak boleh kosong';
+                          }
+
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 15),
                       BaseFormGroupDropdown(
@@ -223,6 +304,13 @@ class FormEditProfile extends StatelessWidget {
                             .toList(),
                         onChanged: (value) =>
                             controller.selectPekerjaan.value = value.toString(),
+                        validator: (value) {
+                          if (controller.selectPekerjaan.value == null) {
+                            return 'Jenis pekerjaan tidak boleh kosong';
+                          }
+
+                          return null;
+                        },
                       ),
                       const SizedBox(height: 15),
                       const Align(
@@ -263,7 +351,10 @@ class FormEditProfile extends StatelessWidget {
               fgColor: Colors.white,
               label: 'Edit Profil',
               onPressed: () {
-                controller.editProfile();
+                if (controller.formKeyEditProfil.value.currentState!
+                    .validate()) {
+                  controller.editProfile();
+                }
               },
             ),
           )

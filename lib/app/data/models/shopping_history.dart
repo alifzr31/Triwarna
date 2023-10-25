@@ -11,7 +11,8 @@ String shoppingHistoryToJson(ShoppingHistory data) =>
     json.encode(data.toJson());
 
 List<ShoppingHistory> listShoppingHistoryFromJson(String str) =>
-    List<ShoppingHistory>.from(json.decode(str).map((x) => ShoppingHistory.fromJson(x)));
+    List<ShoppingHistory>.from(
+        json.decode(str).map((x) => ShoppingHistory.fromJson(x)));
 
 String listShoppingHistoryToJson(List<ShoppingHistory> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));

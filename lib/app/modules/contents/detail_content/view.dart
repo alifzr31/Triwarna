@@ -7,6 +7,7 @@ import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/utils/api_url.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/modules/contents/controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailContentPage extends StatefulWidget {
   const DetailContentPage({super.key});
@@ -108,8 +109,12 @@ class _DetailContentPageState extends State<DetailContentPage> {
                             );
                           },
                           renderMode: RenderMode.column,
-                          onTapUrl: (value) {
-                            print(value);
+                          onTapUrl: (value) async {
+                            final url = Uri.parse(value);
+                            await launchUrl(
+                              url,
+                              mode: LaunchMode.externalApplication,
+                            );
                             return true;
                           },
                         ),

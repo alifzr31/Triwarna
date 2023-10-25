@@ -3,6 +3,10 @@ import 'package:triwarna_rebuild/app/core/utils/api_url.dart';
 import 'package:triwarna_rebuild/app/core/utils/dio_client.dart';
 
 class DashboardProvider extends DioClient {
+  Future<Response> sendDeviceToken() async {
+    return await get(EndPoint.fcmtoken);
+  }
+  
   Future<Response> fetchProfile() async {
     return await get(EndPoint.profile);
   }

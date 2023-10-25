@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
-import 'package:triwarna_rebuild/app/modules/update_apps/controller.dart';
+import 'package:triwarna_rebuild/app/modules/splash/controller.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -20,7 +20,7 @@ class SplashPage extends StatelessWidget {
 
 class SplashBody extends StatelessWidget {
   SplashBody({super.key});
-  final controller = Get.put(UpdateController());
+  final controller = Get.find<SplashController>();
 
   @override
   Widget build(BuildContext context) {

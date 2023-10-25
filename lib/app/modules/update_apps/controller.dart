@@ -1,58 +1,22 @@
 import 'dart:async';
 
-// import 'package:shared_preferences/shared_preferences.dart';
-import 'package:app_version_update/app_version_update.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UpdateController extends GetxController {
   final playStoreUrl = Rx<String?>(null);
   final updateVersion = Rx<String?>(null);
+  final currentVersion = Rx<String?>(null);
 
   @override
-  void onInit() {
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      checkUpdate();
-    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-      navigator();
-    } else {
-      navigator();
-    }
+  void onInit() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    currentVersion.value = packageInfo.version;
+    playStoreUrl.value = Get.arguments[0];
+    updateVersion.value = Get.arguments[1];
     super.onInit();
-  }
-
-  Future<void> checkUpdate() async {
-    await AppVersionUpdate.checkForUpdates(
-      playStoreId: 'id.co.triwarna.member',
-      country: 'id',
-    ).then((result) async {
-      playStoreUrl.value = result.storeUrl;
-      updateVersion.value = result.storeVersion;
-
-      if (result.canUpdate!) {
-        await Future.delayed(const Duration(seconds: 3), () {
-          Get.offAndToNamed('/update');
-        });
-      } else {
-        navigator();
-      }
-    });
-  }
-
-  Future<void> navigator() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    final opened = sharedPreferences.getBool('opened');
-    print(opened);
-
-    Timer(const Duration(seconds: 3), () {
-      if (opened == true) {
-        Get.offAllNamed('/dashboard');
-      } else {
-        Get.offAllNamed('/onboard');
-      }
-    });
   }
 
   Future<void> updatePlayStore() async {
@@ -61,5 +25,16 @@ class UpdateController extends GetxController {
       url,
       mode: LaunchMode.externalApplication,
     );
+  }
+
+  void navigator() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final opened = prefs.getBool('opened');
+    
+    if (opened == true || opened != null) {
+      Get.offAndToNamed('/dashboard');
+    } else {
+      Get.offAndToNamed('/onboard');
+    }
   }
 }

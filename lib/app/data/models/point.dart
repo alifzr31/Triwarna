@@ -15,6 +15,7 @@ String listPointToJson(List<Point> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Point {
+  String? no;
   String? code;
   String? name;
   DateTime? transactionDate;
@@ -22,8 +23,10 @@ class Point {
   String? addSubAmount;
   String? remainingPoint;
   String? info;
+  String? pointUsedGained;
 
   Point({
+    this.no,
     this.code,
     this.name,
     this.transactionDate,
@@ -31,9 +34,11 @@ class Point {
     this.addSubAmount,
     this.remainingPoint,
     this.info,
+    this.pointUsedGained,
   });
 
   factory Point.fromJson(Map<String, dynamic> json) => Point(
+        no: json["No"],
         code: json["code"],
         name: json["name"],
         transactionDate: json["transaction_date"] == null
@@ -43,9 +48,11 @@ class Point {
         addSubAmount: json["add/sub_amount"],
         remainingPoint: json["remaining_point"],
         info: json["info"],
+        pointUsedGained: json["point_used/gained"],
       );
 
   Map<String, dynamic> toJson() => {
+        "No": no,
         "code": code,
         "name": name,
         "transaction_date": transactionDate?.toIso8601String(),
@@ -53,5 +60,6 @@ class Point {
         "add/sub_amount": addSubAmount,
         "remaining_point": remainingPoint,
         "info": info,
+        "point_used/gained": pointUsedGained,
       };
 }

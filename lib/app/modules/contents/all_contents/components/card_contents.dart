@@ -32,6 +32,7 @@ class CardContents extends StatelessWidget {
       ),
       margin: const EdgeInsets.only(bottom: 8),
       color: Colors.white,
+      surfaceTintColor: Colors.white,
       elevation: 3,
       child: InkWell(
         onTap: onTap,

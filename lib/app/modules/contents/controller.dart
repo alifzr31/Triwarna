@@ -19,7 +19,7 @@ class ContentsController extends GetxController {
   final date = Rx<String?>(null);
   final detailContent = Rx<Content?>(null);
   final detailContentLoading = false.obs;
-  
+
   @override
   void onInit() {
     fetchContents();
@@ -35,13 +35,16 @@ class ContentsController extends GetxController {
   Future<void> fetchContents() async {
     try {
       final response = await contentsProvider.fetchContents();
-      final List<Content> body = response.data['data'] == null ? [] : listContentFromJson(jsonEncode(response.data['data']));
+      final List<Content> body = response.data['data'] == null
+          ? []
+          : listContentFromJson(jsonEncode(response.data['data']));
 
       contents.value = body;
     } on DioException catch (e) {
-      if (e.response?.statusCode == 500) {
-        failedSnackbar('Load Konten Gagal', 'Ups sepertinya terjadi kesalahan');
-      }
+      failedSnackbar(
+        'Ups sepertinya terjadi kesalahan',
+        'code:${e.response?.statusCode}',
+      );
     } finally {
       contentsLoading.value = false;
       update();
@@ -55,9 +58,10 @@ class ContentsController extends GetxController {
       final response = await contentsProvider.fetchDetailContent(slug.value);
       detailContent.value = contentFromJson(jsonEncode(response.data['data']));
     } on DioException catch (e) {
-      if (e.response?.statusCode == 500) {
-        failedSnackbar('Load Detail Konten Gagal', 'Ups sepertinya terjadi kesalahan');
-      }
+      failedSnackbar(
+        'Ups sepertinya terjadi kesalahan',
+        'code:${e.response?.statusCode}',
+      );
     } finally {
       detailContentLoading.value = false;
       update();

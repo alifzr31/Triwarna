@@ -15,33 +15,83 @@ String listVoucherToJson(List<Voucher> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Voucher {
-  String? serialnumber;
-  String? prizeName;
-  String? prizeDesc;
-  String? status;
+  String? code;
+  String? uKodeHadiah;
+  String? serialNumber;
   String? qrcode;
+  StatusHadiah? statusHadiah;
+  Hadiah? hadiah;
 
   Voucher({
-    this.serialnumber,
-    this.prizeName,
-    this.prizeDesc,
-    this.status,
+    this.code,
+    this.uKodeHadiah,
+    this.serialNumber,
     this.qrcode,
+    this.statusHadiah,
+    this.hadiah,
   });
 
   factory Voucher.fromJson(Map<String, dynamic> json) => Voucher(
-        serialnumber: json["serialnumber"],
-        prizeName: json["prize_name"],
-        prizeDesc: json["prize_desc"],
-        status: json["status"],
+        code: json["Code"],
+        uKodeHadiah: json["U_kode_hadiah"],
+        serialNumber: json["serial_number"],
         qrcode: json["qrcode"],
+        statusHadiah: json["status_hadiah"] == null
+            ? null
+            : StatusHadiah.fromJson(json["status_hadiah"]),
+        hadiah: json["hadiah"] == null ? null : Hadiah.fromJson(json["hadiah"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "serialnumber": serialnumber,
-        "prize_name": prizeName,
-        "prize_desc": prizeDesc,
-        "status": status,
+        "Code": code,
+        "U_kode_hadiah": uKodeHadiah,
+        "serial_number": serialNumber,
         "qrcode": qrcode,
+        "status_hadiah": statusHadiah?.toJson(),
+        "hadiah": hadiah?.toJson(),
+      };
+}
+
+class Hadiah {
+  int? kodeBarang;
+  String? namaBarang;
+  String? deskripsiBarang;
+
+  Hadiah({
+    this.kodeBarang,
+    this.namaBarang,
+    this.deskripsiBarang,
+  });
+
+  factory Hadiah.fromJson(Map<String, dynamic> json) => Hadiah(
+        kodeBarang: json["kode_barang"],
+        namaBarang: json["nama_barang"],
+        deskripsiBarang: json["deskripsi_barang"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "kode_barang": kodeBarang,
+        "nama_barang": namaBarang,
+        "deskripsi_barang": deskripsiBarang,
+      };
+}
+
+class StatusHadiah {
+  String? noKupon;
+  String? status;
+
+  StatusHadiah({
+    this.noKupon,
+    this.status,
+  });
+
+  factory StatusHadiah.fromJson(Map<String, dynamic> json) => StatusHadiah(
+        noKupon: json["no_kupon"],
+        status: json["status"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "no_kupon": noKupon,
+        "status": status,
       };
 }

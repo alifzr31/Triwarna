@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_sliding_box/flutter_sliding_box.dart';
 import 'package:geolocator/geolocator.dart';
@@ -10,12 +11,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:triwarna_rebuild/app/core/utils/firebase_notif.dart';
 import 'package:triwarna_rebuild/app/core/values/snackbars.dart';
 import 'package:triwarna_rebuild/app/data/models/content.dart';
 import 'package:triwarna_rebuild/app/data/models/lottery.dart';
 import 'package:triwarna_rebuild/app/data/models/profile.dart';
 import 'package:triwarna_rebuild/app/data/models/store.dart';
 import 'package:triwarna_rebuild/app/data/providers/dashboard_provider.dart';
+import 'package:triwarna_rebuild/app/modules/dashboard/components/bottomnav_checkprofile.dart';
 
 class DashboardController extends GetxController {
   final DashboardProvider dashboardProvider;
@@ -30,6 +33,8 @@ class DashboardController extends GetxController {
 
   final profile = Rx<Profile?>(null);
   final profileLoading = true.obs;
+  final jumlahNull = 0.obs;
+  final completePercent = Rx<String?>(null);
 
   final content = <Content>[].obs;
   final contentLoading = true.obs;
@@ -40,6 +45,7 @@ class DashboardController extends GetxController {
   final currentPageLottery = 1.obs;
   final itemLottery = 20;
   final scrollController = ScrollController().obs;
+  final currentDate = Rx<String?>(null);
 
   final googleMapController = Completer<GoogleMapController>().obs;
   final mapController = Rx<GoogleMapController?>(null);
@@ -66,9 +72,15 @@ class DashboardController extends GetxController {
   void onInit() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    FirebaseNotif firebaseNotif = FirebaseNotif();
+    firebaseNotif.firebaseInit();
+    firebaseNotif.requestNotificationPermission();
     token.value = sharedPreferences.getString('token');
     appName.value = packageInfo.appName;
     version.value = packageInfo.version;
+    final formatter = DateFormat('yyyy');
+    final year = formatter.format(DateTime.now());
+    currentDate.value = '31 Desember $year';
 
     if (token.value != null) {
       await fetchProfile();
@@ -77,15 +89,18 @@ class DashboardController extends GetxController {
 
       if (profile.value != null) {
         final formatter = DateFormat('dd MMMM yyyy');
-        addSpaces(profile.value?.noMember ?? '');
         if (profile.value?.birthDate != null) {
-          birthDate.value =
-              formatter.format(profile.value!.birthDate!);
+          birthDate.value = formatter.format(profile.value!.birthDate!);
         } else {
           birthDate.value = null;
         }
+
+        if (profile.value?.complete == false) {
+          await checkProfile();
+        }
       }
     }
+    await sendDeviceToken();
     await fetchContent();
     await fetchLocation();
     super.onInit();
@@ -102,6 +117,16 @@ class DashboardController extends GetxController {
     super.onClose();
   }
 
+  Future<void> sendDeviceToken() async {
+    try {
+      await dashboardProvider.sendDeviceToken();
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e.response?.data);
+      }
+    }
+  }
+
   Future<void> fetchProfile() async {
     try {
       final response = await dashboardProvider.fetchProfile();
@@ -109,15 +134,43 @@ class DashboardController extends GetxController {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       sharedPreferences.setBool('complete', profile.value!.complete!);
+      addSpaces(profile.value?.noMember ?? '');
     } on DioException catch (e) {
-      if (e.response?.statusCode == 500) {
-        failedSnackbar(
-            'Fetching Profile Gagal', e.response?.data.toString() ?? '');
-      }
+      failedSnackbar(
+        'Ups sepertinya terjadi kesalahan',
+        'code:${e.response?.statusCode}',
+      );
     } finally {
       profileLoading.value = false;
       update();
     }
+  }
+
+  Future<void> checkProfile() async {
+    if (profile.value?.name == null) jumlahNull.value++;
+    if (profile.value?.username == null) jumlahNull.value++;
+    if (profile.value?.email == null) jumlahNull.value++;
+    if (profile.value?.birthPlace == null) jumlahNull.value++;
+    if (profile.value?.birthDate == null) jumlahNull.value++;
+    if (profile.value?.gender == null) jumlahNull.value++;
+    if (profile.value?.address == null) jumlahNull.value++;
+    if (profile.value?.village == null) jumlahNull.value++;
+    if (profile.value?.religion == null) jumlahNull.value++;
+    if (profile.value?.idType == null) jumlahNull.value++;
+    if (profile.value?.idNumber == null) jumlahNull.value++;
+    if (profile.value?.education == null) jumlahNull.value++;
+    if (profile.value?.job == null) jumlahNull.value++;
+    if (profile.value?.maritalStatus == null) jumlahNull.value++;
+
+    final hitung = ((14 - jumlahNull.value) / 14) * 100;
+    completePercent.value = '${hitung.round()}%';
+
+    Get.bottomSheet(
+      backgroundColor: Colors.white,
+      isDismissible: false,
+      enableDrag: false,
+      BottomNavCheckProfile(),
+    );
   }
 
   Future<void> fetchContent() async {
@@ -129,9 +182,10 @@ class DashboardController extends GetxController {
 
       content.value = body;
     } on DioException catch (e) {
-      if (e.response?.statusCode == 500) {
-        failedSnackbar('Load Profile Gagal', e.response?.data.toString() ?? '');
-      }
+      failedSnackbar(
+        'Ups sepertinya terjadi kesalahan',
+        'code:${e.response?.statusCode}',
+      );
     } finally {
       contentLoading.value = false;
       update();
@@ -157,10 +211,10 @@ class DashboardController extends GetxController {
       lottery.addAll(body);
       currentPageLottery.value++;
     } on DioException catch (e) {
-      if (e.response?.statusCode == 500) {
-        failedSnackbar(
-            'Fetching Undian Gagal', e.response?.data.toString() ?? '');
-      }
+      failedSnackbar(
+        'Ups sepertinya terjadi kesalahan',
+        'code:${e.response?.statusCode}',
+      );
     } finally {
       lotteryLoading.value = false;
       update();
@@ -239,7 +293,7 @@ class DashboardController extends GetxController {
         );
       }
     } catch (e) {
-      failedSnackbar('Failed Fetching Location', e.toString());
+      failedSnackbar('Gagal Menangkap Lokasi', e.toString());
     } finally {
       locationLoading.value = false;
       update();
@@ -258,9 +312,10 @@ class DashboardController extends GetxController {
 
       store.value = body;
     } on DioException catch (e) {
-      if (e.response?.statusCode == 500) {
-        failedSnackbar('Fetching Store Failed', 'Something went wrong');
-      }
+      failedSnackbar(
+        'Ups sepertinya terjadi kesalahan',
+        'code:${e.response?.statusCode}',
+      );
     } finally {
       storeLoading.value = false;
       await createMarkers();
@@ -324,6 +379,25 @@ class DashboardController extends GetxController {
     );
   }
 
+  Future<void> refreshHome() async {
+    await Future.delayed(const Duration(milliseconds: 2000), () async {
+      if (token.value == null) {
+        contentLoading.value = true;
+        await sendDeviceToken();
+        await fetchContent();
+        await refreshLocation();
+      } else {
+        profile.value = null;
+        contentLoading.value = true;
+        await fetchProfile();
+        await sendDeviceToken();
+        await fetchContent();
+        await refreshLocation();
+        addSpaces(profile.value?.noMember ?? '');
+      }
+    });
+  }
+
   Future<void> refreshLocation() async {
     googleMapController.value = Completer();
     await fetchLocation();
@@ -337,16 +411,6 @@ class DashboardController extends GetxController {
       lottery.clear();
 
       await fetchLottery();
-    });
-  }
-
-  Future<void> refreshHome() async {
-    await Future.delayed(const Duration(milliseconds: 2000), () async {
-      profile.value = null;
-      contentLoading.value = true;
-      await fetchProfile();
-      await fetchContent();
-      await refreshLocation();
     });
   }
 

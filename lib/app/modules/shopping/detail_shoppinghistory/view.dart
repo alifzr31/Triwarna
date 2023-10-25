@@ -1,62 +1,137 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/modules/shopping/controller.dart';
 
-class DetailShoppingHistoryPage extends StatefulWidget {
-  const DetailShoppingHistoryPage({super.key});
+class ShoppingDetailHistoryPage extends StatefulWidget {
+  const ShoppingDetailHistoryPage({super.key});
 
   @override
-  State<DetailShoppingHistoryPage> createState() =>
-      _DetailShoppingHistoryPageState();
+  State<ShoppingDetailHistoryPage> createState() =>
+      _ShoppingDetailHistoryPageState();
 }
 
-class _DetailShoppingHistoryPageState extends State<DetailShoppingHistoryPage> {
+class _ShoppingDetailHistoryPageState extends State<ShoppingDetailHistoryPage> {
   final controller = Get.find<ShoppingController>();
 
   @override
   void initState() {
-    controller.fetchDetailShoppingHistory();
+    controller.fetchShoppingDetail();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const Padding(
-          padding: EdgeInsets.all(15),
-          child: BaseText(
-            text: 'Detail Riwayat Belanja',
-            textAlign: TextAlign.center,
-            size: 18,
-            bold: FontWeight.w600,
+    return SizedBox(
+      height: Get.height * 0.5,
+      width: Get.width,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
+            child: Column(
+              children: [
+                SvgPicture.asset(
+                  'assets/images/shopping_history.svg',
+                  width: 30,
+                ),
+                const SizedBox(height: 10),
+                const BaseText(
+                  text: 'Detail Belanja',
+                  textAlign: TextAlign.center,
+                  size: 16,
+                  bold: FontWeight.w600,
+                ),
+                BaseText(
+                  text: controller.date.value ?? '',
+                  size: 12,
+                  color: Colors.grey.shade600,
+                ),
+                const Divider(),
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          child: Obx(
-            () => controller.detailShoppingHistoryLoading.value
-                ? const Center(child: CircularProgressIndicator())
-                : ListView.builder(
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
-                    itemCount: controller.detailShoppingHistory.length,
-                    itemBuilder: (context, index) {
-                      final detailShoppingHistory =
-                          controller.detailShoppingHistory[index];
+          Expanded(
+            child: Obx(
+              () => controller.shoppingDetailLoading.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : Column(
+                      children: [
+                        Expanded(
+                          child: ListView.builder(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            physics: const ClampingScrollPhysics(),
+                            itemCount: controller.shoppingDetail.length,
+                            itemBuilder: (context, index) {
+                              final shoppingDetail =
+                                  controller.shoppingDetail[index];
+                              final harga = NumberFormat.currency(
+                                locale: 'id_ID',
+                                symbol: 'Rp ',
+                              ).format(int.parse(shoppingDetail.harga ?? '0'));
 
-                      return Card(
-                        margin: const EdgeInsets.only(bottom: 8),
-                        child: Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: BaseText(
-                              text: detailShoppingHistory.dscription ?? ''),
+                              return Column(
+                                children: [
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          shoppingDetail.dscription
+                                                  ?.toUpperCase() ??
+                                              '',
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 20),
+                                      Text('$harga (x${shoppingDetail.qty})'),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 5),
+                                ],
+                              );
+                            },
+                          ),
                         ),
-                      );
-                    },
-                  ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(15, 10, 15, 15),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                const BaseText(
+                                  text: 'Total Harga',
+                                  size: 12,
+                                ),
+                                BaseText(
+                                  text: controller.total.value ?? '',
+                                  bold: FontWeight.w600,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+            ),
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+            child: BaseText(
+              text:
+                  'Berbagai macam hadiah menarik untuk setiap pembelian produk di Triwarna',
+              size: 13,
+              textAlign: TextAlign.center,
+              color: Colors.grey.shade600,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

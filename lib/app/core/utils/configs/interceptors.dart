@@ -3,6 +3,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:triwarna_rebuild/app/core/utils/configs/exceptions.dart';
 import 'package:dio/dio.dart';
+import 'package:triwarna_rebuild/app/core/utils/firebase_notif.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 class DioInterceptors extends InterceptorsWrapper {
@@ -48,7 +49,10 @@ class DioInterceptors extends InterceptorsWrapper {
   ) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? token = sharedPreferences.getString('token');
+    FirebaseNotif firebaseNotif = FirebaseNotif();
+
     options.headers['Authorization'] = 'Bearer $token';
+    options.headers['Device-Token'] = await firebaseNotif.getDeviceToken();
 
     // print("--> ${options.method} ${options.uri}");
     // print("Headers: ${options.headers}");

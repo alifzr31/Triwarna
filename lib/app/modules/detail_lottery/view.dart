@@ -9,7 +9,7 @@ class DetailLotteryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: BaseAppBar(
+      appBar: const BaseAppBar(
         bgColor: softPurpleColor,
         fgColor: purpleColor,
         title: 'Detail Undian',

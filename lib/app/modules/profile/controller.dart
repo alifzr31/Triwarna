@@ -121,8 +121,10 @@ class ProfileController extends GetxController {
         tempatLahirController.value.text =
             userController.profile.value?.birthPlace ?? '';
         selectTglLahir.value = userController.profile.value?.birthDate;
-        tglLahirController.value.text = formatter
-            .format(userController.profile.value?.birthDate ?? DateTime(0000));
+        if (userController.profile.value?.birthDate != null) {
+          tglLahirController.value.text = formatter.format(
+              userController.profile.value?.birthDate ?? DateTime(0000));
+        }
         selectJk.value = userController.profile.value?.gender;
         alamatController.value.text =
             userController.profile.value?.address ?? '';
@@ -145,6 +147,7 @@ class ProfileController extends GetxController {
         } else if (userController.profile.value?.job == 'Mandor') {
           selectPekerjaan.value = '4';
         }
+
         selectStatus.value = userController.profile.value?.maritalStatus;
       }
 
@@ -215,16 +218,17 @@ class ProfileController extends GetxController {
     showLoading();
 
     try {
-      await profileProvider.editProfile(formData);
-      successSnackbar('Edit Profil Berhasil', 'Profil anda berhasil di edit');
-      Get.offAllNamed('/dashboard');
+      final response = await profileProvider.editProfile(formData);
+      if (response.statusCode == 200) {
+        successSnackbar('Edit Profil Berhasil', 'Profil anda berhasil di edit');
+        userController.fetchProfile();
+        Get.offAllNamed('/dashboard');
+      }
     } on dio.DioException catch (e) {
       Get.back();
       if (e.response?.statusCode == 500) {
         failedSnackbar('Edit Profil Gagal', 'Ups sepertinya terjadi kesalahan');
       }
-    } finally {
-      userController.fetchProfile();
     }
   }
 
@@ -251,7 +255,7 @@ class ProfileController extends GetxController {
       Get.back();
       if (e.response?.statusCode == 500) {
         failedSnackbar(
-            'Ganti Password Gagal', e.response?.data.toString() ?? '');
+            'Ganti Password Gagal', 'Ups sepertinya terjadi kesalahan');
       } else if (e.response?.statusCode == 422) {
         infoSnackbar('Ganti Password Gagal', e.response?.data['message']);
       } else {

@@ -7,7 +7,7 @@ class ShoppingProvider extends DioClient {
     return await get(EndPoint.shoppingHistory);
   }
 
-  Future<Response> fetchDetailShoppingHistory(docnum) async {
+  Future<Response> fetchShoppingDetail(docnum) async {
     return await get('${EndPoint.shoppingHistory}/$docnum');
   }
 }

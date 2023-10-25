@@ -2,10 +2,13 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:triwarna_rebuild/app/core/values/snackbars.dart';
 import 'package:triwarna_rebuild/app/data/models/point.dart';
 import 'package:triwarna_rebuild/app/data/models/prize.dart';
 import 'package:triwarna_rebuild/app/data/providers/point_provider.dart';
+import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
 
 class PointController extends GetxController {
   final PointProvider pointProvider;
@@ -19,10 +22,31 @@ class PointController extends GetxController {
 
   final searchPrize = Rx<String?>(null);
   final prize = <Prize>[].obs;
+  final filteredPrize = <Prize>[].obs;
   final prizeLoading = true.obs;
+
+  final completeProfile = Rx<bool?>(null);
+
+  final spendingTotal = 0.obs;
+  final totalTransaction = Rx<String?>(null);
+  final date = Rx<String?>(null);
 
   @override
   void onInit() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    completeProfile.value = sharedPreferences.getBool('complete');
+    final userController = Get.find<DashboardController>();
+
+    if (userController.token.value != null) {
+      if (userController.profile.value != null) {
+        spendingTotal.value = int.parse(userController.profile.value?.spendingTotal ?? '0');
+        totalTransaction.value = NumberFormat.currency(
+          locale: 'id_ID',
+          symbol: 'Rp ',
+        ).format(spendingTotal.value);
+      }
+    }
+
     await fetchPoint();
     await fetchPrize();
     super.onInit();
@@ -74,8 +98,18 @@ class PointController extends GetxController {
   }
 
   Future<void> refreshPoint() async {
+    await Future.delayed(const Duration(milliseconds: 2500), () async {
+      pointLoading.value = true;
+      prizeLoading.value = true;
+      await fetchPoint();
+      await fetchPrize();
+    });
+  }
+
+  Future<void> refreshPrize() async {
     await Future.delayed(const Duration(milliseconds: 2500), () {
-      fetchPoint();
+      prizeLoading.value = true;
+      fetchPrize();
     });
   }
 }
