@@ -30,6 +30,7 @@ class CardItemLottery extends StatelessWidget {
             color: Colors.grey.shade400,
             blurRadius: 3,
             offset: Offset(0, 2),
+            spreadRadius: 2,
           ),
         ],
       ),

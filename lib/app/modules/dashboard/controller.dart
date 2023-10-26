@@ -340,9 +340,9 @@ class DashboardController extends GetxController {
             title: element.storeName,
             snippet: element.address,
           ),
-          onTap: () {
-            // visible.value = true;
-          },
+          // onTap: () {
+          //   visible.value = true;
+          // },
         ),
       );
     });

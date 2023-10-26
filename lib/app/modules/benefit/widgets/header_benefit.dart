@@ -87,12 +87,9 @@ class HeaderBenefit extends StatelessWidget {
             Positioned(
               top: -15,
               right: 0,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: SvgPicture.asset(
-                  'assets/images/logo_grey.svg',
-                  width: 200,
-                ),
+              child: SvgPicture.asset(
+                'assets/images/logo_grey.svg',
+                width: 200,
               ),
             ),
             Positioned(
