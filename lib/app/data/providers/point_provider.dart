@@ -10,4 +10,8 @@ class PointProvider extends DioClient {
   Future<Response> fetchPrize() async {
     return await get(EndPoint.prize);
   }
+
+  Future<Response> fetchAllStore() async {
+    return await get(EndPoint.store);
+  }
 }

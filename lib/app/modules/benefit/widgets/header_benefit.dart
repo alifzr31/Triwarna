@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/core/values/gradients.dart';
 import 'package:triwarna_rebuild/app/modules/benefit/components/card_level.dart';
@@ -22,14 +22,8 @@ class HeaderBenefit extends StatelessWidget {
       child: Obx(() {
         final stg = 10000000 - controller.total.value;
         final gtp = 100000000 - controller.total.value;
-        final slvtogld = NumberFormat.currency(
-          locale: 'id_ID',
-          symbol: 'Rp',
-        ).format(stg);
-        final gldtoplt = NumberFormat.currency(
-          locale: 'id_ID',
-          symbol: 'Rp',
-        ).format(gtp);
+        final slvtogld = AppHelpers.rupiahFormat(stg);
+        final gldtoplt = AppHelpers.rupiahFormat(gtp);
 
         return Stack(
           children: [
@@ -94,7 +88,7 @@ class HeaderBenefit extends StatelessWidget {
             ),
             Positioned(
               top: 80,
-              height: 120,
+              height: 115,
               width: Get.width,
               child: ListView(
                 scrollDirection: Axis.horizontal,
@@ -115,7 +109,7 @@ class HeaderBenefit extends StatelessWidget {
                             ),
                             TextSpan(
                               text: '$slvtogld ',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -137,7 +131,7 @@ class HeaderBenefit extends StatelessWidget {
                         controller.loyaltyLevel.value?.toLowerCase() == 'gold'
                             ? true
                             : false,
-                    descChildren: controller.total.value < 100000000
+                    descChildren: controller.total.value < 10000000
                         ? [
                             const TextSpan(
                               text: 'Transaksi ',
@@ -145,7 +139,7 @@ class HeaderBenefit extends StatelessWidget {
                             ),
                             TextSpan(
                               text: '$gldtoplt ',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -167,7 +161,27 @@ class HeaderBenefit extends StatelessWidget {
                             'platinum'
                         ? true
                         : false,
-                    descChildren: [],
+                    descChildren: controller.total.value < 100000000
+                        ? [
+                            const TextSpan(
+                              text: 'Transaksi ',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                            TextSpan(
+                              text: '$gldtoplt ',
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const TextSpan(
+                              text: 'lagi ke Platinum',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ]
+                        : const [
+                            TextSpan(text: 'Transaksi pembelian tercapai'),
+                          ],
                     barGradient: GradientColor.platinum,
                   ),
                 ],

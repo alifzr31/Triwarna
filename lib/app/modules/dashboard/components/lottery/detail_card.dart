@@ -16,7 +16,7 @@ class DetailCard extends StatelessWidget {
       shape: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: const BorderSide(
-          color: const Color(0xFF493169),
+          color: Color(0xFF493169),
           width: 2,
         ),
       ),
@@ -34,7 +34,7 @@ class DetailCard extends StatelessWidget {
                 child: Text(
                   noUndian,
                   style: const TextStyle(
-                    color: const Color(0xFF493169),
+                    color: Color(0xFF493169),
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
                   ),

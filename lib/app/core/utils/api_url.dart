@@ -35,6 +35,13 @@ class EndPoint {
   static const String changePass = '/profile/password/update';
   static const String createPin = '/profile/pin/create';
   static const String changePin = '/profile/pin/update';
+
+  static const String sendOtp = '/profile/pin/send-otp';
+  static const String verifyOtp = '/profile/pin/send-otp/identify';
+  static const String resetPin = '/profile/pin/reset';
+
+  static const String deleteAccountOtp = '/profile/delete/send-otp';
+  static const String deleteAccount = '/profile/delete';
 }
 
 class StorageUrl {

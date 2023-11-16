@@ -15,7 +15,7 @@ String listStoreToJson(List<Store> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class Store {
-  String? id;
+  int? id;
   String? storeName;
   String? address;
   String? phone;

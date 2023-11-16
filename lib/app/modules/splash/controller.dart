@@ -43,7 +43,7 @@ class SplashController extends GetxController {
   void navigator() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final opened = prefs.getBool('opened');
-    
+
     Timer(const Duration(seconds: 3), () {
       if (opened == true || opened != null) {
         Get.offAndToNamed('/dashboard');

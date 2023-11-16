@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:triwarna_rebuild/app/components/base_nodata.dart';
 import 'package:triwarna_rebuild/app/components/base_shimmer.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/data/models/lottery.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/lottery/carditem_lottery.dart';
@@ -86,7 +86,8 @@ class BodyLottery extends StatelessWidget {
                             : RefreshIndicator(
                                 onRefresh: controller.refreshLottery,
                                 child: ListView.builder(
-                                  physics: const AlwaysScrollableScrollPhysics(),
+                                  physics:
+                                      const AlwaysScrollableScrollPhysics(),
                                   controller: controller.scrollController.value,
                                   itemCount: controller.hasMore.value
                                       ? controller.lottery.length + 1
@@ -95,10 +96,8 @@ class BodyLottery extends StatelessWidget {
                                     final date = Rx<String?>(null);
                                     final lottery = Rx<Lottery?>(null);
                                     if (index < controller.lottery.length) {
-                                      final formatter =
-                                          DateFormat('dd MMMM yyyy');
                                       lottery.value = controller.lottery[index];
-                                      date.value = formatter.format(
+                                      date.value = AppHelpers.dateFormat(
                                           lottery.value?.tanggal ??
                                               DateTime(0000));
                                     }

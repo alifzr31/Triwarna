@@ -36,7 +36,7 @@ class HeaderPoint extends StatelessWidget {
           const SizedBox(height: 15),
           Obx(
             () => controller.pointLoading.value
-                ? MyPointBoxLoading()
+                ? const MyPointBoxLoading()
                 : MyPointBox(
                     totalPoint: controller.lastPoint.value ?? '',
                     totalTransaction: controller.totalTransaction.value ?? '',

@@ -67,7 +67,7 @@ class BaseFormGroupField extends StatelessWidget {
               color: Colors.red,
               fontStyle: FontStyle.italic,
             ),
-            contentPadding: const EdgeInsets.all(15),
+            contentPadding: const EdgeInsets.all(10),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
             ),
@@ -135,7 +135,7 @@ class BaseFormGroupFieldAuth extends StatelessWidget {
           validator: validator,
           onChanged: onChanged,
           onTap: onTap,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
           ),
           cursorColor: Colors.grey.shade500,
@@ -144,14 +144,12 @@ class BaseFormGroupFieldAuth extends StatelessWidget {
             prefixIcon: prefixIcon,
             hintText: hint,
             helperText: helper,
-            hintStyle: TextStyle(
-              color: Colors.grey.shade500
-            ),
+            hintStyle: TextStyle(color: Colors.grey.shade500),
             helperStyle: const TextStyle(
               color: yellowColor,
               fontStyle: FontStyle.italic,
             ),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+            contentPadding: const EdgeInsets.all(10),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
             ),

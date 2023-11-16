@@ -10,9 +10,10 @@ class BenefitPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: const BaseAppBar(
-        bgColor: softPurpleColor,
-        fgColor: purpleColor,
+        bgColor: purpleColor,
+        fgColor: Colors.white,
         title: 'Benefit Member',
         preferredSize: Size.fromHeight(kToolbarHeight),
       ),

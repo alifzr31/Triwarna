@@ -12,56 +12,46 @@ class BodyBenefit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        margin: const EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 10,
-        ),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Apa saja keuntungan membership?',
-                  style: TextStyle(fontWeight: FontWeight.w600),
+      child: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Apa saja keuntungan membership?',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
+            ),
+          ),
+          Obx(
+            () => DefaultTabController(
+              length: controller.tabBar.length,
+              child: Expanded(
+                child: Column(
+                  children: [
+                    TabBar(
+                      tabs: List.generate(
+                        controller.tabBar.length,
+                        (index) => controller.tabBar[index],
+                      ),
+                    ),
+                    Expanded(
+                      child: TabBarView(
+                        physics: const NeverScrollableScrollPhysics(),
+                        children: [
+                          SilverMember(),
+                          GoldMember(),
+                          PlatinumMember(),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            Obx(
-              () => DefaultTabController(
-                length: controller.tabBar.length,
-                child: Expanded(
-                  child: Column(
-                    children: [
-                      TabBar(
-                        tabs: List.generate(
-                          controller.tabBar.length,
-                          (index) => controller.tabBar[index],
-                        ),
-                      ),
-                      Expanded(
-                        child: TabBarView(
-                          physics: const NeverScrollableScrollPhysics(),
-                          children: [
-                            SilverMember(),
-                            GoldMember(),
-                            PlatinumMember(),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

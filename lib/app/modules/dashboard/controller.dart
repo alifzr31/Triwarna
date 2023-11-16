@@ -8,10 +8,10 @@ import 'package:flutter_sliding_box/flutter_sliding_box.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:triwarna_rebuild/app/core/utils/firebase_notif.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/core/values/snackbars.dart';
 import 'package:triwarna_rebuild/app/data/models/content.dart';
 import 'package:triwarna_rebuild/app/data/models/lottery.dart';
@@ -78,8 +78,7 @@ class DashboardController extends GetxController {
     token.value = sharedPreferences.getString('token');
     appName.value = packageInfo.appName;
     version.value = packageInfo.version;
-    final formatter = DateFormat('yyyy');
-    final year = formatter.format(DateTime.now());
+    final year = AppHelpers.yearFormat(DateTime.now());
     currentDate.value = '31 Desember $year';
 
     if (token.value != null) {
@@ -88,9 +87,8 @@ class DashboardController extends GetxController {
       scrollController.value.addListener(onScroll);
 
       if (profile.value != null) {
-        final formatter = DateFormat('dd MMMM yyyy');
         if (profile.value?.birthDate != null) {
-          birthDate.value = formatter.format(profile.value!.birthDate!);
+          birthDate.value = AppHelpers.dateFormat(profile.value!.birthDate!);
         } else {
           birthDate.value = null;
         }
@@ -100,9 +98,9 @@ class DashboardController extends GetxController {
         }
       }
     }
-    await sendDeviceToken();
     await fetchContent();
     await fetchLocation();
+    await sendDeviceToken();
     super.onInit();
   }
 
@@ -148,6 +146,7 @@ class DashboardController extends GetxController {
 
   Future<void> checkProfile() async {
     if (profile.value?.name == null) jumlahNull.value++;
+    if (profile.value?.contact == null) jumlahNull.value++;
     if (profile.value?.username == null) jumlahNull.value++;
     if (profile.value?.email == null) jumlahNull.value++;
     if (profile.value?.birthPlace == null) jumlahNull.value++;
@@ -161,6 +160,7 @@ class DashboardController extends GetxController {
     if (profile.value?.education == null) jumlahNull.value++;
     if (profile.value?.job == null) jumlahNull.value++;
     if (profile.value?.maritalStatus == null) jumlahNull.value++;
+    if (profile.value?.pin == null) jumlahNull.value++;
 
     final hitung = ((14 - jumlahNull.value) / 14) * 100;
     completePercent.value = '${hitung.round()}%';
@@ -289,7 +289,7 @@ class DashboardController extends GetxController {
       } else {
         infoSnackbar(
           'GPS Tidak Aktif',
-          'Mohon aktifkan GPS untuk melakukan absen',
+          'Mohon aktifkan GPS untuk menjalankan fitur ini',
         );
       }
     } catch (e) {

@@ -12,7 +12,6 @@ class Routes {
 
   static const String dashboard = '/dashboard';
   static const String benefit = '/benefit';
-  static const String detailLottery = '/detailLottery';
 
   static const String contents = '/contents';
   static const String detailContent = '/detailContent';
@@ -30,6 +29,9 @@ class Routes {
   static const String createPin = '/createPin';
   static const String changePin = '/changePin';
 
-  // HANDLER
-  static const String error = '/error';
+  static const String sendOtp = '/sendOtp';
+  static const String verifyOtp = '/verifyOtp';
+  static const String resetPin = '/resetPin';
+
+  static const String deleteAccount = '/deleteAccount';
 }

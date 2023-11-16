@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/modules/tracking/components/tracking_item.dart';
 import 'package:triwarna_rebuild/app/modules/tracking/controller.dart';
 
@@ -59,9 +59,8 @@ class TrackingBody extends StatelessWidget {
                               .tracking.value!.statusHadiahDetail![index];
                           final length = controller
                               .tracking.value!.statusHadiahDetail!.length;
-                          final formatter = DateFormat('E, dd MMMM yyyy');
-                          final date =
-                              formatter.format(tracking.date ?? DateTime(0000));
+                          final date = AppHelpers.dayDateFormat(
+                              tracking.date ?? DateTime(0000));
 
                           return TrackingItem(
                             index: index,

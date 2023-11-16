@@ -1,15 +1,13 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'package:get/get.dart';
-import 'package:triwarna_rebuild/app/components/base_button.dart';
-import 'package:triwarna_rebuild/app/components/base_text.dart';
-import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/core/values/loading.dart';
 import 'package:triwarna_rebuild/app/core/values/snackbars.dart';
 import 'package:triwarna_rebuild/app/data/models/prize.dart';
 import 'package:triwarna_rebuild/app/data/providers/pin_input_provider.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
+import 'package:triwarna_rebuild/app/modules/pin_input/components/success_redeem.dart';
 
 class PinInputController extends GetxController {
   final PinInputProvider pinInputProvider;
@@ -19,19 +17,25 @@ class PinInputController extends GetxController {
   final userController = Get.find<DashboardController>();
 
   final prize = Rx<Prize?>(null);
+  final seletedStore = Rx<String?>(null);
   final pinDigits = List.filled(6, '').obs;
   final currentDigitIndex = 0.obs;
   final visible = false.obs;
 
+  final canVibrate = true.obs;
+
   @override
   void onInit() {
-    prize.value = Get.arguments == null ? null : Get.arguments;
+    vibrateCheck();
+    prize.value = Get.arguments['prize'];
+    seletedStore.value = Get.arguments['storeCode'];
     super.onInit();
   }
 
   void redeemPoint(BuildContext context, String prizeCode) async {
     final formData = dio.FormData.fromMap({
       'prize_code': prizeCode,
+      'branch_code': seletedStore.value,
     });
 
     showLoading();
@@ -41,62 +45,24 @@ class PinInputController extends GetxController {
 
       if (response.statusCode == 200) {
         Get.back();
-        AwesomeDialog(
-          context: context,
-          animType: AnimType.scale,
-          dialogType: DialogType.success,
-          dismissOnTouchOutside: false,
-          dismissOnBackKeyPress: false,
-          headerAnimationLoop: true,
-          padding: const EdgeInsets.all(10),
-          body: Column(
-            children: [
-              const BaseText(
-                text: 'Tukan Poin Berhasil',
-                size: 20,
-                bold: FontWeight.w500,
-              ),
-              const SizedBox(height: 10),
-              RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(
-                  style: DefaultTextStyle.of(context).style,
-                  children: [
-                    const TextSpan(text: 'Selamat anda mendapatkan '),
-                    TextSpan(
-                      text: '${prize.value?.prizeDesc} ',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const TextSpan(text: 'dengan menukarkan '),
-                    TextSpan(
-                      text: '${prize.value?.point} poin',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          btnOk: BaseButton(
-            bgColor: purpleColor,
-            fgColor: Colors.white,
-            label: 'Ok',
-            onPressed: () {
-              Get.offAllNamed('/dashboard');
-            },
-          ),
-        ).show();
+        successRedeem(
+          context,
+          prize.value?.prizeDesc ?? '',
+          prize.value?.point ?? '',
+        );
       }
     } on dio.DioException catch (e) {
       Get.back();
-      if (e.response?.statusCode == 500) {
-        failedSnackbar('Tukar Poin Gagal', 'Ups sepertinya terjadi kesalahan');
-      }
+      failedSnackbar(
+        'Tukar Poin Gagal',
+        'Ups sepertinya terjadi kesalahan. code:${e.response?.statusCode}',
+      );
     }
+  }
+
+  Future<void> vibrateCheck() async {
+    final check = await Vibrate.canVibrate;
+    canVibrate.value = check;
   }
 
   void updatePinDigit(BuildContext context, String digit) async {
@@ -106,13 +72,16 @@ class PinInputController extends GetxController {
     }
 
     if (currentDigitIndex.value == 6) {
-      String pin = pinDigits.join();
-      if (pin == userController.profile.value?.pin) {
+      final pin = pinDigits.join().obs;
+      if (pin.value == userController.profile.value?.pin) {
         visible.value = false;
 
         redeemPoint(context, prize.value?.prizeCode ?? '');
       } else {
         visible.value = true;
+        if (canVibrate.value) {
+          Vibrate.feedback(FeedbackType.error);
+        }
       }
     }
   }

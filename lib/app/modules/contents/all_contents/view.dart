@@ -11,8 +11,8 @@ class ContentsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const BaseAppBar(
-        bgColor: softPurpleColor,
-        fgColor: purpleColor,
+        bgColor: purpleColor,
+        fgColor: Colors.white,
         title: 'Event dan Promo',
         preferredSize: Size.fromHeight(kToolbarHeight),
       ),

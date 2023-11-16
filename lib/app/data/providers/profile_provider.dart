@@ -22,4 +22,12 @@ class ProfileProvider extends DioClient {
   Future<Response> changePin(FormData formData) async {
     return await post(EndPoint.changePin, data: formData);
   }
+
+  Future<Response> deleteAccountOtp() async {
+    return await post(EndPoint.deleteAccountOtp);
+  }
+
+  Future<Response> deleteAccount(FormData formData) async {
+    return await post(EndPoint.deleteAccount, data: formData);
+  }
 }

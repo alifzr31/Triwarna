@@ -13,56 +13,59 @@ class BackdropMaps extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        controller.store.isEmpty
-            ? const Center(child: BaseText(text: 'Store Data Not Found'))
-            : GoogleMap(
-                initialCameraPosition: CameraPosition(
-                  target: LatLng(
-                    controller.selectedLat.value ??
-                        double.parse(controller.store.first.lat ?? ''),
-                    controller.selectedLat.value ??
-                        double.parse(controller.store.first.long ?? ''),
+    return Obx(
+      () => Stack(
+        children: [
+          controller.store.isEmpty
+              ? const Center(child: BaseText(text: 'Store Data Not Found'))
+              : GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(
+                      controller.selectedLat.value ??
+                          double.parse(controller.store.first.lat ?? ''),
+                      controller.selectedLat.value ??
+                          double.parse(controller.store.first.long ?? ''),
+                    ),
+                    zoom: 13,
                   ),
-                  zoom: 13,
+                  gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>{
+                    Factory<OneSequenceGestureRecognizer>(
+                      () => EagerGestureRecognizer(),
+                    ),
+                  },
+                  onMapCreated: (mapController) {
+                    if (!controller.googleMapController.value.isCompleted) {
+                      controller.googleMapController.value
+                          .complete(mapController);
+                    } else {}
+                  },
+                  markers: controller.markers,
+                  zoomControlsEnabled: false,
+                  myLocationButtonEnabled: false,
+                  myLocationEnabled: true,
+                  buildingsEnabled: true,
+                  indoorViewEnabled: true,
+                  mapToolbarEnabled: true,
+                  scrollGesturesEnabled: true,
+                  tiltGesturesEnabled: true,
                 ),
-                gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
-                  Factory<OneSequenceGestureRecognizer>(
-                    () => EagerGestureRecognizer(),
-                  ),
-                ].toSet(),
-                onMapCreated: (mapController) {
-                  if (!controller.googleMapController.value.isCompleted) {
-                    controller.googleMapController.value
-                        .complete(mapController);
-                  } else {}
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Container(
+              margin: const EdgeInsets.only(bottom: 40, right: 10),
+              child: FloatingActionButton(
+                backgroundColor: softPurpleColor,
+                foregroundColor: purpleColor,
+                elevation: 1,
+                onPressed: () {
+                  controller.myLocation();
                 },
-                markers: controller.markers,
-                zoomControlsEnabled: false,
-                myLocationButtonEnabled: false,
-                myLocationEnabled: true,
-                buildingsEnabled: true,
-                indoorViewEnabled: true,
-                mapToolbarEnabled: true,
-                scrollGesturesEnabled: true,
-                tiltGesturesEnabled: true,
+                child: const Icon(Icons.my_location),
               ),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 40, right: 10),
-            child: FloatingActionButton(
-              backgroundColor: softPurpleColor,
-              elevation: 1,
-              onPressed: () {
-                controller.myLocation();
-              },
-              child: const Icon(Icons.my_location),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }

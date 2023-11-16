@@ -29,7 +29,7 @@ class TrackingHeader extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             controller.isLoading.value
-                ? ItemVoucherBoxLoading()
+                ? const ItemVoucherBoxLoading()
                 : ItemVoucherBox(
                     prizeName: controller.tracking.value?.hadiah?.deskripsiBarang ?? '',
                     voucherCode: controller.tracking.value?.code ?? '',

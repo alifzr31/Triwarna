@@ -55,8 +55,11 @@ class CardVoucher extends StatelessWidget {
                         BaseText(
                           text: namaBarang,
                           textAlign: TextAlign.center,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
                           bold: FontWeight.w600,
                         ),
+                        const SizedBox(height: 3),
                         Container(
                           padding: const EdgeInsets.all(5),
                           decoration: BoxDecoration(
@@ -82,7 +85,7 @@ class CardVoucher extends StatelessWidget {
                         right: -12,
                         child: CircleAvatar(
                           radius: 40,
-                          backgroundColor: const Color(0xFFbdb2cd),
+                          backgroundColor: Color(0xFFbdb2cd),
                         ),
                       ),
                       Positioned(
@@ -166,7 +169,7 @@ class CardVoucherLoading extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
+                          const SizedBox(
                             height: 14,
                             width: 100,
                           ),
@@ -192,7 +195,7 @@ class CardVoucherLoading extends StatelessWidget {
                           right: -12,
                           child: CircleAvatar(
                             radius: 40,
-                            backgroundColor: const Color(0xFFbdb2cd),
+                            backgroundColor: Color(0xFFbdb2cd),
                           ),
                         ),
                         Positioned(
@@ -201,7 +204,7 @@ class CardVoucherLoading extends StatelessWidget {
                           child: Container(
                             height: 30,
                             width: 30,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -212,8 +215,8 @@ class CardVoucherLoading extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
+            const Padding(
+              padding: EdgeInsets.symmetric(
                 horizontal: 10,
                 vertical: 5,
               ),
@@ -221,13 +224,13 @@ class CardVoucherLoading extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    child: Container(
+                    child: SizedBox(
                       height: 14,
                       width: 100,
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Container(
+                  SizedBox(width: 10),
+                  SizedBox(
                     height: 14,
                     width: 100,
                   ),

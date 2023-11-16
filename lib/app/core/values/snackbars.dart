@@ -23,7 +23,7 @@ void successSnackbar(String title, String message) {
       color: Colors.green.shade800,
       size: 30,
     ),
-    boxShadows: [
+    boxShadows: const [
       BoxShadow(
         color: Colors.grey,
         blurRadius: 3,
@@ -57,7 +57,7 @@ void failedSnackbar(String title, String message) {
       color: Colors.red.shade800,
       size: 30,
     ),
-    boxShadows: [
+    boxShadows: const [
       BoxShadow(
         color: Colors.grey,
         blurRadius: 3,
@@ -91,7 +91,7 @@ void infoSnackbar(String title, String message) {
       color: Colors.blue.shade800,
       size: 30,
     ),
-    boxShadows: [
+    boxShadows: const [
       BoxShadow(
         color: Colors.grey,
         blurRadius: 3,

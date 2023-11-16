@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/modules/shopping/controller.dart';
 
 class ShoppingDetailHistoryPage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _ShoppingDetailHistoryPageState extends State<ShoppingDetailHistoryPage> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Get.height * 0.5,
+      height: Get.height * 0.45,
       width: Get.width,
       child: Column(
         children: [
@@ -67,10 +67,8 @@ class _ShoppingDetailHistoryPageState extends State<ShoppingDetailHistoryPage> {
                             itemBuilder: (context, index) {
                               final shoppingDetail =
                                   controller.shoppingDetail[index];
-                              final harga = NumberFormat.currency(
-                                locale: 'id_ID',
-                                symbol: 'Rp ',
-                              ).format(int.parse(shoppingDetail.harga ?? '0'));
+                              final harga = AppHelpers.rupiahFormat(
+                                  int.parse(shoppingDetail.harga ?? '0'));
 
                               return Column(
                                 children: [

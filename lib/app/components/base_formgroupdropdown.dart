@@ -44,7 +44,7 @@ class BaseFormGroupDropdown extends StatelessWidget {
           buttonWidth: Get.width,
           itemPadding: const EdgeInsets.symmetric(horizontal: 8),
           decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(15),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
             ),

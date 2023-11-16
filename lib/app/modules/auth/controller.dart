@@ -44,7 +44,17 @@ class AuthController extends GetxController {
       await sharedPreferences.clear();
       await sharedPreferences.setBool('opened', true);
 
-      infoSnackbar('Log Out Berhasil', 'Anda sudah berhasil log out');
+      if (Get.currentRoute == '/deleteAccount') {
+        infoSnackbar(
+          'Hapus Akun Berhasil',
+          'Akun anda berhasil dihapus dan anda berhenti sebagai anggota member. Terima kasih dan sampai jumpa',
+        );
+      } else {
+        infoSnackbar(
+          'Log Out Berhasil',
+          'Anda sudah berhasil log out',
+        );
+      }
       Get.offAllNamed('/dashboard');
     } on dio.DioException catch (e) {
       Get.back();

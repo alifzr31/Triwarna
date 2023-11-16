@@ -27,7 +27,7 @@ class HeaderAccount extends StatelessWidget {
         () => Column(
           children: [
             controller.profile.value == null &&
-                        controller.token.value != null &&
+                    controller.token.value != null &&
                     controller.noMember.value == null
                 ? BaseShimmer(
                     child: MemberCard(
@@ -59,42 +59,56 @@ class HeaderAccount extends StatelessWidget {
                                       Expanded(
                                         child: Row(
                                           children: [
-                                            if (controller
-                                                    .profile.value?.image !=
-                                                null)
-                                              InkWell(
-                                                onTap: () {
-                                                  Get.dialog(
-                                                    Center(
-                                                      child: SizedBox(
-                                                        height:
-                                                            Get.height * 0.7,
-                                                        width: Get.width * 0.7,
-                                                        child: PhotoView(
-                                                          imageProvider:
-                                                              Image.network(
-                                                                      '${ApiUrl.baseStorageUrl}${StorageUrl.profile}/${controller.profile.value?.image}')
-                                                                  .image,
-                                                          backgroundDecoration:
-                                                              const BoxDecoration(
-                                                            color: Colors
-                                                                .transparent,
+                                            controller.profile.value?.image !=
+                                                    null
+                                                ? InkWell(
+                                                    onTap: () {
+                                                      Get.dialog(
+                                                        Center(
+                                                          child: SizedBox(
+                                                            height: Get.height *
+                                                                0.7,
+                                                            width:
+                                                                Get.width * 0.7,
+                                                            child: PhotoView(
+                                                              imageProvider:
+                                                                  Image.network(
+                                                                          '${ApiUrl.baseStorageUrl}${StorageUrl.profile}/${controller.profile.value?.image}')
+                                                                      .image,
+                                                              backgroundDecoration:
+                                                                  const BoxDecoration(
+                                                                color: Colors
+                                                                    .transparent,
+                                                              ),
+                                                            ),
                                                           ),
                                                         ),
+                                                      );
+                                                    },
+                                                    child: CircleAvatar(
+                                                      radius: 35,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      backgroundImage:
+                                                          Image.network(
+                                                        '${ApiUrl.baseStorageUrl}${StorageUrl.profile}/${controller.profile.value?.image}',
+                                                      ).image,
+                                                    ),
+                                                  )
+                                                : const CircleAvatar(
+                                                    radius: 35,
+                                                    backgroundColor:
+                                                        softPurpleColor,
+                                                    foregroundColor:
+                                                        purpleColor,
+                                                    child: Center(
+                                                      child: Icon(
+                                                        EvaIcons.person,
+                                                        size: 40,
+                                                        color: purpleColor,
                                                       ),
                                                     ),
-                                                  );
-                                                },
-                                                child: CircleAvatar(
-                                                  radius: 35,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  backgroundImage:
-                                                      Image.network(
-                                                    '${ApiUrl.baseStorageUrl}${StorageUrl.profile}/${controller.profile.value?.image}',
-                                                  ).image,
-                                                ),
-                                              ),
+                                                  ),
                                             // controller.profile.value?.image !=
                                             //         null
                                             //     ? CircleAvatar(
@@ -214,8 +228,13 @@ class HeaderAccount extends StatelessWidget {
                                     ),
                                   )
                                 : BaseText(
-                                    text: controller.profile.value?.contact ??
-                                        '-',
+                                    text: controller.profile.value?.contact ==
+                                                null ||
+                                            controller.profile.value?.contact ==
+                                                ''
+                                        ? '-'
+                                        : controller.profile.value?.contact ??
+                                            '-',
                                     bold: FontWeight.w500,
                                   ),
                           ],
@@ -241,7 +260,7 @@ class HeaderAccount extends StatelessWidget {
                                   : controller.profile.value?.birthPlace ==
                                               null &&
                                           controller.birthDate.value == null
-                                      ? BaseText(text: '-')
+                                      ? const BaseText(text: '-')
                                       : controller.profile.value?.birthPlace !=
                                                   null &&
                                               controller.birthDate.value == null
@@ -268,14 +287,21 @@ class HeaderAccount extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    style: const ButtonStyle(
-                      foregroundColor: MaterialStatePropertyAll(purpleColor),
+                    style: ButtonStyle(
+                      backgroundColor:
+                          const MaterialStatePropertyAll(purpleColor),
+                      foregroundColor:
+                          const MaterialStatePropertyAll(Colors.white),
+                      padding: const MaterialStatePropertyAll(EdgeInsets.zero),
+                      overlayColor: MaterialStatePropertyAll(
+                          softPurpleColor.withOpacity(0.3)),
                     ),
+                    padding: EdgeInsets.zero,
                     tooltip: 'Edit Profil',
                     onPressed: () {
                       Get.toNamed('/editProfile');
                     },
-                    icon: const Icon(Icons.edit),
+                    icon: const Icon(EvaIcons.edit),
                   ),
                 ],
               ),

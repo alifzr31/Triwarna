@@ -2,26 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class onBoardController extends GetxController {
+class OnBoardController extends GetxController {
   final currentPage = 0.obs;
   final pageController = PageController(initialPage: 0).obs;
 
   final images = [
     'onboard1.svg',
-    'onboard3.svg',
     'onboard2.svg',
+    'onboard3.svg',
   ].obs;
 
   final title = [
-    'Produk dan Peralatan Cat Terbaik',
-    'Pencarian Toko yang Mudah',
+    'Beragam produk dan peralatan cat berbagai pilihan warna',
     'Membership Gratis',
+    'Pencarian Toko yang Mudah',
   ].obs;
 
   final desc = [
     'Aplikasikan warna cat rumah anda dengan produk kami',
-    'Temukan toko triwarna terdekat dari lokasi anda',
     'Mulai dari Silver, Gold, dan Platinum. Kamu bisa menukarkan point dengan hadiah menarik',
+    'Temukan toko triwarna terdekat dari lokasi anda',
   ].obs;
 
   void nextPage() {

@@ -46,7 +46,7 @@ class HeaderHome extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          BaseText(
+                          const BaseText(
                             text: 'Halo, ',
                             size: 16,
                             bold: FontWeight.w500,

@@ -34,7 +34,6 @@ class FormIdentify extends StatelessWidget {
                   const BaseText(
                     text:
                         'Masukkan username/email anda dengan benar untuk mereset password',
-                    bold: FontWeight.w600,
                     color: Colors.white70,
                   ),
                   controller.showAlert.value
@@ -80,7 +79,7 @@ class FormIdentify extends StatelessWidget {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 40),
                   SizedBox(
                     width: Get.width,
                     child: BaseButton(

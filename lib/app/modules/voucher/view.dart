@@ -11,14 +11,14 @@ class VoucherPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const BaseAppBar(
-        bgColor: softPurpleColor,
-        fgColor: purpleColor,
+        bgColor: purpleColor,
+        fgColor: Colors.white,
         title: 'Voucher Saya',
         preferredSize: Size.fromHeight(kToolbarHeight),
       ),
       body: Column(
         children: [
-          VoucherHeader(),
+          const VoucherHeader(),
           VoucherBody(),
         ],
       ),

@@ -16,9 +16,12 @@ import 'package:triwarna_rebuild/app/modules/contents/binding.dart';
 import 'package:triwarna_rebuild/app/modules/contents/detail_content/view.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/binding.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/view.dart';
-import 'package:triwarna_rebuild/app/modules/detail_lottery/binding.dart';
-import 'package:triwarna_rebuild/app/modules/detail_lottery/view.dart';
-import 'package:triwarna_rebuild/app/modules/error/view.dart';
+import 'package:triwarna_rebuild/app/modules/forgot_pin/reset_pin/binding.dart';
+import 'package:triwarna_rebuild/app/modules/forgot_pin/reset_pin/view.dart';
+import 'package:triwarna_rebuild/app/modules/forgot_pin/send_otp/binding.dart';
+import 'package:triwarna_rebuild/app/modules/forgot_pin/send_otp/view.dart';
+import 'package:triwarna_rebuild/app/modules/forgot_pin/verify_otp/binding.dart';
+import 'package:triwarna_rebuild/app/modules/forgot_pin/verify_otp/view.dart';
 import 'package:triwarna_rebuild/app/modules/onboard/view.dart';
 import 'package:triwarna_rebuild/app/modules/pin_input/binding.dart';
 import 'package:triwarna_rebuild/app/modules/pin_input/view.dart';
@@ -27,6 +30,8 @@ import 'package:triwarna_rebuild/app/modules/point/history_point/view.dart';
 import 'package:triwarna_rebuild/app/modules/point/my_point/view.dart';
 import 'package:triwarna_rebuild/app/modules/profile/binding.dart';
 import 'package:triwarna_rebuild/app/modules/profile/change_password/view.dart';
+import 'package:triwarna_rebuild/app/modules/profile/delete_account/binding.dart';
+import 'package:triwarna_rebuild/app/modules/profile/delete_account/view.dart';
 import 'package:triwarna_rebuild/app/modules/profile/edit_profile/view.dart';
 import 'package:triwarna_rebuild/app/modules/profile/pin/change_pin/view.dart';
 import 'package:triwarna_rebuild/app/modules/profile/pin/create_pin/view.dart';
@@ -92,11 +97,6 @@ abstract class AppPages {
       name: Routes.benefit,
       page: () => const BenefitPage(),
       binding: BenefitBinding(),
-    ),
-    GetPage(
-      name: Routes.detailLottery,
-      page: () => const DetailLotteryPage(),
-      binding: LotteryBinding(),
     ),
 
     GetPage(
@@ -164,10 +164,26 @@ abstract class AppPages {
       binding: ProfileBinding(),
     ),
 
-    // HANDLER
     GetPage(
-      name: Routes.error,
-      page: () => const ErrorPage(),
+      name: Routes.sendOtp,
+      page: () => const SendOtpPage(),
+      binding: SendOtpBindning(),
+    ),
+    GetPage(
+      name: Routes.verifyOtp,
+      page: () => const VerifyOtpPage(),
+      binding: VerifyOtpBinding(),
+    ),
+    GetPage(
+      name: Routes.resetPin,
+      page: () => const ResetPinPage(),
+      binding: ResetPinBinding(),
+    ),
+
+    GetPage(
+      name: Routes.deleteAccount,
+      page: () => const DeleteAccountPage(),
+      binding: DeleteAccountBinding(),
     ),
   ];
 }

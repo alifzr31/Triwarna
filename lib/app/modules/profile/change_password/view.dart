@@ -10,8 +10,8 @@ class ChangePassPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const BaseAppBar(
-        bgColor: softPurpleColor,
-        fgColor: purpleColor,
+        bgColor: purpleColor,
+        fgColor: Colors.white,
         title: 'Ganti Password',
         preferredSize: Size.fromHeight(kToolbarHeight),
       ),

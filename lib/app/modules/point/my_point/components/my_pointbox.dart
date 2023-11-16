@@ -89,7 +89,7 @@ class MyPointBox extends StatelessWidget {
                   gradientLevel: gradientLevel,
                   lastTransaction: lastTransaction,
                 ),
-                FooterMenuBox(
+                const FooterMenuBox(
                   showHistoryButton: true,
                 ),
               ],
@@ -159,8 +159,8 @@ class MyPointBoxLoading extends StatelessWidget {
                     ),
                   ),
                 ),
-                MyPointCardLoading(),
-                FooterMenuBox(
+                const MyPointCardLoading(),
+                const FooterMenuBox(
                   showHistoryButton: false,
                 ),
               ],

@@ -39,8 +39,8 @@ class _DetailContentPageState extends State<DetailContentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BaseAppBar(
-        bgColor: softPurpleColor,
-        fgColor: purpleColor,
+        bgColor: purpleColor,
+        fgColor: Colors.white,
         title: controller.title.value ?? '',
         preferredSize: const Size.fromHeight(kToolbarHeight),
       ),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,9 @@ import 'package:triwarna_rebuild/app/core/utils/configs/firebase_options.dart';
 import 'package:triwarna_rebuild/app/core/utils/local_notif.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/routes/pages.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
@@ -23,7 +28,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await LocalNotif().init(); //
   await LocalNotif().requestIOSPermissions();
 
@@ -51,16 +57,28 @@ void main() async {
     print('User declined or has not accepted permission');
   }
 
-  FirebaseMessaging.onBackgroundMessage(
-      await _firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.light,
+      statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
     ),
   );
+
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.manual,
+    overlays: [
+      SystemUiOverlay.bottom,
+      SystemUiOverlay.top,
+    ],
+  );
+
+  Timer(const Duration(seconds: 1), () => FlutterNativeSplash.remove());
+
+  initializeDateFormatting('id_ID');
+  Intl.defaultLocale = 'id_ID';
 
   runApp(const MyApp());
 }

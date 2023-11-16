@@ -16,7 +16,7 @@ class HomeTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const BaseAppBar(
-        bgColor: softPurpleColor,
+        bgColor: purpleColor,
         title: '',
         preferredSize: Size.zero,
       ),
@@ -38,7 +38,7 @@ class BodyHome extends StatelessWidget {
         children: [
           HeaderDashboard(
             child: SvgPicture.asset(
-              'assets/images/logo_tri.svg',
+              'assets/images/logo_tri_white.svg',
               width: 150,
             ),
           ),

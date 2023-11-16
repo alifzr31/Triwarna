@@ -10,8 +10,8 @@ class ChangePinPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const BaseAppBar(
-        bgColor: softPurpleColor,
-        fgColor: purpleColor,
+        bgColor: purpleColor,
+        fgColor: Colors.white,
         title: 'Ganti PIN',
         preferredSize: Size.fromHeight(kToolbarHeight),
       ),

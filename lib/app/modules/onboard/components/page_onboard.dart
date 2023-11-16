@@ -6,7 +6,7 @@ import 'package:triwarna_rebuild/app/modules/onboard/controller.dart';
 
 class PageOnBoard extends StatelessWidget {
   PageOnBoard({super.key});
-  final controller = Get.put(onBoardController());
+  final controller = Get.put(OnBoardController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +26,11 @@ class PageOnBoard extends StatelessWidget {
                   children: [
                     const Spacer(),
                     SizedBox(
-                      height: 300,
+                      height: 215,
                       width: Get.width,
                       child: SvgPicture.asset(
-                          'assets/images/${controller.images[index]}'),
+                        'assets/images/${controller.images[index]}',
+                      ),
                     ),
                     const SizedBox(height: 30),
                     Expanded(
@@ -37,6 +38,7 @@ class PageOnBoard extends StatelessWidget {
                         children: [
                           BaseText(
                             text: controller.title[index],
+                            color: Colors.white,
                             textAlign: TextAlign.center,
                             size: 18,
                             bold: FontWeight.w600,
@@ -44,6 +46,7 @@ class PageOnBoard extends StatelessWidget {
                           const SizedBox(height: 10),
                           BaseText(
                             text: controller.desc[index],
+                            color: Colors.white,
                             textAlign: TextAlign.center,
                             size: 16,
                           ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:open_mail_app/open_mail_app.dart';
+import 'package:triwarna_rebuild/app/components/base_appbar.dart';
 import 'package:triwarna_rebuild/app/components/base_button.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
@@ -14,33 +15,21 @@ class VerifyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const BaseAppBar(
+        bgColor: purpleColor,
+        title: '',
+        preferredSize: Size.zero,
+      ),
+      backgroundColor: purpleColor,
       body: Stack(
         children: [
           Positioned(
-            top: 0,
+            top: 70,
             left: 0,
             right: 0,
             child: SvgPicture.asset(
-              'assets/images/header_verify.svg',
-              fit: BoxFit.cover,
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: SvgPicture.asset(
-              'assets/images/footer_verify.svg',
-              fit: BoxFit.cover,
-            ),
-          ),
-          Positioned(
-            top: 150,
-            left: 0,
-            right: 0,
-            child: SvgPicture.asset(
-              'assets/images/logo_tri.svg',
-              width: 300,
+              'assets/images/logo_tri_white.svg',
+              width: 230,
             ),
           ),
           const VerifyBody(),
@@ -79,23 +68,25 @@ class _VerifyBodyState extends State<VerifyBody> {
                 text: 'Akun anda sudah berhasil dibuat dengan email',
                 textAlign: TextAlign.center,
                 size: 16,
+                color: Colors.white,
               ),
               BaseText(
                 text: controller.email.value ?? '',
                 textAlign: TextAlign.center,
+                color: Colors.white,
                 size: 16,
                 bold: FontWeight.w600,
               ),
               const SizedBox(height: 10),
               controller.verifyLoading.value
                   ? const Center(
-                      child: CircularProgressIndicator(color: purpleColor),
+                      child: CircularProgressIndicator(color: yellowColor),
                     )
                   : SizedBox(
                       width: Get.width,
                       child: BaseButtonIcon(
-                        bgColor: purpleColor,
-                        fgColor: Colors.white,
+                        bgColor: softPurpleColor,
+                        fgColor: purpleColor,
                         label: controller.hasSent.value
                             ? 'Buka Email'
                             : 'Verifikasi Akun',
@@ -106,7 +97,7 @@ class _VerifyBodyState extends State<VerifyBody> {
 
                             if (!result.didOpen && !result.canOpen) {
                               Get.dialog(
-                                AlertDialog(
+                                const AlertDialog(
                                   title: Text('No Apps'),
                                 ),
                               );

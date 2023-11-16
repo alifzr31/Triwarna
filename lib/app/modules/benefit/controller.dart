@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:triwarna_rebuild/app/components/base_text.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/core/values/gradients.dart';
 import 'package:triwarna_rebuild/app/modules/benefit/components/card_level.dart';
@@ -24,11 +25,9 @@ class BenefitController extends GetxController {
     if (token.value != null) {
       if (userController.profile.value != null) {
         loyaltyLevel.value = userController.profile.value?.loyalty;
-        total.value = int.parse(userController.profile.value?.spendingTotal ?? '0');
-        spendingTotal.value = NumberFormat.currency(
-          locale: 'id_ID',
-          symbol: 'Rp ',
-        ).format(total.value);
+        total.value =
+            int.parse(userController.profile.value?.spendingTotal ?? '0');
+        spendingTotal.value = AppHelpers.rupiahFormat(total.value);
       }
     }
     super.onInit();
@@ -136,11 +135,8 @@ class BenefitController extends GetxController {
             'assets/images/silver_medal.svg',
             width: 20,
           ),
-          SizedBox(width: 5),
-          Text(
-            'Silver',
-            style: TextStyle(fontWeight: FontWeight.w500),
-          ),
+          const SizedBox(width: 5),
+          const BaseText(text: 'Silver', bold: FontWeight.w500),
         ],
       ),
     ),
@@ -152,11 +148,8 @@ class BenefitController extends GetxController {
             'assets/images/gold_medal.svg',
             width: 20,
           ),
-          SizedBox(width: 5),
-          Text(
-            'Gold',
-            style: TextStyle(fontWeight: FontWeight.w500),
-          ),
+          const SizedBox(width: 5),
+          const BaseText(text: 'Gold', bold: FontWeight.w500),
         ],
       ),
     ),
@@ -168,11 +161,8 @@ class BenefitController extends GetxController {
             'assets/images/platinum_medal.svg',
             width: 20,
           ),
-          SizedBox(width: 5),
-          Text(
-            'Platinum',
-            style: TextStyle(fontWeight: FontWeight.w500),
-          ),
+          const SizedBox(width: 5),
+          const BaseText(text: 'Platinum', bold: FontWeight.w500),
         ],
       ),
     ),

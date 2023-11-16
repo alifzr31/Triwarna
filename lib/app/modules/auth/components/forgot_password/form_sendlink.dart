@@ -98,24 +98,31 @@ class FormSendLink extends StatelessWidget {
                     : controller.sendLink,
               ),
             ),
-            const SizedBox(height: 5),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const BaseText(
-                  text: 'Tidak menerima email? ',
-                  color: Colors.white70,
-                ),
-                GestureDetector(
-                  onTap: () {},
-                  child: const BaseText(
-                    text: 'Kirim Ulang',
-                    color: yellowColor,
-                    bold: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
+            if (controller.sent.value) const SizedBox(height: 5),
+            if (controller.sent.value)
+              controller.tunggu.value
+                  ? const Text(
+                      'Maaf anda sudah melakukan 3 kali request. Silahkan tunggu beberapa saat untuk melakukan request lagi.\nTerima kasih',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white70),
+                    )
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const BaseText(
+                          text: 'Tidak menerima email? ',
+                          color: Colors.white70,
+                        ),
+                        GestureDetector(
+                          onTap: controller.resendLink,
+                          child: const BaseText(
+                            text: 'Kirim Ulang',
+                            color: yellowColor,
+                            bold: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
           ],
         ),
       ),

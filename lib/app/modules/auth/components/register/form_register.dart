@@ -21,6 +21,7 @@ class FormRegister extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const SizedBox(height: 60),
               BaseFormGroupFieldAuth(
                 label: 'Nama Lengkap',
                 hint: 'Masukkan nama lengkap anda',
@@ -37,8 +38,14 @@ class FormRegister extends StatelessWidget {
               BaseFormGroupFieldAuth(
                 label: 'Email',
                 hint: 'Masukkan email anda',
+                helper: controller.username.value == null ||
+                        controller.username.value == ''
+                    ? null
+                    : '${controller.username.value} akan menjadi username anda',
                 keyboardType: TextInputType.emailAddress,
                 controller: controller.emailController.value,
+                onChanged: (value) =>
+                    controller.username.value = value?.split('@').first,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return 'Email tidak boleh kosong';
@@ -50,6 +57,13 @@ class FormRegister extends StatelessWidget {
 
                   return null;
                 },
+              ),
+              const SizedBox(height: 15),
+              BaseFormGroupFieldAuth(
+                label: 'No. Telepon (Opsional)',
+                hint: 'Masukkan no. telepon anda',
+                controller: controller.phoneController.value,
+                keyboardType: TextInputType.phone,
               ),
               const SizedBox(height: 15),
               BaseFormGroupFieldAuth(
@@ -85,8 +99,8 @@ class FormRegister extends StatelessWidget {
                 obscureText: controller.showConfirmPass.value,
                 suffixIcon: IconButton(
                   color: Colors.white,
-                  onPressed: () =>
-                      controller.showConfirmPass.value = !controller.showConfirmPass.value,
+                  onPressed: () => controller.showConfirmPass.value =
+                      !controller.showConfirmPass.value,
                   icon: Icon(controller.showConfirmPass.value
                       ? EvaIcons.eye
                       : EvaIcons.eyeOff),

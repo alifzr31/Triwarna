@@ -29,7 +29,7 @@ class CardItemLottery extends StatelessWidget {
           BoxShadow(
             color: Colors.grey.shade400,
             blurRadius: 3,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
             spreadRadius: 2,
           ),
         ],

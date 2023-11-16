@@ -23,14 +23,14 @@ void confirmDialog(
     btnCancel: BaseButton(
       bgColor: yellowColor,
       fgColor: Colors.white,
-      label: labelCancel == null ? 'Tidak' : labelCancel,
+      label: labelCancel ?? 'Tidak',
       onPressed: () => Get.back(),
     ),
     btnOkColor: purpleColor,
     btnOk: BaseButton(
       bgColor: purpleColor,
       fgColor: Colors.white,
-      label: labelOk == null ? 'Ya' : labelOk,
+      label: labelOk ?? 'Ya',
       onPressed: onPressed,
     ),
     padding: const EdgeInsets.all(10),

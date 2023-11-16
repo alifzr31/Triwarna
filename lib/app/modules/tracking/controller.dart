@@ -20,11 +20,6 @@ class TrackingController extends GetxController {
     super.onInit();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
   Future<void> fetchTracking() async {
     try {
       final response = await trackingProvider.fetchTracking(Get.arguments);

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:triwarna_rebuild/app/components/base_appbar.dart';
 import 'package:triwarna_rebuild/app/components/base_button.dart';
+import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/modules/update_apps/controller.dart';
 
@@ -11,6 +13,11 @@ class UpdateApps extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const BaseAppBar(
+        bgColor: baseBgScaffold,
+        title: '',
+        preferredSize: Size.zero,
+      ),
       body: UpdateBody(),
     );
   }
@@ -37,43 +44,38 @@ class UpdateBody extends StatelessWidget {
                       width: 350,
                     ),
                     const SizedBox(height: 20),
-                    const Text(
-                      'Update Tersedia!',
+                    const BaseText(
+                      text: 'Update Tersedia!',
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      size: 18,
+                      bold: FontWeight.w600,
                     ),
                     Obx(
                       () => Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            controller.currentVersion.value ?? '',
+                          BaseText(
+                            text: controller.currentVersion.value ?? '',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.grey.shade600,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            color: Colors.grey.shade600,
+                            bold: FontWeight.w500,
                           ),
                           const Icon(Icons.arrow_right_alt),
-                          Text(
-                            controller.updateVersion.value ?? '',
+                          BaseText(
+                            text: controller.updateVersion.value ?? '',
                             textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              color: Colors.green,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            color: Colors.green,
+                            bold: FontWeight.w500,
                           ),
                         ],
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Text(
-                      'Silahkan update aplikasi Triwarna anda ke versi terbaru untuk memaksimalkan performa dan meminimalisir bugs. Tekan tombol update sekarang untuk melakukan update aplikasi Triwarna.\nTerima Kasih!!!',
+                    BaseText(
+                      text: 'Silahkan update aplikasi Triwarna anda ke versi terbaru untuk memaksimalkan performa dan meminimalisir bugs. Tekan tombol update sekarang untuk melakukan update aplikasi Triwarna.\nTerima Kasih!!!',
+                      size: 12.5,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.grey.shade600),
+                      color: Colors.grey.shade600,
                     ),
                   ],
                 ),

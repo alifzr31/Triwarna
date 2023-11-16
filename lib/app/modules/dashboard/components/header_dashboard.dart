@@ -15,7 +15,7 @@ class HeaderDashboard extends StatelessWidget {
     return Container(
       height: 80,
       width: Get.width,
-      color: softPurpleColor,
+      color: purpleColor,
       child: Center(child: child),
     );
   }

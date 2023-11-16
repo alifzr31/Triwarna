@@ -13,7 +13,7 @@ class LotteryTab extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: const BaseAppBar(
-        bgColor: softPurpleColor,
+        bgColor: purpleColor,
         title: '',
         preferredSize: Size.zero,
       ),
@@ -23,7 +23,7 @@ class LotteryTab extends StatelessWidget {
             child: BaseText(
               text: 'Undian',
               size: 26,
-              color: purpleColor,
+              color: Colors.white,
               bold: FontWeight.w600,
             ),
           ),

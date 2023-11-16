@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:triwarna_rebuild/app/components/base_nodata.dart';
 import 'package:triwarna_rebuild/app/components/base_shimmer.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/modules/shopping/controller.dart';
 import 'package:triwarna_rebuild/app/modules/shopping/detail_shoppinghistory/view.dart';
 import 'package:triwarna_rebuild/app/modules/shopping/shopping_history/components/shoppinghistory_card.dart';
@@ -49,15 +49,11 @@ class ShoppingHistoryBody extends StatelessWidget {
                     itemCount: controller.shoppingHistory.length,
                     itemBuilder: (context, index) {
                       final shoppingHistory = controller.shoppingHistory[index];
-                      final formatter = DateFormat('E, dd MMMM yyyy');
-                      final date = formatter
-                          .format(shoppingHistory.date ?? DateTime(0000));
+                      final date = AppHelpers.dayDateFormat(
+                          shoppingHistory.date ?? DateTime(0000));
                       final ttl = double.parse(shoppingHistory.total ?? '0');
                       final roundedUp = ttl.ceil().obs;
-                      final total = NumberFormat.currency(
-                        locale: 'id_ID',
-                        symbol: 'Rp ',
-                      ).format(roundedUp.value);
+                      final total = AppHelpers.rupiahFormat(roundedUp.value);
 
                       return ShoppingHistoryCard(
                         noStruk: shoppingHistory.noStruk ?? '',

@@ -15,6 +15,7 @@ class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   }) : super(key: key);
 
   final String title;
+  @override
   final Size preferredSize;
   final List<Widget>? action;
   final PreferredSizeWidget? bottom;

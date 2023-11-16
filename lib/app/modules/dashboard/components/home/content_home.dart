@@ -1,10 +1,10 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:triwarna_rebuild/app/components/base_shimmer.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/utils/api_url.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
 
@@ -82,8 +82,7 @@ class ContentHome extends StatelessWidget {
                       scale: 0.85,
                       itemCount: controller.content.length,
                       onTap: (index) {
-                        final formatter = DateFormat('dd MMMM yyyy');
-                        final date = formatter.format(
+                        final date = AppHelpers.dateFormat(
                             controller.content[index].createdAt ??
                                 DateTime(0000));
                         Get.toNamed(

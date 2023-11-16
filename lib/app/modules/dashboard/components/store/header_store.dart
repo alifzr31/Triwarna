@@ -1,3 +1,4 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
@@ -34,8 +35,9 @@ class HeaderStore extends StatelessWidget {
                       hintStyle: const TextStyle(color: purpleColor),
                       fillColor: softPurpleColor,
                       border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          borderSide: BorderSide.none),
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                   ),
                 ),
@@ -44,13 +46,19 @@ class HeaderStore extends StatelessWidget {
               IconButton(
                 style: const ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll(softPurpleColor),
+                  foregroundColor: MaterialStatePropertyAll(purpleColor),
+                  shape: MaterialStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                  ),
                   elevation: MaterialStatePropertyAll(1),
                 ),
                 onPressed: () {
                   controller.refreshLocation();
                 },
                 color: purpleColor,
-                icon: const Icon(Icons.refresh),
+                icon: const Icon(EvaIcons.refresh),
               ),
             ],
           ),

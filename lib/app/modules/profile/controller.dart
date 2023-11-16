@@ -1,10 +1,10 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:dio/dio.dart' as dio;
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/core/values/loading.dart';
 import 'package:triwarna_rebuild/app/core/values/snackbars.dart';
 import 'package:triwarna_rebuild/app/data/models/kelurahan.dart';
@@ -18,6 +18,9 @@ class ProfileController extends GetxController {
   final ProfileProvider profileProvider;
 
   ProfileController({required this.profileProvider});
+
+  final enabledEditPersonal = false.obs;
+  final enabledEditAccount = false.obs;
 
   final formKeyChangePass = GlobalKey<FormState>().obs;
   final currentPasswordController = TextEditingController().obs;
@@ -45,6 +48,7 @@ class ProfileController extends GetxController {
   final kelurahanLoading = true.obs;
 
   final formKeyEditProfil = GlobalKey<FormState>().obs;
+  final noTelpController = TextEditingController().obs;
   final namaController = TextEditingController().obs;
   final profileImage = Rx<XFile?>(null);
   final usernameController = TextEditingController().obs;
@@ -111,8 +115,7 @@ class ProfileController extends GetxController {
   @override
   void onInit() {
     if (Get.currentRoute == '/editProfile') {
-      final formatter = DateFormat('dd MMMM yyyy');
-
+      fetchKelurahan();
       if (userController.profile.value != null) {
         namaController.value.text = userController.profile.value?.name ?? '';
         usernameController.value.text =
@@ -122,7 +125,7 @@ class ProfileController extends GetxController {
             userController.profile.value?.birthPlace ?? '';
         selectTglLahir.value = userController.profile.value?.birthDate;
         if (userController.profile.value?.birthDate != null) {
-          tglLahirController.value.text = formatter.format(
+          tglLahirController.value.text = AppHelpers.dateFormat(
               userController.profile.value?.birthDate ?? DateTime(0000));
         }
         selectJk.value = userController.profile.value?.gender;
@@ -150,8 +153,6 @@ class ProfileController extends GetxController {
 
         selectStatus.value = userController.profile.value?.maritalStatus;
       }
-
-      fetchKelurahan();
     }
     super.onInit();
   }
@@ -168,6 +169,7 @@ class ProfileController extends GetxController {
     changeNewPinController.value.dispose();
     changeConfirmPinController.value.dispose();
     namaController.value.dispose();
+    noTelpController.value.dispose();
     usernameController.value.dispose();
     emailController.value.dispose();
     tempatLahirController.value.dispose();
@@ -186,10 +188,10 @@ class ProfileController extends GetxController {
 
       kelurahan.value = body;
     } on dio.DioException catch (e) {
-      if (e.response?.statusCode == 500) {
-        failedSnackbar(
-            'Load Kelurahan Gagal', 'Ups sepertinya terjadi kesalahan');
-      }
+      failedSnackbar(
+        'Load Kelurahan Gagal',
+        'Ups sepertinya terjadi kesalahan. code:${e.response?.statusCode}',
+      );
     } finally {
       kelurahanLoading.value = false;
       update();
@@ -212,7 +214,9 @@ class ProfileController extends GetxController {
       'birth_place': tempatLahirController.value.text,
       'birth_date': selectTglLahir.value,
       'religion': selectAgama.value,
-      'marital_status': selectStatus.value
+      'marital_status': selectStatus.value,
+      if (noTelpController.value.text != '')
+        'phone_number': noTelpController.value.text,
     });
 
     showLoading();
@@ -220,14 +224,25 @@ class ProfileController extends GetxController {
     try {
       final response = await profileProvider.editProfile(formData);
       if (response.statusCode == 200) {
+        Get.back();
         successSnackbar('Edit Profil Berhasil', 'Profil anda berhasil di edit');
         userController.fetchProfile();
         Get.offAllNamed('/dashboard');
       }
     } on dio.DioException catch (e) {
       Get.back();
-      if (e.response?.statusCode == 500) {
-        failedSnackbar('Edit Profil Gagal', 'Ups sepertinya terjadi kesalahan');
+      if (e.response?.statusCode == 422) {
+        if (e.response?.data['phone_number'] != null) {
+          infoSnackbar(
+            'Edit Profil Gagal',
+            'No. telepon sudah digunakan. Silahkan gunakan no. telepon yang lain',
+          );
+        }
+      } else {
+        failedSnackbar(
+          'Ups sepertinya terjadi kesalahan',
+          'code:${e.response?.statusCode}',
+        );
       }
     }
   }
@@ -245,21 +260,24 @@ class ProfileController extends GetxController {
       final response = await profileProvider.changePass(formData);
 
       if (response.statusCode == 200) {
-        successSnackbar('Ganti Password Berhasil',
-            'Password berhasil diganti. Silahkan lakukan log in ulang');
+        Get.back();
+        successSnackbar(
+          'Ganti Password Berhasil',
+          'Password berhasil diganti. Silahkan lakukan log in ulang',
+        );
         final authController =
             Get.put(AuthController(authProvider: AuthProvider()));
         authController.logout();
       }
     } on dio.DioException catch (e) {
       Get.back();
-      if (e.response?.statusCode == 500) {
-        failedSnackbar(
-            'Ganti Password Gagal', 'Ups sepertinya terjadi kesalahan');
-      } else if (e.response?.statusCode == 422) {
+      if (e.response?.statusCode == 422) {
         infoSnackbar('Ganti Password Gagal', e.response?.data['message']);
       } else {
-        infoSnackbar('Ganti Password Gagal', e.response?.data.toString() ?? '');
+        failedSnackbar(
+          'Ups Sepertinya Terjadi Kesalahan',
+          'code:${e.response?.statusCode}',
+        );
       }
     }
   }
@@ -273,14 +291,21 @@ class ProfileController extends GetxController {
     showLoading();
 
     try {
-      await profileProvider.createPin(formData);
-      successSnackbar('Buat PIN Berhasil',
-          'PIN berhasil dibuat untuk mengamankan akun anda');
-      Get.offAllNamed('/dashboard');
-    } on dio.DioException catch (e) {
-      if (e.response?.statusCode == 500) {
-        failedSnackbar('Buat PIN Gagal', 'Ups sepertinya terjadi kesalahan');
+      final response = await profileProvider.createPin(formData);
+
+      if (response.statusCode == 200) {
+        Get.back();
+        successSnackbar(
+          'Buat PIN Berhasil',
+          'PIN berhasil dibuat untuk mengamankan akun anda',
+        );
+        Get.offAllNamed('/dashboard');
       }
+    } on dio.DioException catch (e) {
+      failedSnackbar(
+        'Ups Sepertinya Terjadi Kesalahan',
+        'code:${e.response?.statusCode}',
+      );
     }
   }
 
@@ -294,14 +319,21 @@ class ProfileController extends GetxController {
     showLoading();
 
     try {
-      await profileProvider.changePin(formData);
-      successSnackbar(
-          'Ganti PIN Berhasil', 'PIN keamanan akun anda berhasil diganti');
-      Get.offAllNamed('/dashboard');
-    } on dio.DioException catch (e) {
-      if (e.response?.statusCode == 500) {
-        failedSnackbar('Ganti PIN Gagal', 'Ups sepertinya terjadi kesalahan');
+      final response = await profileProvider.changePin(formData);
+
+      if (response.statusCode == 200) {
+        Get.back();
+        successSnackbar(
+          'Ganti PIN Berhasil',
+          'PIN keamanan akun anda berhasil diganti',
+        );
+        Get.offAllNamed('/dashboard');
       }
+    } on dio.DioException catch (e) {
+      failedSnackbar(
+        'Ups Sepertinya Terjadi Kesalahan',
+        'code:${e.response?.statusCode}',
+      );
     }
   }
 }

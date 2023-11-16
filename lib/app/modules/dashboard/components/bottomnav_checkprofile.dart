@@ -58,7 +58,11 @@ class BottomNavCheckProfile extends StatelessWidget {
                 fgColor: Colors.white,
                 label: 'Lengkapi Sekarang',
                 onPressed: () {
-                  Get.toNamed('/editProfile');
+                  if (controller.profile.value?.pin == null) {
+                    Get.toNamed('/createPin');
+                  } else {
+                    Get.toNamed('/editProfile');
+                  }
                 },
               ),
             ),
