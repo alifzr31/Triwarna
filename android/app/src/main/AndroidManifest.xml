@@ -24,7 +24,10 @@
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true">
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCw-czF9XMrZyKOvolAcyt0N6Bk4EgS2IM"/>
+            android:value="AIzaSyCw-czF9XMrZyKOvolAcyt0N6Bk4EgS2IM" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher_foreground" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
