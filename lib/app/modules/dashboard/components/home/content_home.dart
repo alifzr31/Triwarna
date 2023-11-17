@@ -15,7 +15,7 @@ class ContentHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 240,
+      height: 250,
       width: Get.width,
       margin: const EdgeInsets.symmetric(vertical: 15),
       child: Obx(
