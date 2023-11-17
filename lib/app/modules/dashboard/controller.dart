@@ -389,6 +389,7 @@ class DashboardController extends GetxController {
       } else {
         profile.value = null;
         contentLoading.value = true;
+        noMember.value = null;
         await fetchProfile();
         await sendDeviceToken();
         await fetchContent();
