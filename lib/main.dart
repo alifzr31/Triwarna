@@ -16,14 +16,12 @@ import 'package:intl/intl.dart';
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   final LocalNotif localNotif = LocalNotif();
-  String title = message.notification!.title.toString().toLowerCase();
-  bool payloadAnnouncement = title.contains('announcement');
 
   localNotif.showNotifications(
     id: message.notification.hashCode,
     title: message.notification?.title,
     body: message.notification?.body,
-    payload: payloadAnnouncement.toString(),
+    payload: message.notification?.android?.imageUrl,
   );
 }
 

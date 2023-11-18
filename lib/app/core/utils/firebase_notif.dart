@@ -7,13 +7,14 @@ class FirebaseNotif {
 
   void requestNotificationPermission() async {
     NotificationSettings settings = await messaging.requestPermission(
-        alert: true,
-        announcement: true,
-        badge: true,
-        carPlay: true,
-        criticalAlert: true,
-        provisional: true,
-        sound: true);
+      alert: true,
+      announcement: true,
+      badge: true,
+      carPlay: true,
+      criticalAlert: true,
+      provisional: true,
+      sound: true,
+    );
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       print('yey');
@@ -26,11 +27,12 @@ class FirebaseNotif {
 
   void firebaseInit() {
     FirebaseMessaging.onMessage.listen((message) {
-      print('Test');
       localNotif.showNotifications(
         id: message.notification.hashCode,
         title: message.notification?.title,
         body: message.notification?.body,
+        payload: message.data.toString(),
+        imageUrl: message.notification?.android?.imageUrl
       );
     });
 

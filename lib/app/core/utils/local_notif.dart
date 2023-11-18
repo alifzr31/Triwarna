@@ -1,6 +1,39 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
+
+class Image {
+  static Future<Uint8List> downloadImage(String imageUrl) async {
+    final dio = Dio();
+
+    try {
+      final response = await dio.get<List<int>>(
+        imageUrl,
+        options: Options(responseType: ResponseType.bytes),
+      );
+
+      return Uint8List.fromList(response.data!);
+    } on DioException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
+    }
+  }
+
+  static Future<String> saveImage(Uint8List? imageBytes) async {
+    final directory = await getTemporaryDirectory();
+    final filePath = '${directory.path}/temporary_image.png';
+    await File(filePath).writeAsBytes(imageBytes ?? []);
+    return filePath;
+  }
+}
 
 class LocalNotif {
   //instance of FlutterLocalNotificationsPlugin
@@ -32,7 +65,12 @@ class LocalNotif {
         onSelectNotification: onSelectNotification);
   }
 
-  onSelectNotification(String? payload) {}
+  onSelectNotification(String? payload) async {
+    // final pyld =
+    //     await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
+    Map<String, dynamic> data = jsonDecode(payload ?? '');
+    print(data);
+  }
 
   requestIOSPermissions() {
     flutterLocalNotificationsPlugin
@@ -45,8 +83,8 @@ class LocalNotif {
         );
   }
 
-  Future<void> showNotifications({id, title, body, payload}) async {
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+  Future<void> showNotifications({id, title, body, payload, imageUrl}) async {
+    AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
       'your channel id',
       'Local Notification',
@@ -54,8 +92,18 @@ class LocalNotif {
       importance: Importance.max,
       priority: Priority.high,
       ticker: 'ticker',
+      fullScreenIntent: false,
+      largeIcon: FilePathAndroidBitmap(
+          await Image.saveImage(await Image.downloadImage(imageUrl))),
+      styleInformation: BigPictureStyleInformation(
+        FilePathAndroidBitmap(
+            await Image.saveImage(await Image.downloadImage(imageUrl))),
+        contentTitle: title,
+        summaryText: body,
+        hideExpandedLargeIcon: true,
+      ),
     );
-    const NotificationDetails platformChannelSpecifics =
+    NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin
         .show(id, title, body, platformChannelSpecifics, payload: payload);
