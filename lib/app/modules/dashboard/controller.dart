@@ -330,7 +330,9 @@ class DashboardController extends GetxController {
           markerId: MarkerId(element.id.toString()),
           icon: await BitmapDescriptor.fromAssetImage(
             const ImageConfiguration(),
-            'assets/images/mapicon.png',
+            defaultTargetPlatform == TargetPlatform.android
+                ? 'assets/images/mapicon_android.png'
+                : 'assets/images/mapicon_ios.png',
           ),
           position: LatLng(
             double.parse(element.lat ?? ''),
