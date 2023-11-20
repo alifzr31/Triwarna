@@ -55,7 +55,7 @@ class FooterMenuBox extends StatelessWidget {
           ),
           onPressed: () {
             Get.bottomSheet(
-              backgroundColor: softPurpleColor,
+              backgroundColor: Colors.white,
               SizedBox(
                 height: 300,
                 child: Column(
