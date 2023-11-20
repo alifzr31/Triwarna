@@ -13,7 +13,7 @@ class VoucherPage extends StatelessWidget {
       appBar: const BaseAppBar(
         bgColor: purpleColor,
         fgColor: Colors.white,
-        title: 'Voucher Saya',
+        title: 'Voucher',
         preferredSize: Size.fromHeight(kToolbarHeight),
       ),
       body: Column(

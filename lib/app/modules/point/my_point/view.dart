@@ -15,7 +15,7 @@ class PointPage extends StatelessWidget {
       appBar: const BaseAppBar(
         bgColor: purpleColor,
         fgColor: Colors.white,
-        title: 'Poin Saya',
+        title: 'Poin',
         preferredSize: Size.fromHeight(kToolbarHeight),
       ),
       body: PointBody(),
