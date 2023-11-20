@@ -24,59 +24,54 @@ class SplashBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Stack(
-            children: [
-              Center(
-                child: Lottie.asset(
-                  'assets/lotties/splash.json',
-                  width: 150,
-                  frameRate: FrameRate(240),
-                  repeat: true,
-                ),
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Stack(
+          children: [
+            Center(
+              child: Lottie.asset(
+                'assets/lotties/splash.json',
+                width: 150,
+                frameRate: FrameRate(240),
+                repeat: true,
               ),
-              // Positioned(
-              //   bottom: 200,
-              //   left: 0,
-              //   right: 0,
-              //   child: Center(
-              //     child: CircularProgressIndicator(color: yellowColor),
-              //   ),
-              // ),
-              // const Positioned(
-              //   bottom: 0,
-              //   left: 0,
-              //   right: 0,
-              //   child: Center(
-              //     child: Column(
-              //       children: [
-              //         Text(
-              //           'Powered By',
-              //           style: TextStyle(
-              //             fontSize: 16,
-              //             fontWeight: FontWeight.w600,
-              //             color: yellowColor,
-              //           ),
-              //         ),
-              //         Text(
-              //           'DEV-IT Anyargroup',
-              //           style: TextStyle(
-              //             fontWeight: FontWeight.w600,
-              //             color: yellowColor,
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-            ],
-          ),
+            ),
+            // Positioned(
+            //   bottom: 200,
+            //   left: 0,
+            //   right: 0,
+            //   child: Center(
+            //     child: CircularProgressIndicator(color: yellowColor),
+            //   ),
+            // ),
+            // const Positioned(
+            //   bottom: 0,
+            //   left: 0,
+            //   right: 0,
+            //   child: Center(
+            //     child: Column(
+            //       children: [
+            //         Text(
+            //           'Powered By',
+            //           style: TextStyle(
+            //             fontSize: 16,
+            //             fontWeight: FontWeight.w600,
+            //             color: yellowColor,
+            //           ),
+            //         ),
+            //         Text(
+            //           'DEV-IT Anyargroup',
+            //           style: TextStyle(
+            //             fontWeight: FontWeight.w600,
+            //             color: yellowColor,
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+          ],
         ),
       ),
     );
