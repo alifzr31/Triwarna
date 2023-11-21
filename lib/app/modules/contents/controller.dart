@@ -11,8 +11,12 @@ class ContentsController extends GetxController {
 
   ContentsController({required this.contentsProvider});
 
-  final contents = <Content>[].obs;
-  final contentsLoading = true.obs;
+  final currentTab = 0.obs;
+
+  final event = <Content>[].obs;
+  final promo = <Content>[].obs;
+  final eventLoading = true.obs;
+  final promoLoading = true.obs;
 
   final title = Rx<String?>(null);
   final slug = Rx<String?>(null);
@@ -22,34 +26,94 @@ class ContentsController extends GetxController {
 
   @override
   void onInit() {
-    fetchContents();
+    fetchEvent();
+    fetchPromo();
     super.onInit();
   }
 
   @override
   void onClose() {
-    contents.clear();
+    event.clear();
+    promo.clear();
     super.onClose();
   }
 
-  Future<void> fetchContents() async {
+  Future<void> fetchEvent() async {
     try {
       final response = await contentsProvider.fetchContents();
-      final List<Content> body = response.data['data'] == null
-          ? []
-          : listContentFromJson(jsonEncode(response.data['data']));
 
-      contents.value = body;
+      if (response.statusCode == 200) {
+        final List<Content> body = response.data['data'] == null
+            ? []
+            : listContentFromJson(jsonEncode(response.data['data']));
+
+        event.value = body
+            .where((e) => e.category.toString().toLowerCase().contains('event'))
+            .toList();
+      }
     } on DioException catch (e) {
       failedSnackbar(
         'Ups sepertinya terjadi kesalahan',
         'code:${e.response?.statusCode}',
       );
     } finally {
-      contentsLoading.value = false;
+      eventLoading.value = false;
       update();
     }
   }
+
+  Future<void> fetchPromo() async {
+    try {
+      final response = await contentsProvider.fetchContents();
+
+      if (response.statusCode == 200) {
+        final List<Content> body = response.data['data'] == null
+            ? []
+            : listContentFromJson(jsonEncode(response.data['data']));
+
+        promo.value = body
+            .where((e) => e.category.toString().toLowerCase().contains('promo'))
+            .toList();
+      }
+    } on DioException catch (e) {
+      failedSnackbar(
+        'Ups sepertinya terjadi kesalahan',
+        'code:${e.response?.statusCode}',
+      );
+    } finally {
+      promoLoading.value = false;
+      update();
+    }
+  }
+
+  // Future<void> fetchContents() async {
+  //   try {
+  //     final response = await contentsProvider.fetchContents();
+
+  //     if (response.statusCode == 200) {
+  //       final List<Content> body = response.data['data'] == null
+  //           ? []
+  //           : listContentFromJson(jsonEncode(response.data['data']));
+
+  //       event.value = body
+  //           .where((e) => e.category.toString().toLowerCase().contains('event'))
+  //           .toList();
+
+  //       promo.value = body
+  //           .where((e) => e.category.toString().toLowerCase().contains('promo'))
+  //           .toList();
+  //     }
+  //   } on DioException catch (e) {
+  //     failedSnackbar(
+  //       'Ups sepertinya terjadi kesalahan',
+  //       'code:${e.response?.statusCode}',
+  //     );
+  //   } finally {
+  //     eventLoading.value = false;
+  //     promoLoading.value = false;
+  //     update();
+  //   }
+  // }
 
   Future<void> fetchDetailContent() async {
     detailContentLoading.value = true;
@@ -68,10 +132,31 @@ class ContentsController extends GetxController {
     }
   }
 
-  Future<void> refreshContents() async {
+  // Future<void> refreshContents() async {
+  //   await Future.delayed(const Duration(milliseconds: 2500), () {
+  //     // contentsLoading.value = true;
+  //     // fetchContents();
+  //     if (currentTab.value == 0) {
+  //       eventLoading.value = true;
+  //       fetchContents();
+  //     } else {
+  //       promoLoading.value = true;
+  //       fetchContents();
+  //     }
+  //   });
+  // }
+
+  Future<void> refreshEvent() async {
     await Future.delayed(const Duration(milliseconds: 2500), () {
-      contentsLoading.value = true;
-      fetchContents();
+      eventLoading.value = true;
+      fetchEvent();
+    });
+  }
+
+  Future<void> refreshPromo() async {
+    await Future.delayed(const Duration(milliseconds: 2500), () {
+      promoLoading.value = true;
+      fetchPromo();
     });
   }
 }

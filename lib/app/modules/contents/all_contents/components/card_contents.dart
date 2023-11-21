@@ -26,61 +26,90 @@ class CardContents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      clipBehavior: Clip.antiAlias,
-      margin: const EdgeInsets.only(bottom: 10),
-      color: Colors.white,
-      surfaceTintColor: Colors.white,
-      elevation: 3,
-      child: InkWell(
-        onTap: onTap,
-        child: Row(
-          children: [
-            Image.network(
-              '${ApiUrl.baseStorageUrl}/contents/$image',
-              width: 130,
-              height: 130,
-              fit: BoxFit.cover,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 5,
-                        vertical: 1,
-                      ),
-                      decoration: BoxDecoration(
-                        color: labelColor,
-                        borderRadius: BorderRadius.circular(3),
-                      ),
-                      child: BaseText(
-                        text: label,
-                        size: 12,
-                        color: Colors.white,
-                        bold: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    BaseText(
-                      text: title,
-                      maxLines: 2,
-                      bold: FontWeight.bold,
-                    ),
-                    const SizedBox(height: 10),
-                    BaseText(text: 'Author : $author'),
-                    BaseText(text: date),
-                  ],
+    return SizedBox(
+      height: 135,
+      width: Get.width,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        clipBehavior: Clip.antiAlias,
+        margin: const EdgeInsets.only(bottom: 10),
+        color: Colors.white,
+        surfaceTintColor: Colors.white,
+        elevation: 3,
+        child: InkWell(
+          onTap: onTap,
+          child: Row(
+            children: [
+              Container(
+                width: 130,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: Image.network(
+                            '${ApiUrl.baseStorageUrl}/contents/$image')
+                        .image,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-          ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 5,
+                              vertical: 1,
+                            ),
+                            decoration: BoxDecoration(
+                              color: labelColor,
+                              borderRadius: BorderRadius.circular(3),
+                            ),
+                            child: BaseText(
+                              text: label,
+                              size: 12,
+                              color: Colors.white,
+                              bold: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          BaseText(
+                            text: title,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            bold: FontWeight.bold,
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          BaseText(
+                            text: 'Author : $author',
+                            size: 12,
+                            color: Colors.grey.shade600,
+                          ),
+                          BaseText(
+                            text: date,
+                            size: 12,
+                            color: Colors.grey.shade600,
+                            bold: FontWeight.w500,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
