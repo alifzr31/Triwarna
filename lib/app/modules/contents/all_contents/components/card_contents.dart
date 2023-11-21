@@ -30,7 +30,8 @@ class CardContents extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      margin: const EdgeInsets.only(bottom: 8),
+      clipBehavior: Clip.antiAlias,
+      margin: const EdgeInsets.only(bottom: 10),
       color: Colors.white,
       surfaceTintColor: Colors.white,
       elevation: 3,
@@ -38,17 +39,11 @@ class CardContents extends StatelessWidget {
         onTap: onTap,
         child: Row(
           children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                bottomLeft: Radius.circular(10),
-              ),
-              child: Image.network(
-                '${ApiUrl.baseStorageUrl}/contents/$image',
-                width: 130,
-                height: 130,
-                fit: BoxFit.cover,
-              ),
+            Image.network(
+              '${ApiUrl.baseStorageUrl}/contents/$image',
+              width: 130,
+              height: 130,
+              fit: BoxFit.cover,
             ),
             Expanded(
               child: Padding(
@@ -56,16 +51,27 @@ class CardContents extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    BaseText(
-                      text: label,
-                      color: labelColor,
-                      bold: FontWeight.w500,
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 5,
+                        vertical: 1,
+                      ),
+                      decoration: BoxDecoration(
+                        color: labelColor,
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                      child: BaseText(
+                        text: label,
+                        size: 12,
+                        color: Colors.white,
+                        bold: FontWeight.w500,
+                      ),
                     ),
+                    const SizedBox(height: 5),
                     BaseText(
                       text: title,
                       maxLines: 2,
-                      size: 16,
-                      bold: FontWeight.w600,
+                      bold: FontWeight.bold,
                     ),
                     const SizedBox(height: 10),
                     BaseText(text: 'Author : $author'),
