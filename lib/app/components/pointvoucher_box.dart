@@ -12,7 +12,7 @@ class PointVoucherBox extends StatelessWidget {
 
   final String totalPoint;
   final String totalVoucher;
-
+ 
   @override
   Widget build(BuildContext context) {
     return Card(
