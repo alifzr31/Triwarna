@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/core/utils/configs/firebase_options.dart';
+import 'package:triwarna_rebuild/app/core/utils/firebase_notif.dart';
 import 'package:triwarna_rebuild/app/core/utils/local_notif.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/routes/pages.dart';
@@ -21,7 +22,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     id: message.notification.hashCode,
     title: message.notification?.title,
     body: message.notification?.body,
-    payload: message.notification?.android?.imageUrl,
+    payload: message.data.toString(),
+    imageUrl: message.notification?.android?.imageUrl,
   );
 }
 
@@ -35,7 +37,11 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+
   FirebaseMessaging messaging = FirebaseMessaging.instance;
+  FirebaseNotif firebaseNotif = FirebaseNotif();
+
+  firebaseNotif.firebaseInit();
 
   NotificationSettings settings = await messaging.requestPermission(
     alert: true,

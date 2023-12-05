@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DetailCard extends StatelessWidget {
   const DetailCard({
@@ -24,10 +25,9 @@ class DetailCard extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: Row(
           children: [
-            const Icon(
-              Icons.airplane_ticket,
-              size: 30,
-              color: Colors.amber,
+            SvgPicture.asset(
+              'assets/images/kupon.svg',
+              width: 35,
             ),
             Expanded(
               child: Center(
@@ -41,10 +41,9 @@ class DetailCard extends StatelessWidget {
                 ),
               ),
             ),
-            const Icon(
-              Icons.airplane_ticket,
-              size: 30,
-              color: Colors.amber,
+            SvgPicture.asset(
+              'assets/images/kupon.svg',
+              width: 35,
             ),
           ],
         ),
