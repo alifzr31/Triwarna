@@ -19,11 +19,13 @@ class SplashController extends GetxController {
   }
 
   Future<void> checkUpdate() async {
-    await AppVersionUpdate.checkForUpdates(
-      playStoreId: 'id.co.triwarna.member',
-      appleId: '6451289751',
-      country: 'id',
-    ).then((result) async {
+    try {
+      final result = await AppVersionUpdate.checkForUpdates(
+        playStoreId: 'id.co.triwarna.member',
+        appleId: '6451289751',
+        country: 'id',
+      );
+
       if (result.canUpdate!) {
         await Future.delayed(const Duration(seconds: 3), () {
           Get.offAndToNamed(
@@ -37,7 +39,12 @@ class SplashController extends GetxController {
       } else {
         navigator();
       }
-    });
+    } on Error catch (e) {
+      if (kDebugMode) {
+        print(e);
+        rethrow;
+      }
+    }
   }
 
   void navigator() async {
