@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
@@ -66,10 +67,8 @@ class LocalNotif {
   }
 
   onSelectNotification(String? payload) async {
-    // final pyld =
-    //     await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
     Map<String, dynamic> data = jsonDecode(payload ?? '');
-    print(data);
+    Get.toNamed(data['setClickAction']);
   }
 
   requestIOSPermissions() {
@@ -84,6 +83,8 @@ class LocalNotif {
   }
 
   Future<void> showNotifications({id, title, body, payload, imageUrl}) async {
+    print('$imageUrl. ${imageUrl.runtimeType}');
+
     AndroidNotificationDetails androidPlatformChannelSpecifics =
         AndroidNotificationDetails(
       'your channel id',
@@ -93,15 +94,19 @@ class LocalNotif {
       priority: Priority.high,
       ticker: 'ticker',
       fullScreenIntent: false,
-      largeIcon: FilePathAndroidBitmap(
-          await Image.saveImage(await Image.downloadImage(imageUrl))),
-      styleInformation: BigPictureStyleInformation(
-        FilePathAndroidBitmap(
-            await Image.saveImage(await Image.downloadImage(imageUrl))),
-        contentTitle: title,
-        summaryText: body,
-        hideExpandedLargeIcon: true,
-      ),
+      largeIcon: imageUrl == null
+          ? null
+          : FilePathAndroidBitmap(
+              await Image.saveImage(await Image.downloadImage(imageUrl))),
+      styleInformation: imageUrl == null
+          ? null
+          : BigPictureStyleInformation(
+              FilePathAndroidBitmap(
+                  await Image.saveImage(await Image.downloadImage(imageUrl))),
+              contentTitle: title,
+              summaryText: body,
+              hideExpandedLargeIcon: true,
+            ),
     );
     NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
