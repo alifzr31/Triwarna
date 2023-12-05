@@ -31,18 +31,31 @@ class SplashBody extends StatelessWidget {
           children: [
             Center(
               child: Lottie.asset(
-                'assets/lotties/splash.json',
-                width: 150,
+                'assets/lotties/spl.json',
+                width: 250,
                 frameRate: FrameRate(240),
                 repeat: true,
               ),
             ),
-            // Positioned(
-            //   bottom: 200,
+            // const Positioned(
+            //   bottom: 0,
             //   left: 0,
             //   right: 0,
             //   child: Center(
-            //     child: CircularProgressIndicator(color: yellowColor),
+            //     child: Column(
+            //       children: [
+            //         BaseText(
+            //           text: 'Triwarna v1.1.17',
+            //           color: yellowColor,
+            //           bold: FontWeight.w500,
+            //         ),
+            //         BaseText(
+            //           text: 'PT Anyar Retail Indonesia',
+            //           color: yellowColor,
+            //           bold: FontWeight.w500,
+            //         ),
+            //       ],
+            //     ),
             //   ),
             // ),
             // const Positioned(
