@@ -7,6 +7,7 @@ import 'package:triwarna_rebuild/app/components/base_shimmer.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/components/pointvoucher_box.dart';
 import 'package:triwarna_rebuild/app/core/utils/api_url.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/core/values/gradients.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/home/show_qr.dart';
@@ -307,8 +308,10 @@ class HeaderAccount extends StatelessWidget {
               ),
             if (controller.token.value != null)
               PointVoucherBox(
-                totalPoint: controller.profile.value?.loyaltyPoint ?? '',
-                totalVoucher: controller.profile.value?.voucherTotal ?? '',
+                totalPoint: AppHelpers.thousandFormat(
+                    int.parse(controller.profile.value?.loyaltyPoint ?? '0')),
+                totalVoucher: AppHelpers.thousandFormat(
+                    int.parse(controller.profile.value?.voucherTotal ?? '0')),
               ),
           ],
         ),

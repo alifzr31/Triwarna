@@ -19,6 +19,16 @@ class AppHelpers {
     return formatter.format(currency);
   }
 
+  static String thousandFormat(int currency) {
+    final formatter = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: '',
+      decimalDigits: 0,
+    );
+
+    return formatter.format(currency);
+  }
+
   static String monthYearFormat(DateTime dateTime) {
     final formatter = DateFormat('MMMM yyyy');
     return formatter.format(dateTime);

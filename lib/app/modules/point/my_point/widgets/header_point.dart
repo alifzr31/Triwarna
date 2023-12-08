@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/core/values/gradients.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
@@ -38,7 +39,8 @@ class HeaderPoint extends StatelessWidget {
             () => controller.pointLoading.value
                 ? const MyPointBoxLoading()
                 : MyPointBox(
-                    totalPoint: controller.lastPoint.value ?? '',
+                    totalPoint: AppHelpers.thousandFormat(
+                        int.parse(controller.lastPoint.value ?? '0')),
                     totalTransaction: controller.totalTransaction.value ?? '',
                     loyaltyLevel: userController.profile.value?.loyalty
                             .toString()
