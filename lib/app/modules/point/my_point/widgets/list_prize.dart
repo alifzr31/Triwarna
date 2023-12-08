@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:triwarna_rebuild/app/components/base_nodata.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
 import 'package:triwarna_rebuild/app/modules/point/controller.dart';
@@ -79,55 +78,46 @@ class ListPrize extends StatelessWidget {
                         return const PrizeCardLoading();
                       },
                     )
-                  : controller.prize.isEmpty
-                      ? BaseNoData(
-                          label: 'Hadiah Tidak Ditemukan',
-                          labelButton: 'Refresh Hadiah',
-                          onPressed: () {
-                            controller.prizeLoading.value = true;
-                            controller.fetchPrize();
-                          },
-                        )
-                      : GridView.builder(
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                          ),
-                          itemCount: controller.searchPrize.value == null
-                              ? controller.prize.length
-                              : controller.filteredPrize.length,
-                          itemBuilder: (context, index) {
-                            final prize = controller.searchPrize.value == null
-                                ? controller.prize[index]
-                                : controller.filteredPrize[index];
-                            final point = int.parse(prize.point.toString());
-                            final userPoint =
-                                int.parse(controller.lastPoint.value ?? '');
+                  : GridView.builder(
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemCount: controller.searchPrize.value == null
+                          ? controller.prize.length
+                          : controller.filteredPrize.length,
+                      itemBuilder: (context, index) {
+                        final prize = controller.searchPrize.value == null
+                            ? controller.prize[index]
+                            : controller.filteredPrize[index];
+                        final point = int.parse(prize.point.toString());
+                        final userPoint =
+                            int.parse(controller.lastPoint.value ?? '');
 
-                            return PrizeCard(
-                              point: prize.point ?? '',
-                              image: prize.image ?? '',
-                              prizeDesc: prize.prizeDesc ?? '',
-                              onPressed: userPoint < 50 || userPoint < point
-                                  ? null
-                                  : () {
-                                      redeemDialog(
-                                        context,
-                                        prize,
-                                        controller.store,
-                                        controller.selectedStore.value,
-                                        controller.formKey.value,
-                                        userController.profile.value?.pin,
-                                        controller.completeProfile.value,
-                                      );
-                                    },
-                            );
-                          },
-                        ),
+                        return PrizeCard(
+                          point: prize.point ?? '',
+                          image: prize.image ?? '',
+                          prizeDesc: prize.prizeDesc ?? '',
+                          onPressed: userPoint < 50 || userPoint < point
+                              ? null
+                              : () {
+                                  redeemDialog(
+                                    context,
+                                    prize,
+                                    controller.store,
+                                    controller.selectedStore.value,
+                                    controller.formKey.value,
+                                    userController.profile.value?.pin,
+                                    controller.completeProfile.value,
+                                  );
+                                },
+                        );
+                      },
+                    ),
             ),
           ],
         ),
