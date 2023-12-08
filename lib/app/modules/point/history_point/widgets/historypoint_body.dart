@@ -34,8 +34,12 @@ class HistoryPointBody extends StatelessWidget {
                 : controller.point.isEmpty
                     ? Container(
                         color: Colors.white,
+                        padding: const EdgeInsets.all(15),
                         child: BaseNoData(
-                          label: 'Riwayat Poin Tidak Ada',
+                          image: 'empty_point.svg',
+                          title: 'Riwayat Poin Kosong',
+                          subtitle:
+                              'Transaksi barang untuk mendapatkan poin, lalu tukarkan dengan hadiah menarik.',
                           labelButton: 'Refresh Riwayat Poin',
                           onPressed: () {
                             controller.pointLoading.value = true;

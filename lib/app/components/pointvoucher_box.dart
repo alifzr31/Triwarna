@@ -19,6 +19,7 @@ class PointVoucherBox extends StatelessWidget {
       color: Colors.white,
       elevation: 3,
       surfaceTintColor: Colors.white,
+      clipBehavior: Clip.antiAlias,
       child: Row(
         children: [
           Expanded(
