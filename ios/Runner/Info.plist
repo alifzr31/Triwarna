@@ -34,6 +34,10 @@
 	<string>Membutuhkan akses lokasi untuk menemukan toko terdekat dari anda.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Membutuhkan akses lokasi untuk menemukan toko terdekat dari anda.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Membutuhkan akses untuk mengakses media</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Membutuhkan akes untuk mengupload photo profile</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
