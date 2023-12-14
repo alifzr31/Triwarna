@@ -10,6 +10,7 @@ class BaseText extends StatelessWidget {
     this.size,
     this.color,
     this.bold,
+    this.fontFamily,
   }) : super(key: key);
 
   final String text;
@@ -19,6 +20,7 @@ class BaseText extends StatelessWidget {
   final double? size;
   final Color? color;
   final FontWeight? bold;
+  final String? fontFamily;
 
 
   @override
@@ -32,6 +34,7 @@ class BaseText extends StatelessWidget {
         fontSize: size,
         color: color,
         fontWeight: bold,
+        fontFamily: fontFamily,
       ),
     );
   }

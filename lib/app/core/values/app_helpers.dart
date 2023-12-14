@@ -48,4 +48,13 @@ class AppHelpers {
     final formatter = DateFormat('E, dd MMMM yyyy');
     return formatter.format(dateTime);
   }
+
+  static String addSpaces(String input) {
+    List<String> chunks = [];
+    int length = input.length;
+    for (int i = 0; i < length; i += 4) {
+      chunks.add(input.substring(i, i + 4 < length ? i + 4 : length));
+    }
+    return chunks.join(' ');
+  }
 }

@@ -198,6 +198,7 @@ class HeaderAccount extends StatelessWidget {
                             controller.noMember.value ?? '',
                             style: TextStyle(
                               fontSize: 18,
+                              fontFamily: 'OCR-A',
                               fontWeight: FontWeight.w600,
                               letterSpacing: Get.width < 390 ? 4 : 5,
                             ),
