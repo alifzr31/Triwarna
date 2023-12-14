@@ -34,9 +34,13 @@ class PointController extends GetxController {
   final date = Rx<String?>(null);
 
   final formKey = GlobalKey<FormState>().obs;
+  final cityLoading = true.obs;
+  final city = <String>[].obs;
+  final selectedCity = Rx<String?>(null);
   final store = <Store>[].obs;
-  final storeLoading = true.obs;
+  final storeLoading = false.obs;
   final selectedStore = Rx<String?>(null);
+  final selectedStoreName = Rx<String?>(null);
 
   @override
   void onInit() async {
@@ -54,7 +58,7 @@ class PointController extends GetxController {
 
     await fetchPoint();
     await fetchPrize();
-    await fetchAllStore();
+    await fetchCity();
     super.onInit();
   }
 
@@ -62,6 +66,7 @@ class PointController extends GetxController {
   void onClose() {
     point.clear();
     prize.clear();
+    city.clear();
     store.clear();
     selectedStore.value = null;
     super.onClose();
@@ -107,9 +112,31 @@ class PointController extends GetxController {
     }
   }
 
-  Future<void> fetchAllStore() async {
+  Future<void> fetchCity() async {
     try {
-      final response = await pointProvider.fetchAllStore();
+      final response = await pointProvider.fetchCity();
+
+      if (response.statusCode == 200) {
+        final List<String> body = response.data['data'] == null
+            ? []
+            : List<String>.from(response.data['data'].map((e) => e.toString()));
+        city.value = body;
+      }
+    } on DioException catch (e) {
+      failedSnackbar(
+        'Load Kota/Kabupaten Gagal',
+        'Ups sepertinya terjadi kesalahan. code(${e.response?.statusCode})',
+      );
+    } finally {
+      cityLoading.value = false;
+      update();
+    }
+  }
+
+  Future<void> fetchStore() async {
+    storeLoading.value = true;
+    try {
+      final response = await pointProvider.fetchStore(selectedCity.value);
 
       if (response.statusCode == 200) {
         final List<Store> body = response.data['data'] == null
@@ -120,7 +147,7 @@ class PointController extends GetxController {
       }
     } on DioException catch (e) {
       failedSnackbar(
-        'Load Cabang Gagal',
+        'Load Toko Gagal',
         'Ups sepertinya terjadi kesalahan. code:${e.response?.statusCode}',
       );
     } finally {

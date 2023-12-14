@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
+import 'package:triwarna_rebuild/app/core/values/custom_bottomsheet.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
 import 'package:triwarna_rebuild/app/modules/point/controller.dart';
 import 'package:triwarna_rebuild/app/modules/point/my_point/components/prize_card.dart';
-import 'package:triwarna_rebuild/app/modules/point/my_point/components/redeem_dialog.dart';
+import 'package:triwarna_rebuild/app/modules/point/my_point/components/select_toko_widget.dart';
 
 class ListPrize extends StatelessWidget {
   ListPrize({super.key});
@@ -99,23 +100,35 @@ class ListPrize extends StatelessWidget {
                             int.parse(controller.lastPoint.value ?? '');
 
                         return PrizeCard(
-                          point: prize.point ?? '',
-                          image: prize.image ?? '',
-                          prizeDesc: prize.prizeDesc ?? '',
-                          onPressed: userPoint < 50 || userPoint < point
-                              ? null
-                              : () {
-                                  redeemDialog(
-                                    context,
-                                    prize,
-                                    controller.store,
-                                    controller.selectedStore.value,
-                                    controller.formKey.value,
-                                    userController.profile.value?.pin,
-                                    controller.completeProfile.value,
-                                  );
-                                },
-                        );
+                            point: prize.point ?? '',
+                            image: prize.image ?? '',
+                            prizeDesc: prize.prizeDesc ?? '',
+                            onPressed: userPoint < 50 || userPoint < point
+                                ? null
+                                // : () {
+                                //     redeemDialog(
+                                //       context,
+                                //       prize,
+                                //       controller.cityLoading.value,
+                                //       controller.city,
+                                //       controller.selectedCity.value,
+                                //       controller.storeLoading.value,
+                                //       controller.store,
+                                //       controller.selectedStore.value,
+                                //       controller.formKey.value,
+                                //       userController.profile.value?.pin,
+                                //       controller.completeProfile.value,
+                                //     );
+                                //   },
+                                : () {
+                                    customBottomSheet(
+                                      330,
+                                      SelectTokoWidget(
+                                        prize: prize,
+                                        pin: userController.profile.value?.pin,
+                                      ),
+                                    );
+                                  });
                       },
                     ),
             ),

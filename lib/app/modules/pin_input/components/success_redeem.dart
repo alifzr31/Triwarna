@@ -5,7 +5,12 @@ import 'package:triwarna_rebuild/app/components/base_button.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
-void successRedeem(BuildContext context, String prizeDesc, String point) {
+void successRedeem(
+  BuildContext context,
+  String prizeDesc,
+  String point,
+  String storeName,
+) {
   AwesomeDialog(
     context: context,
     animType: AnimType.scale,
@@ -37,6 +42,13 @@ void successRedeem(BuildContext context, String prizeDesc, String point) {
               const TextSpan(text: 'dengan menukarkan '),
               TextSpan(
                 text: '$point poin',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const TextSpan(text: ' dari toko cabang '),
+              TextSpan(
+                text: storeName,
                 style: const TextStyle(
                   fontWeight: FontWeight.w600,
                 ),
