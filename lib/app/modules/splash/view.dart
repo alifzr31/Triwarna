@@ -24,59 +24,67 @@ class SplashBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return false;
-      },
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Stack(
-            children: [
-              Center(
-                child: Lottie.asset(
-                  'assets/lotties/splash.json',
-                  width: 150,
-                  frameRate: FrameRate(240),
-                  repeat: true,
-                ),
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Stack(
+          children: [
+            Center(
+              child: Lottie.asset(
+                'assets/lotties/spl.json',
+                width: 250,
+                frameRate: FrameRate(240),
+                repeat: true,
               ),
-              // Positioned(
-              //   bottom: 200,
-              //   left: 0,
-              //   right: 0,
-              //   child: Center(
-              //     child: CircularProgressIndicator(color: yellowColor),
-              //   ),
-              // ),
-              // const Positioned(
-              //   bottom: 0,
-              //   left: 0,
-              //   right: 0,
-              //   child: Center(
-              //     child: Column(
-              //       children: [
-              //         Text(
-              //           'Powered By',
-              //           style: TextStyle(
-              //             fontSize: 16,
-              //             fontWeight: FontWeight.w600,
-              //             color: yellowColor,
-              //           ),
-              //         ),
-              //         Text(
-              //           'DEV-IT Anyargroup',
-              //           style: TextStyle(
-              //             fontWeight: FontWeight.w600,
-              //             color: yellowColor,
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-            ],
-          ),
+            ),
+            // const Positioned(
+            //   bottom: 0,
+            //   left: 0,
+            //   right: 0,
+            //   child: Center(
+            //     child: Column(
+            //       children: [
+            //         BaseText(
+            //           text: 'Triwarna v1.1.17',
+            //           color: yellowColor,
+            //           bold: FontWeight.w500,
+            //         ),
+            //         BaseText(
+            //           text: 'PT Anyar Retail Indonesia',
+            //           color: yellowColor,
+            //           bold: FontWeight.w500,
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            // const Positioned(
+            //   bottom: 0,
+            //   left: 0,
+            //   right: 0,
+            //   child: Center(
+            //     child: Column(
+            //       children: [
+            //         Text(
+            //           'Powered By',
+            //           style: TextStyle(
+            //             fontSize: 16,
+            //             fontWeight: FontWeight.w600,
+            //             color: yellowColor,
+            //           ),
+            //         ),
+            //         Text(
+            //           'DEV-IT Anyargroup',
+            //           style: TextStyle(
+            //             fontWeight: FontWeight.w600,
+            //             color: yellowColor,
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+          ],
         ),
       ),
     );

@@ -14,7 +14,7 @@ class NearestHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      height: 210,
       width: Get.width,
       color: Colors.white,
       padding: const EdgeInsets.all(15),

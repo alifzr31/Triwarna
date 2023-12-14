@@ -31,6 +31,7 @@ class BodyBenefit extends StatelessWidget {
                 child: Column(
                   children: [
                     TabBar(
+                      indicatorSize: TabBarIndicatorSize.tab,
                       tabs: List.generate(
                         controller.tabBar.length,
                         (index) => controller.tabBar[index],

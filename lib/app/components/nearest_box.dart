@@ -68,11 +68,9 @@ class NearestBox extends StatelessWidget {
                 color: yellowColor.withOpacity(0.5),
                 child: Align(
                   alignment: Alignment.centerRight,
-                  child: Text(
-                    '$distance KM',
-                    style: const TextStyle(
-                      color: Color(0xFF323232),
-                    ),
+                  child: BaseText(
+                    text: '$distance KM',
+                    color: const Color(0xFF323232),
                   ),
                 ),
               ),

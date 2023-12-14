@@ -6,14 +6,14 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/modules/contents/all_contents/components/card_contents.dart';
 import 'package:triwarna_rebuild/app/modules/contents/controller.dart';
 
-class BodyContents extends StatelessWidget {
-  BodyContents({super.key});
+class EventContent extends StatelessWidget {
+  EventContent({super.key});
   final controller = Get.find<ContentsController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => controller.contentsLoading.value
+      () => controller.eventLoading.value
           ? ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.all(15),
@@ -22,30 +22,29 @@ class BodyContents extends StatelessWidget {
                 return const CardContentsLoading();
               },
             )
-          : controller.contents.isEmpty
+          : controller.event.isEmpty
               ? BaseNoData(
-                  label: 'Event dan Promo Tidak Ditemukan',
-                  labelButton: 'Refresh Event dan Promo',
+                  label: 'Event Tidak Ditemukan',
+                  labelButton: 'Refresh Event',
                   onPressed: () {
-                    controller.contentsLoading.value = true;
-                    controller.fetchContents();
+                    controller.eventLoading.value = true;
+                    controller.fetchEvent();
                   },
                 )
               : RefreshIndicator(
-                  onRefresh: controller.refreshContents,
+                  onRefresh: controller.refreshEvent,
                   child: ListView.builder(
                     padding: const EdgeInsets.all(15),
-                    itemCount: controller.contents.length,
+                    itemCount: controller.event.length,
                     itemBuilder: (context, index) {
-                      final contents = controller.contents[index];
-                      final date = AppHelpers.dateFormat(contents.createdAt ?? DateTime(0000));
+                      final contents = controller.event[index];
+                      final date = AppHelpers.dayDateFormat(
+                          contents.createdAt ?? DateTime(0000));
 
                       return CardContents(
                         image: contents.featuredImage ?? '',
                         label: contents.category.toString().capitalize ?? '',
-                        labelColor: contents.category == 'event'
-                            ? yellowColor
-                            : purpleColor,
+                        labelColor: yellowColor,
                         title: contents.title ?? '',
                         author: contents.authorId ?? '',
                         date: date,
