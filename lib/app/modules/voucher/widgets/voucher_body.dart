@@ -22,54 +22,50 @@ class VoucherBody extends StatelessWidget {
                 },
               )
             : controller.voucher.isEmpty
-                ? BaseNoData(
-                    label: 'Voucher Tidak Ada',
-                    labelButton: 'Refresh Voucher',
-                    onPressed: () {
-                      controller.isLoading.value = true;
-                      controller.fetchVoucher();
-                    },
-                  )
-                : controller.voucher.isEmpty
-                    ? BaseNoData(
-                        label: 'Voucher masih kosong',
-                        labelButton: 'Refresh Voucher',
-                        onPressed: () {
-                          controller.fetchVoucher();
-                        },
-                      )
-                    : RefreshIndicator(
-                        onRefresh: controller.refreshVoucher,
-                        child: ListView.builder(
-                          padding: const EdgeInsets.all(15),
-                          itemCount: controller.voucher.length,
-                          itemBuilder: (context, index) {
-                            final voucher = controller.voucher[index];
+                ? Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: BaseNoData(
+                      image: 'empty_voucher.svg',
+                      title: 'Voucher Tidak Ada',
+                      subtitle: 'Untuk mendapatkan voucher, tukar point dengan hadiah yang tersedia.',
+                      labelButton: 'Refresh Voucher',
+                      onPressed: () {
+                        controller.isLoading.value = true;
+                        controller.fetchVoucher();
+                      },
+                    ),
+                )
+                : RefreshIndicator(
+                    onRefresh: controller.refreshVoucher,
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(15),
+                      itemCount: controller.voucher.length,
+                      itemBuilder: (context, index) {
+                        final voucher = controller.voucher[index];
 
-                            return CardVoucher(
-                              qrImage: voucher.qrcode ?? '',
-                              namaBarang: voucher.hadiah?.deskripsiBarang ?? '',
-                              serialNumber: voucher.code ?? '',
-                              status: voucher.statusHadiah?.status ?? '',
-                              medalImage: controller.loyaltyLevel.value
-                                          ?.toLowerCase() ==
-                                      'silver'
-                                  ? 'silver_medal.svg'
-                                  : controller.loyaltyLevel.value
-                                              ?.toLowerCase() ==
-                                          'gold'
-                                      ? 'gold_medal.svg'
-                                      : 'platinum_medal.svg',
-                              onTap: () {
-                                Get.toNamed(
-                                  '/tracking',
-                                  arguments: voucher.serialNumber,
-                                );
-                              },
+                        return CardVoucher(
+                          qrImage: voucher.qrcode ?? '',
+                          namaBarang: voucher.hadiah?.deskripsiBarang ?? '',
+                          serialNumber: voucher.code ?? '',
+                          status: voucher.statusHadiah?.status ?? '',
+                          medalImage: controller.loyaltyLevel.value
+                                      ?.toLowerCase() ==
+                                  'silver'
+                              ? 'silver_medal.svg'
+                              : controller.loyaltyLevel.value?.toLowerCase() ==
+                                      'gold'
+                                  ? 'gold_medal.svg'
+                                  : 'platinum_medal.svg',
+                          onTap: () {
+                            Get.toNamed(
+                              '/tracking',
+                              arguments: voucher.serialNumber,
                             );
                           },
-                        ),
-                      ),
+                        );
+                      },
+                    ),
+                  ),
       ),
     );
   }

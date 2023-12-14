@@ -18,6 +18,7 @@ class PinInputController extends GetxController {
 
   final prize = Rx<Prize?>(null);
   final seletedStore = Rx<String?>(null);
+  final storeName = Rx<String?>(null);
   final pinDigits = List.filled(6, '').obs;
   final currentDigitIndex = 0.obs;
   final visible = false.obs;
@@ -29,6 +30,7 @@ class PinInputController extends GetxController {
     vibrateCheck();
     prize.value = Get.arguments['prize'];
     seletedStore.value = Get.arguments['storeCode'];
+    storeName.value = Get.arguments['storeName'];
     super.onInit();
   }
 
@@ -49,6 +51,7 @@ class PinInputController extends GetxController {
           context,
           prize.value?.prizeDesc ?? '',
           prize.value?.point ?? '',
+          storeName.value ?? '',
         );
       }
     } on dio.DioException catch (e) {

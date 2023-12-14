@@ -1,5 +1,4 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/core/utils/local_notif.dart';
 
 class FirebaseNotif {

@@ -35,7 +35,9 @@ class ShoppingHistoryBody extends StatelessWidget {
             )
           : controller.shoppingHistory.isEmpty
               ? BaseNoData(
-                  label: 'Riwayat belanja masih kosong',
+                  image: 'empty_shopping.svg',
+                  title: 'Riwayat belanja Kosong',
+                  subtitle: 'Ayo! segera transaksi menggunakan aplikasi Triwarna.',
                   labelButton: 'Refresh Riwayat Belanja',
                   onPressed: () {
                     controller.shoppingHistoryLoading.value = true;

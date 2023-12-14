@@ -16,9 +16,11 @@ class PointVoucherBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      margin: EdgeInsets.zero,
       color: Colors.white,
       elevation: 3,
       surfaceTintColor: Colors.white,
+      clipBehavior: Clip.antiAlias,
       child: Row(
         children: [
           Expanded(

@@ -19,6 +19,16 @@ class AppHelpers {
     return formatter.format(currency);
   }
 
+  static String thousandFormat(int currency) {
+    final formatter = NumberFormat.currency(
+      locale: 'id_ID',
+      symbol: '',
+      decimalDigits: 0,
+    );
+
+    return formatter.format(currency);
+  }
+
   static String monthYearFormat(DateTime dateTime) {
     final formatter = DateFormat('MMMM yyyy');
     return formatter.format(dateTime);
@@ -37,5 +47,14 @@ class AppHelpers {
   static String dayDateFormat(DateTime dateTime) {
     final formatter = DateFormat('E, dd MMMM yyyy');
     return formatter.format(dateTime);
+  }
+
+  static String addSpaces(String input) {
+    List<String> chunks = [];
+    int length = input.length;
+    for (int i = 0; i < length; i += 4) {
+      chunks.add(input.substring(i, i + 4 < length ? i + 4 : length));
+    }
+    return chunks.join(' ');
   }
 }

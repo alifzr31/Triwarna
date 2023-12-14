@@ -103,7 +103,9 @@ class _DetailContentPageState extends State<DetailContentPage> {
                           controller.detailContent.value?.content ?? '',
                           onErrorBuilder: (context, element, error) {
                             return BaseNoData(
-                              label: 'Ups sepertinya terjadi kesalahan',
+                              image: 'logo.svg',
+                              title: 'Ups sepertinya terjadi kesalahan',
+                              subtitle: '',
                               labelButton: 'Refresh Konten',
                               onPressed: () {},
                             );

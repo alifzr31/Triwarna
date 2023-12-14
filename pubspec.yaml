@@ -122,6 +122,10 @@ flutter:
           weight: 600
         - asset: assets/fonts/maisonneue/MaisonNeue-Bold.otf              
           weight: 700
+    - family: OCR-A
+      fonts:
+        - asset: assets/fonts/ocra/OCR-A Regular.ttf
+          weight: 400
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

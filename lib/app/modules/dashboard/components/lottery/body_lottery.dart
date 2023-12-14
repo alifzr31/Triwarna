@@ -72,7 +72,9 @@ class BodyLottery extends StatelessWidget {
                           )
                         : controller.lottery.isEmpty
                             ? BaseNoData(
-                                label: 'Data Undian Kosong',
+                                image: 'empty_lottery.svg',
+                                title: 'Data Undian Kosong',
+                                subtitle: 'Dapatkan undian di setiap pembelian barang di Triwarna.',
                                 labelButton: 'Refresh Undian',
                                 onPressed: () {
                                   controller.lotteryLoading.value = true;

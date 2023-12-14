@@ -4,6 +4,7 @@ import 'package:triwarna_rebuild/app/components/base_shimmer.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/components/pointvoucher_box.dart';
 import 'package:triwarna_rebuild/app/core/utils/api_url.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/core/values/gradients.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/home/menu_header.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/home/show_qr.dart';
@@ -81,7 +82,8 @@ class HeaderHome extends StatelessWidget {
                     ],
                   ),
             const SizedBox(height: 20),
-            controller.profile.value == null && controller.noMember.value == null &&
+            controller.profile.value == null &&
+                    controller.noMember.value == null &&
                     controller.token.value != null
                 ? BaseShimmer(
                     child: MemberCard(
@@ -110,10 +112,11 @@ class HeaderHome extends StatelessWidget {
                                   children: [
                                     Text(
                                       controller.noMember.value ?? '',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
-                                        letterSpacing: Get.width < 390 ? 2 : 3,
+                                        fontFamily: 'OCR-A',
+                                        letterSpacing: 2,
                                       ),
                                     ),
                                     BaseText(
@@ -150,10 +153,10 @@ class HeaderHome extends StatelessWidget {
                           ),
                         ),
                         PointVoucherBox(
-                          totalPoint:
-                              controller.profile.value?.loyaltyPoint ?? '',
-                          totalVoucher:
-                              controller.profile.value?.voucherTotal ?? '',
+                          totalPoint: AppHelpers.thousandFormat(int.parse(
+                              controller.profile.value?.loyaltyPoint ?? '0')),
+                          totalVoucher: AppHelpers.thousandFormat(int.parse(
+                              controller.profile.value?.voucherTotal ?? '0')),
                         ),
                       ],
                     ),

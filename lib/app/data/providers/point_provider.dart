@@ -11,7 +11,17 @@ class PointProvider extends DioClient {
     return await get(EndPoint.prize);
   }
 
-  Future<Response> fetchAllStore() async {
-    return await get(EndPoint.store);
+  Future<Response> fetchCity() async {
+    return await get(
+      EndPoint.store,
+      queryParams: {'type': 'choice'},
+    );
+  }
+
+  Future<Response> fetchStore(city) async {
+    return await get(
+      EndPoint.store,
+      queryParams: {'city': city},
+    );
   }
 }
