@@ -112,10 +112,11 @@ class HeaderHome extends StatelessWidget {
                                   children: [
                                     Text(
                                       controller.noMember.value ?? '',
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
-                                        letterSpacing: Get.width < 390 ? 2 : 3,
+                                        fontFamily: 'OCR-A',
+                                        letterSpacing: 2,
                                       ),
                                     ),
                                     BaseText(
