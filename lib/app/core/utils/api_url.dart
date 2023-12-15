@@ -1,6 +1,6 @@
 class ApiUrl {
-  static const String baseUrl = 'http://staging.triwarna.co.id/api';
-  static const String baseStorageUrl = 'http://staging.triwarna.co.id/storage';
+  static const String baseUrl = 'http://member.triwarna.co.id/api';
+  static const String baseStorageUrl = 'http://member.triwarna.co.id/storage';
   static EndPoint endPoint = EndPoint();
   static StorageUrl storageUrl = StorageUrl();
 }
