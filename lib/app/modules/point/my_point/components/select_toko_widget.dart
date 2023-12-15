@@ -34,18 +34,19 @@ class SelectTokoWidget extends StatelessWidget {
           child: Column(
             children: [
               const BaseText(
-                text: 'Pilih Toko Terlebih Dahulu',
+                text: 'Pengiriman/Pengambilan Barang\ndi Toko Cabang',
                 size: 16,
-                bold: FontWeight.w600,
+                bold: FontWeight.bold,
+                textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 5),
               Expanded(
                 child: Form(
                   key: controller.formKey.value,
                   child: Column(
                     children: [
                       BaseFormGroupDropdown(
-                        label: 'Pilih Kota/Kabupaten',
+                        label: '',
                         hint: controller.cityLoading.value
                             ? 'Mohon Tunggu...'
                             : 'Pilih Kota/Kabupaten',
@@ -70,9 +71,8 @@ class SelectTokoWidget extends StatelessWidget {
                           return null;
                         },
                       ),
-                      const SizedBox(height: 15),
                       BaseFormGroupDropdown(
-                        label: 'Pilih Toko Cabang',
+                        label: '',
                         hint: controller.selectedCity.value == null
                             ? 'Pilih kota terlebih dahulu'
                             : controller.storeLoading.value

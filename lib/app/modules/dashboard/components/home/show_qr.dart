@@ -74,10 +74,15 @@ void showQR(
                     text: 'Barcode ID Saya',
                     size: 16,
                   ),
-                  BaseText(
-                    text: AppHelpers.addSpaces(noMember),
-                    bold: FontWeight.w600,
-                    fontFamily: 'OCR-A',
+                  Text(
+                    AppHelpers.addSpaces(noMember),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      letterSpacing: 2,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'OCR-A',
+                    ),
                   ),
                   Expanded(
                     child: Image.network(
