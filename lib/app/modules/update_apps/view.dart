@@ -80,26 +80,14 @@ class UpdateBody extends StatelessWidget {
                   ],
                 ),
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: BaseOutlineButton(
-                      borderColor: purpleColor,
-                      fgColor: purpleColor,
-                      label: 'Mungkin Nanti',
-                      onPressed: controller.navigator,
-                    ),
-                  ),
-                  const SizedBox(width: 15),
-                  Expanded(
-                    child: BaseButton(
-                      bgColor: purpleColor,
-                      fgColor: Colors.white,
-                      label: 'Update Sekarang',
-                      onPressed: controller.updatePlayStore,
-                    ),
-                  ),
-                ],
+              SizedBox(
+                width: Get.width,
+                child: BaseButton(
+                  bgColor: purpleColor,
+                  fgColor: Colors.white,
+                  label: 'Update Sekarang',
+                  onPressed: controller.updatePlayStore,
+                ),
               )
             ],
           ),
