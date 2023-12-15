@@ -8,13 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SplashController extends GetxController {
   @override
   void onInit() async {
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      await checkUpdate();
-    } else if (defaultTargetPlatform == TargetPlatform.iOS) {
-      await checkUpdate();
-    } else {
-      navigator();
-    }
+    await checkUpdate();
     super.onInit();
   }
 
