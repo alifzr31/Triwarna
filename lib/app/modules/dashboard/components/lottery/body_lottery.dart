@@ -112,7 +112,7 @@ class BodyLottery extends StatelessWidget {
                                             tanggal: date.value ?? '',
                                             detailData: ListView.builder(
                                               itemCount: int.parse(
-                                                  lottery.value?.total ?? ''),
+                                                  lottery.value?.total ?? '0'),
                                               itemBuilder: (context, idx) {
                                                 final couponDetail = lottery
                                                     .value?.kuponDetail?[idx];
