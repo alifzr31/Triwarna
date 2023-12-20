@@ -27,17 +27,17 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Membutuhkan akses lokasi untuk menemukan toko terdekat dari anda.</string>
+	<string>Need Access location for find nearby store</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Membutuhkan akses lokasi untuk menemukan toko terdekat dari anda.</string>
+	<string>Need Access location for find nearby store</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Membutuhkan akses lokasi untuk menemukan toko terdekat dari anda.</string>
+	<string>Need Access location for find nearby store</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Membutuhkan akses lokasi untuk menemukan toko terdekat dari anda.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Membutuhkan akses untuk mengakses media</string>
+	<string>Need Access location for find nearby store</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Membutuhkan akes untuk mengupload photo profile</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Membutuhkan akses untuk mengakses media</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>
