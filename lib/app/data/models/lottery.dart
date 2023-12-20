@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 Lottery lotteryFromJson(String str) => Lottery.fromJson(json.decode(str));
 
 String lotteryToJson(Lottery data) => json.encode(data.toJson());
@@ -14,20 +16,29 @@ List<Lottery> listLotteryFromJson(String str) =>
 String listLotteryToJson(List<Lottery> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Lottery {
-  String? docNum;
-  String? noStruk;
-  DateTime? tanggal;
-  String? total;
-  List<KuponDetail>? kuponDetail;
+class Lottery extends Equatable {
+  final String? docNum;
+  final String? noStruk;
+  final DateTime? tanggal;
+  final String? total;
+  final List<KuponDetail>? kuponDetail;
 
-  Lottery({
+  const Lottery({
     this.docNum,
     this.noStruk,
     this.tanggal,
     this.total,
     this.kuponDetail,
   });
+
+  @override
+  List<Object?> get props => [
+        docNum,
+        noStruk,
+        tanggal,
+        total,
+        kuponDetail,
+      ];
 
   factory Lottery.fromJson(Map<String, dynamic> json) => Lottery(
         docNum: json["DocNum"],
@@ -52,16 +63,23 @@ class Lottery {
       };
 }
 
-class KuponDetail {
-  String? noTransaksi;
-  String? preFix;
-  String? noUndian;
+class KuponDetail extends Equatable {
+  final String? noTransaksi;
+  final String? preFix;
+  final String? noUndian;
 
-  KuponDetail({
+  const KuponDetail({
     this.noTransaksi,
     this.preFix,
     this.noUndian,
   });
+
+  @override
+  List<Object?> get props => [
+        noTransaksi,
+        preFix,
+        noUndian,
+      ];
 
   factory KuponDetail.fromJson(Map<String, dynamic> json) => KuponDetail(
         noTransaksi: json["no_transaksi"],

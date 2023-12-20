@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 Tracking trackingFromJson(String str) => Tracking.fromJson(json.decode(str));
 
 String trackingToJson(Tracking data) => json.encode(data.toJson());
@@ -14,17 +16,17 @@ List<Tracking> listTrackingFromJson(String str) =>
 String listTrackingToJson(List<Tracking> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Tracking {
-  String? code;
-  String? serialNumber;
-  DateTime? createDate;
-  DateTime? validationDate;
-  String? length;
-  List<StatusHadiahDetail>? statusHadiahDetail;
-  Receipt? receipt;
-  Hadiah? hadiah;
+class Tracking extends Equatable {
+  final String? code;
+  final String? serialNumber;
+  final DateTime? createDate;
+  final DateTime? validationDate;
+  final String? length;
+  final List<StatusHadiahDetail>? statusHadiahDetail;
+  final Receipt? receipt;
+  final Hadiah? hadiah;
 
-  Tracking({
+  const Tracking({
     this.code,
     this.serialNumber,
     this.createDate,
@@ -34,6 +36,18 @@ class Tracking {
     this.receipt,
     this.hadiah,
   });
+
+  @override
+  List<Object?> get props => [
+        code,
+        serialNumber,
+        createDate,
+        validationDate,
+        length,
+        statusHadiahDetail,
+        receipt,
+        hadiah,
+      ];
 
   factory Tracking.fromJson(Map<String, dynamic> json) => Tracking(
         code: json["Code"],
@@ -68,18 +82,26 @@ class Tracking {
       };
 }
 
-class StatusHadiahDetail {
-  String? noKupon;
-  String? status;
-  DateTime? date;
-  String? process;
+class StatusHadiahDetail extends Equatable {
+  final String? noKupon;
+  final String? status;
+  final DateTime? date;
+  final String? process;
 
-  StatusHadiahDetail({
+  const StatusHadiahDetail({
     this.noKupon,
     this.status,
     this.date,
     this.process,
   });
+
+  @override
+  List<Object?> get props => [
+        noKupon,
+        status,
+        date,
+        process,
+      ];
 
   factory StatusHadiahDetail.fromJson(Map<String, dynamic> json) =>
       StatusHadiahDetail(
@@ -98,16 +120,23 @@ class StatusHadiahDetail {
       };
 }
 
-class Receipt {
-  String? noKupon;
-  String? image;
-  String? signature;
+class Receipt extends Equatable {
+  final String? noKupon;
+  final String? image;
+  final String? signature;
 
-  Receipt({
+  const Receipt({
     this.noKupon,
     this.image,
     this.signature,
   });
+
+  @override
+  List<Object?> get props => [
+        noKupon,
+        image,
+        signature,
+      ];
 
   factory Receipt.fromJson(Map<String, dynamic> json) => Receipt(
         noKupon: json["no_kupon"],
@@ -122,15 +151,15 @@ class Receipt {
       };
 }
 
-class Hadiah {
-  int? kodeBarang;
-  String? namaBarang;
-  String? deskripsiBarang;
-  String? harga;
-  String? poin;
-  String? gambar;
+class Hadiah extends Equatable {
+  final int? kodeBarang;
+  final String? namaBarang;
+  final String? deskripsiBarang;
+  final String? harga;
+  final String? poin;
+  final String? gambar;
 
-  Hadiah({
+  const Hadiah({
     this.kodeBarang,
     this.namaBarang,
     this.deskripsiBarang,
@@ -138,6 +167,16 @@ class Hadiah {
     this.poin,
     this.gambar,
   });
+
+  @override
+  List<Object?> get props => [
+        kodeBarang,
+        namaBarang,
+        deskripsiBarang,
+        harga,
+        poin,
+        gambar,
+      ];
 
   factory Hadiah.fromJson(Map<String, dynamic> json) => Hadiah(
         kodeBarang: json["kode_barang"],

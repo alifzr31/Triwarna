@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 Kelurahan kelurahanFromJson(String str) => Kelurahan.fromJson(json.decode(str));
 
 String kelurahanToJson(Kelurahan data) => json.encode(data.toJson());
@@ -14,16 +16,23 @@ List<Kelurahan> listKelurahanFromJson(String str) =>
 String listKelurahanToJson(List<Kelurahan> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Kelurahan {
-  String? kdKelurahan;
-  String? namaKelurahan;
-  String? namaKecamatan;
+class Kelurahan extends Equatable {
+  final String? kdKelurahan;
+  final String? namaKelurahan;
+  final String? namaKecamatan;
 
-  Kelurahan({
+  const Kelurahan({
     this.kdKelurahan,
     this.namaKelurahan,
     this.namaKecamatan,
   });
+
+  @override
+  List<Object?> get props => [
+        kdKelurahan,
+        namaKelurahan,
+        namaKecamatan,
+      ];
 
   factory Kelurahan.fromJson(Map<String, dynamic> json) => Kelurahan(
         kdKelurahan: json["KdKelurahan"],

@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 
 ShoppingDetail shoppingDetailFromJson(String str) =>
     ShoppingDetail.fromJson(json.decode(str));
@@ -17,20 +18,29 @@ List<ShoppingDetail> listShoppingDetailFromJson(String str) =>
 String listShoppingDetailToJson(List<ShoppingDetail> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class ShoppingDetail {
-  String? itemCode;
-  String? dscription;
-  String? qty;
-  String? harga;
-  String? subTotal;
+class ShoppingDetail extends Equatable {
+  final String? itemCode;
+  final String? dscription;
+  final String? qty;
+  final String? harga;
+  final String? subTotal;
 
-  ShoppingDetail({
+  const ShoppingDetail({
     this.itemCode,
     this.dscription,
     this.qty,
     this.harga,
     this.subTotal,
   });
+
+  @override
+  List<Object?> get props => [
+        itemCode,
+        dscription,
+        qty,
+        harga,
+        subTotal,
+      ];
 
   factory ShoppingDetail.fromJson(Map<String, dynamic> json) => ShoppingDetail(
         itemCode: json["ItemCode"],

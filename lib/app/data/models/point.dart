@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 Point pointFromJson(String str) => Point.fromJson(json.decode(str));
 
 String pointToJson(Point data) => json.encode(data.toJson());
@@ -14,18 +16,18 @@ List<Point> listPointFromJson(String str) =>
 String listPointToJson(List<Point> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Point {
-  String? no;
-  String? code;
-  String? name;
-  DateTime? transactionDate;
-  String? pointBefore;
-  String? addSubAmount;
-  String? remainingPoint;
-  String? info;
-  String? pointUsedGained;
+class Point extends Equatable {
+  final String? no;
+  final String? code;
+  final String? name;
+  final DateTime? transactionDate;
+  final String? pointBefore;
+  final String? addSubAmount;
+  final String? remainingPoint;
+  final String? info;
+  final String? pointUsedGained;
 
-  Point({
+  const Point({
     this.no,
     this.code,
     this.name,
@@ -36,6 +38,19 @@ class Point {
     this.info,
     this.pointUsedGained,
   });
+
+  @override
+  List<Object?> get props => [
+        no,
+        code,
+        name,
+        transactionDate,
+        pointBefore,
+        addSubAmount,
+        remainingPoint,
+        info,
+        pointUsedGained,
+      ];
 
   factory Point.fromJson(Map<String, dynamic> json) => Point(
         no: json["No"],

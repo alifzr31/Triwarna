@@ -3,6 +3,7 @@
 //     final content = contentFromJson(jsonString);
 
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 Content contentFromJson(String str) => Content.fromJson(json.decode(str));
 
@@ -14,18 +15,18 @@ List<Content> listContentFromJson(String str) =>
 String listContentToJson(List<Content> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Content {
-  int? id;
-  String? authorId;
-  String? category;
-  String? title;
-  String? slug;
-  String? content;
-  String? featuredImage;
-  DateTime? createdAt;
-  DateTime? updatedAt;
+class Content extends Equatable {
+  final int? id;
+  final String? authorId;
+  final String? category;
+  final String? title;
+  final String? slug;
+  final String? content;
+  final String? featuredImage;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
-  Content({
+  const Content({
     this.id,
     this.authorId,
     this.category,
@@ -36,6 +37,19 @@ class Content {
     this.createdAt,
     this.updatedAt,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        authorId,
+        category,
+        title,
+        slug,
+        content,
+        featuredImage,
+        createdAt,
+        updatedAt,
+      ];
 
   factory Content.fromJson(Map<String, dynamic> json) => Content(
         id: json["id"],

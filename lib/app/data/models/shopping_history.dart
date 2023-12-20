@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 ShoppingHistory shoppingHistoryFromJson(String str) =>
     ShoppingHistory.fromJson(json.decode(str));
 
@@ -17,16 +19,16 @@ List<ShoppingHistory> listShoppingHistoryFromJson(String str) =>
 String listShoppingHistoryToJson(List<ShoppingHistory> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class ShoppingHistory {
-  String? docnum;
-  String? noStruk;
-  DateTime? date;
-  String? total;
-  String? noMember;
-  String? transactionHour;
-  String? totalItem;
+class ShoppingHistory extends Equatable {
+  final String? docnum;
+  final String? noStruk;
+  final DateTime? date;
+  final String? total;
+  final String? noMember;
+  final String? transactionHour;
+  final String? totalItem;
 
-  ShoppingHistory({
+  const ShoppingHistory({
     this.docnum,
     this.noStruk,
     this.date,
@@ -35,6 +37,17 @@ class ShoppingHistory {
     this.transactionHour,
     this.totalItem,
   });
+
+  @override
+  List<Object?> get props => [
+        docnum,
+        noStruk,
+        date,
+        total,
+        noMember,
+        transactionHour,
+        totalItem,
+      ];
 
   factory ShoppingHistory.fromJson(Map<String, dynamic> json) =>
       ShoppingHistory(

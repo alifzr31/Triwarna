@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 Store storeFromJson(String str) => Store.fromJson(json.decode(str));
 
 String storeToJson(Store data) => json.encode(data.toJson());
@@ -14,19 +16,19 @@ List<Store> listStoreFromJson(String str) =>
 String listStoreToJson(List<Store> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Store {
-  int? id;
-  String? storeName;
-  String? address;
-  String? phone;
-  String? lat;
-  String? long;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  String? storeCode;
-  String? distance;
+class Store extends Equatable {
+  final int? id;
+  final String? storeName;
+  final String? address;
+  final String? phone;
+  final String? lat;
+  final String? long;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+  final String? storeCode;
+  final String? distance;
 
-  Store({
+  const Store({
     this.id,
     this.storeName,
     this.address,
@@ -38,6 +40,20 @@ class Store {
     this.storeCode,
     this.distance,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        storeName,
+        address,
+        phone,
+        lat,
+        long,
+        createdAt,
+        updatedAt,
+        storeCode,
+        distance,
+      ];
 
   factory Store.fromJson(Map<String, dynamic> json) => Store(
         id: json["id"],

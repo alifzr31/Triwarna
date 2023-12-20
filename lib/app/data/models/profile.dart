@@ -4,48 +4,50 @@
 
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 Profile profileFromJson(String str) => Profile.fromJson(json.decode(str));
 
 String profileToJson(Profile data) => json.encode(data.toJson());
 
-class Profile {
-  String? noMember;
-  String? codeName;
-  String? loyalty;
-  String? username;
-  String? email;
-  String? idType;
-  String? idNumber;
-  String? name;
-  String? group;
-  String? pin;
-  String? gender;
-  DateTime? birthDate;
-  String? birthPlace;
-  String? image;
-  String? contact;
-  String? religion;
-  String? maritalStatus;
-  String? job;
-  dynamic villageId;
-  String? address;
-  dynamic village;
-  String? district;
-  String? city;
-  String? province;
-  String? postalCode;
-  String? fullAddress;
-  String? education;
-  String? loyaltyPoint;
-  DateTime? joinedDate;
-  String? spendingTotal;
-  String? statusActive;
-  String? verifyStatus;
-  DateTime? lastActivity;
-  bool? complete;
-  String? voucherTotal;
+class Profile extends Equatable {
+  final String? noMember;
+  final String? codeName;
+  final String? loyalty;
+  final String? username;
+  final String? email;
+  final String? idType;
+  final String? idNumber;
+  final String? name;
+  final String? group;
+  final String? pin;
+  final String? gender;
+  final DateTime? birthDate;
+  final String? birthPlace;
+  final String? image;
+  final String? contact;
+  final String? religion;
+  final String? maritalStatus;
+  final String? job;
+  final dynamic villageId;
+  final String? address;
+  final dynamic village;
+  final String? district;
+  final String? city;
+  final String? province;
+  final String? postalCode;
+  final String? fullAddress;
+  final String? education;
+  final String? loyaltyPoint;
+  final DateTime? joinedDate;
+  final String? spendingTotal;
+  final String? statusActive;
+  final String? verifyStatus;
+  final DateTime? lastActivity;
+  final bool? complete;
+  final String? voucherTotal;
 
-  Profile({
+  const Profile({
     this.noMember,
     this.codeName,
     this.loyalty,
@@ -82,6 +84,45 @@ class Profile {
     this.complete,
     this.voucherTotal,
   });
+
+  @override
+  List<Object?> get props => [
+        noMember,
+        codeName,
+        loyalty,
+        username,
+        email,
+        idType,
+        idNumber,
+        name,
+        group,
+        pin,
+        gender,
+        birthDate,
+        birthPlace,
+        image,
+        contact,
+        religion,
+        maritalStatus,
+        job,
+        villageId,
+        address,
+        village,
+        district,
+        city,
+        province,
+        postalCode,
+        fullAddress,
+        education,
+        loyaltyPoint,
+        joinedDate,
+        spendingTotal,
+        statusActive,
+        verifyStatus,
+        lastActivity,
+        complete,
+        voucherTotal,
+      ];
 
   factory Profile.fromJson(Map<String, dynamic> json) => Profile(
         noMember: json["no_member"],

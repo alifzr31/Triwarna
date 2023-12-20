@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 Voucher voucherFromJson(String str) => Voucher.fromJson(json.decode(str));
 
 String voucherToJson(Voucher data) => json.encode(data.toJson());
@@ -14,15 +16,15 @@ List<Voucher> listVoucherFromJson(String str) =>
 String listVoucherToJson(List<Voucher> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Voucher {
-  String? code;
-  String? uKodeHadiah;
-  String? serialNumber;
-  String? qrcode;
-  StatusHadiah? statusHadiah;
-  Hadiah? hadiah;
+class Voucher extends Equatable {
+  final String? code;
+  final String? uKodeHadiah;
+  final String? serialNumber;
+  final String? qrcode;
+  final StatusHadiah? statusHadiah;
+  final Hadiah? hadiah;
 
-  Voucher({
+  const Voucher({
     this.code,
     this.uKodeHadiah,
     this.serialNumber,
@@ -30,6 +32,16 @@ class Voucher {
     this.statusHadiah,
     this.hadiah,
   });
+
+  @override
+  List<Object?> get props => [
+        code,
+        uKodeHadiah,
+        serialNumber,
+        qrcode,
+        statusHadiah,
+        hadiah,
+      ];
 
   factory Voucher.fromJson(Map<String, dynamic> json) => Voucher(
         code: json["Code"],
@@ -52,16 +64,23 @@ class Voucher {
       };
 }
 
-class Hadiah {
-  int? kodeBarang;
-  String? namaBarang;
-  String? deskripsiBarang;
+class Hadiah extends Equatable {
+  final int? kodeBarang;
+  final String? namaBarang;
+  final String? deskripsiBarang;
 
-  Hadiah({
+  const Hadiah({
     this.kodeBarang,
     this.namaBarang,
     this.deskripsiBarang,
   });
+
+  @override
+  List<Object?> get props => [
+        kodeBarang,
+        namaBarang,
+        deskripsiBarang,
+      ];
 
   factory Hadiah.fromJson(Map<String, dynamic> json) => Hadiah(
         kodeBarang: json["kode_barang"],
@@ -76,14 +95,20 @@ class Hadiah {
       };
 }
 
-class StatusHadiah {
-  String? noKupon;
-  String? status;
+class StatusHadiah extends Equatable {
+  final String? noKupon;
+  final String? status;
 
-  StatusHadiah({
+  const StatusHadiah({
     this.noKupon,
     this.status,
   });
+
+  @override
+  List<Object?> get props => [
+        noKupon,
+        status,
+      ];
 
   factory StatusHadiah.fromJson(Map<String, dynamic> json) => StatusHadiah(
         noKupon: json["no_kupon"],

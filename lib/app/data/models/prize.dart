@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 Prize prizeFromJson(String str) => Prize.fromJson(json.decode(str));
 
 String prizeToJson(Prize data) => json.encode(data.toJson());
@@ -14,20 +16,29 @@ List<Prize> listPrizeFromJson(String str) =>
 String listPrizeToJson(List<Prize> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Prize {
-  String? prizeCode;
-  String? prizeName;
-  String? prizeDesc;
-  String? point;
-  String? image;
+class Prize extends Equatable {
+  final String? prizeCode;
+  final String? prizeName;
+  final String? prizeDesc;
+  final String? point;
+  final String? image;
 
-  Prize({
+  const Prize({
     this.prizeCode,
     this.prizeName,
     this.prizeDesc,
     this.point,
     this.image,
   });
+
+  @override
+  List<Object?> get props => [
+        prizeCode,
+        prizeName,
+        prizeDesc,
+        point,
+        image,
+      ];
 
   factory Prize.fromJson(Map<String, dynamic> json) => Prize(
         prizeCode: json["prize_code"],
