@@ -52,9 +52,10 @@ class MenuHeader extends StatelessWidget {
                 },
                 icon: SvgPicture.asset(
                   'assets/images/free_shipping.svg',
-                  width: 50,
+                  width: 40,
                 ),
               ),
+              const SizedBox(width: 5),
               IconButton(
                 padding: const EdgeInsets.all(0),
                 tooltip: 'Gratis Konsultasi',
@@ -91,9 +92,10 @@ class MenuHeader extends StatelessWidget {
                 },
                 icon: SvgPicture.asset(
                   'assets/images/free_consult.svg',
-                  width: 50,
+                  width: 35,
                 ),
               ),
+              const SizedBox(width: 5),
               IconButton(
                 padding: const EdgeInsets.all(0),
                 tooltip: 'Hadiah Menarik',
@@ -130,7 +132,7 @@ class MenuHeader extends StatelessWidget {
                 },
                 icon: SvgPicture.asset(
                   'assets/images/reward.svg',
-                  width: 50,
+                  width: 40,
                 ),
               ),
             ],
