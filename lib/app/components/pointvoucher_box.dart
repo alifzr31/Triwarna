@@ -70,7 +70,7 @@ class PointVoucherBox extends StatelessWidget {
                       child: Column(
                         children: [
                           const BaseText(
-                            text: 'Voucher',
+                            text: 'Voucher Anda',
                             bold: FontWeight.w600,
                           ),
                           BaseText(text: totalVoucher),
