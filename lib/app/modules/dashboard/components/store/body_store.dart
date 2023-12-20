@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sliding_box/flutter_sliding_box.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_button.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
-import 'package:triwarna_rebuild/app/modules/dashboard/components/store/backdrop_maps.dart';
-import 'package:triwarna_rebuild/app/modules/dashboard/components/store/header_store.dart';
-import 'package:triwarna_rebuild/app/modules/dashboard/components/store/list_store.dart';
+import 'package:triwarna_rebuild/app/modules/dashboard/components/store/custom_map.dart';
+import 'package:triwarna_rebuild/app/modules/dashboard/components/store/detail_box.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BodyStore extends StatelessWidget {
   BodyStore({super.key});
@@ -35,9 +35,15 @@ class BodyStore extends StatelessWidget {
                   BaseButton(
                     bgColor: purpleColor,
                     fgColor: Colors.white,
-                    label: 'Cari Toko Terdekat',
-                    onPressed: () {
-                      controller.fetchLocation();
+                    label: 'Temukan Toko Terdekat',
+                    onPressed: () async {
+                      controller.servicestatus.value =
+                          await Geolocator.isLocationServiceEnabled();
+                      if (controller.servicestatus.value) {
+                        await controller.fetchLocation();
+                      } else {
+                        await Geolocator.openLocationSettings();
+                      }
                     },
                   ),
                 ],
@@ -47,21 +53,63 @@ class BodyStore extends StatelessWidget {
               ? const Center(child: CircularProgressIndicator())
               : Stack(
                   children: [
-                    SlidingBox(
-                      controller: controller.boxController.value,
-                      collapsed: true,
-                      minHeight: 180,
-                      maxHeight: Get.height * 0.5,
-                      backdrop: Backdrop(
-                        body: BackdropMaps(),
-                      ),
-                      body: SizedBox(
-                        height: (Get.height * 0.5) - 30,
-                        width: Get.width,
-                        child: ListStore(),
-                      ),
+                    CustomMap(
+                      lat: controller.lat.value ??
+                          controller.selectedLat.value ??
+                          double.parse(controller.store.first.lat ?? ''),
+                      long: controller.long.value ??
+                          controller.selectedLong.value ??
+                          double.parse(controller.store.first.long ?? ''),
+                      markers: controller.markers,
+                      onTap: (latLong) {
+                        if (controller.showDetail.value) {
+                          controller.showDetail.value = false;
+                        }
+                      },
+                      onMapCreated: (mapController) {
+                        if (!controller.googleMapController.value.isCompleted) {
+                          controller.googleMapController.value
+                              .complete(mapController);
+                        }
+                      },
                     ),
-                    HeaderStore(),
+                    if (controller.showDetail.value)
+                      DetailBox(
+                        storeName: controller.nameDetail.value ?? '',
+                        storeAddress: controller.addressDetail.value ?? '',
+                        storePhone: controller.phoneDetail.value ?? '',
+                        storeDistance:
+                            controller.distanceDetail.value ?? '0.00 KM',
+                        lat: controller.selectedLat.value,
+                        long: controller.selectedLong.value,
+                        directionPressed: controller.directionStore,
+                        onTapPhone: () async {
+                          final url = Uri.parse(
+                            'https://api.whatsapp.com/send/?phone=%2B${controller.phoneDetail.value}&text&type=phone_number&app_absent=0',
+                          );
+                          final canLaunch = await canLaunchUrl(url);
+
+                          if (canLaunch) {
+                            await launchUrl(
+                              url,
+                              mode: LaunchMode.externalApplication,
+                            );
+                          }
+                        },
+                      ),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 26, right: 15),
+                        child: FloatingActionButton(
+                          backgroundColor: purpleColor,
+                          foregroundColor: Colors.white,
+                          elevation: 1,
+                          onPressed: controller.myLocation,
+                          child: const Icon(Icons.gps_fixed),
+                        ),
+                      ),
+                    )
                   ],
                 ),
     );

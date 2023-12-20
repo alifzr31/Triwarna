@@ -19,6 +19,7 @@ import 'package:triwarna_rebuild/app/data/models/profile.dart';
 import 'package:triwarna_rebuild/app/data/models/store.dart';
 import 'package:triwarna_rebuild/app/data/providers/dashboard_provider.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/bottomnav_checkprofile.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DashboardController extends GetxController {
   final DashboardProvider dashboardProvider;
@@ -59,6 +60,11 @@ class DashboardController extends GetxController {
   final storeLoading = false.obs;
   var servicestatus = false.obs;
   var haspermission = false.obs;
+  final nameDetail = Rx<String?>(null);
+  final addressDetail = Rx<String?>(null);
+  final phoneDetail = Rx<String?>(null);
+  final distanceDetail = Rx<String?>(null);
+  final showDetail = false.obs;
 
   var markers = RxSet<Marker>();
   final selectedLat = Rx<double?>(null);
@@ -247,15 +253,9 @@ class DashboardController extends GetxController {
         if (permission == LocationPermission.denied) {
           permission = await Geolocator.requestPermission();
           if (permission == LocationPermission.denied) {
-            infoSnackbar(
-              'Akses GPS Tidak Diizinkan',
-              'Mohon izinkan aplikasi untuk selalu bisa mengakses GPS',
-            );
+            await Geolocator.openAppSettings();
           } else if (permission == LocationPermission.deniedForever) {
-            infoSnackbar(
-              'Akses GPS Tidak Diizinkan',
-              'Mohon izinkan aplikasi untuk selalu bisa mengakses GPS',
-            );
+            await Geolocator.openAppSettings();
           } else {
             haspermission.value = true;
           }
@@ -286,11 +286,6 @@ class DashboardController extends GetxController {
 
           update();
         }
-      } else {
-        infoSnackbar(
-          'GPS Tidak Aktif',
-          'Mohon aktifkan GPS untuk menjalankan fitur ini',
-        );
       }
     } catch (e) {
       failedSnackbar('Gagal Menangkap Lokasi', e.toString());
@@ -324,10 +319,10 @@ class DashboardController extends GetxController {
   }
 
   Future<void> createMarkers() async {
-    store.forEach((element) async {
+    for (var element in store) {
       markers.add(
         Marker(
-          markerId: MarkerId(element.id.toString()),
+          markerId: MarkerId(element.storeCode.toString()),
           icon: await BitmapDescriptor.fromAssetImage(
             const ImageConfiguration(),
             defaultTargetPlatform == TargetPlatform.android
@@ -338,16 +333,22 @@ class DashboardController extends GetxController {
             double.parse(element.lat ?? ''),
             double.parse(element.long ?? ''),
           ),
-          infoWindow: InfoWindow(
-            title: element.storeName,
-            snippet: element.address,
-          ),
-          // onTap: () {
-          //   visible.value = true;
-          // },
+          onTap: () {
+            nameDetail.value = element.storeName;
+            addressDetail.value = element.address;
+            phoneDetail.value = element.phone;
+            if (element.distance != null) {
+              final parser = double.parse(element.distance ?? '');
+              distanceDetail.value = '${parser.toStringAsFixed(2)} KM';
+            }
+            selectedLat.value = double.parse(element.lat ?? '0');
+            selectedLong.value = double.parse(element.long ?? '0');
+            moveStore();
+            showDetail.value = true;
+          },
         ),
       );
-    });
+    }
   }
 
   Future<void> moveStore() async {
@@ -360,25 +361,40 @@ class DashboardController extends GetxController {
             selectedLat.value ?? double.parse(store.first.lat ?? ''),
             selectedLong.value ?? double.parse(store.first.lat ?? ''),
           ),
-          zoom: 13,
+          zoom: 15,
         ),
       ),
     );
   }
 
   Future<void> myLocation() async {
+    showDetail.value = false;
     mapController.value = await googleMapController.value.future;
     await mapController.value?.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
           target: LatLng(
-            lat.value!,
-            long.value!,
+            lat.value ?? 0,
+            long.value ?? 0,
           ),
-          zoom: 13,
+          zoom: 15,
         ),
       ),
     );
+  }
+
+  void directionStore() async {
+    final url = Uri.parse(
+        'https://www.google.com/maps/dir/?api=1&destination=${selectedLat.value},${selectedLong.value}&dir_action=driving');
+
+    final canLaunch = await canLaunchUrl(url);
+
+    if (canLaunch) {
+      await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      );
+    }
   }
 
   Future<void> refreshHome() async {
