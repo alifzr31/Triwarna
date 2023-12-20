@@ -48,6 +48,7 @@ class DashboardController extends GetxController {
   final itemLottery = 20;
   final scrollController = ScrollController().obs;
   final currentDate = Rx<String?>(null);
+  final searchWinner = Rx<String?>(null);
 
   final googleMapController = Completer<GoogleMapController>().obs;
   final mapController = Rx<GoogleMapController?>(null);
@@ -235,6 +236,22 @@ class DashboardController extends GetxController {
     if (maxScroll == currentScroll && hasMore.value) {
       fetchLottery();
     }
+  }
+
+  void findCustomer(String customerName) {
+    searchWinner.value = customerName;
+    // List<WinnerModel> filteredWinner = [];
+
+    // for (WinnerModel winner in winners) {
+    //   for (CustomerModel customer in winner.customerModel) {
+    //     if (customer.name.toLowerCase().contains(customerName.toLowerCase())) {
+    //       filteredWinner.add(winner);
+    //       break;
+    //     }
+    //   }
+    // }
+
+    // winnerWithSearchCustomer.value = filteredWinner;
   }
 
   Future<void> fetchLocation() async {
