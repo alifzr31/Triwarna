@@ -40,6 +40,7 @@ class DashboardController extends GetxController {
   final content = <Content>[].obs;
   final contentLoading = true.obs;
 
+  final currentTabLottery = 0.obs;
   final lottery = <Lottery>[].obs;
   final lotteryLoading = true.obs;
   var hasMore = true.obs;
