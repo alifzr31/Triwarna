@@ -244,6 +244,8 @@ class ProfileController extends GetxController {
           'code:${e.response?.statusCode}',
         );
       }
+    } finally {
+      await userController.fetchProfile();
     }
   }
 
