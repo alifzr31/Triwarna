@@ -293,7 +293,7 @@ class DashboardController extends GetxController {
         );
       }
     } catch (e) {
-      failedSnackbar('Gagal Menangkap Lokasi', e.toString());
+      failedSnackbar('Gagal Menangkap Lokasi','Silahkan cek kembali jaringan dan gps anda');
     } finally {
       locationLoading.value = false;
       update();
