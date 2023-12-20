@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:triwarna_rebuild/app/components/base_button.dart';
-import 'package:triwarna_rebuild/app/components/base_text.dart';
+import 'package:triwarna_rebuild/app/components/base_nodata.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/store/custom_map.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/store/detail_box.dart';
@@ -16,35 +15,41 @@ class BodyStore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => controller.servicestatus.isFalse || controller.haspermission.isFalse
+      () => controller.haspermission.isFalse || controller.servicestatus.isFalse
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
-                    Icons.location_off_rounded,
-                    size: 100,
-                    color: purpleColor,
-                  ),
-                  const BaseText(
-                    text: 'Lokasi Tidak Ditemukan',
-                    size: 16,
-                    bold: FontWeight.w600,
-                  ),
-                  const SizedBox(height: 10),
-                  BaseButton(
-                    bgColor: purpleColor,
-                    fgColor: Colors.white,
-                    label: 'Temukan Toko Terdekat',
-                    onPressed: () async {
-                      controller.servicestatus.value =
-                          await Geolocator.isLocationServiceEnabled();
-                      if (controller.servicestatus.value) {
-                        await controller.fetchLocation();
-                      } else {
-                        await Geolocator.openLocationSettings();
-                      }
-                    },
+                  Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: BaseNoData(
+                      image: 'no_location.svg',
+                      title: controller.servicestatus.isFalse
+                          ? 'Akses Lokasi Tidak Aktif'
+                          : controller.haspermission.isFalse
+                              ? 'Akses Lokasi Tidak Diizinkan'
+                              : '',
+                      subtitle: controller.servicestatus.isFalse
+                          ? 'Nyalakan akses lokasi perangkat anda untuk melihat toko yang ada di dekat anda'
+                          : controller.haspermission.isFalse
+                              ? 'Berikan akses lokasi agar dapat melihat toko yang ada di dekat anda'
+                              : '',
+                      labelButton: controller.servicestatus.isFalse
+                          ? 'Nyalakan Akses Lokasi'
+                          : controller.haspermission.isFalse
+                              ? 'Izinkan Akses Lokasi'
+                              : '',
+                      onPressed: () async {
+                        controller.servicestatus.value =
+                            await Geolocator.isLocationServiceEnabled();
+
+                        if (controller.servicestatus.value) {
+                          await controller.fetchLocation();
+                        } else {
+                          await Geolocator.openLocationSettings();
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),
