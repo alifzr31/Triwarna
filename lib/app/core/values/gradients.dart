@@ -24,10 +24,9 @@ class GradientColor {
 
   static const gold = LinearGradient(
     colors: [
-      Color(0xFFAE8625),
-      Color(0xFFF7EF8A),
-      Color(0xFFD2AC47),
+      Color(0xFFD09A00),
       Color(0xFFEDC967),
+      Color(0xFFFFD285),
     ],
     begin: Alignment.bottomLeft,
     end: Alignment.topRight,
