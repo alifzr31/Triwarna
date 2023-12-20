@@ -169,21 +169,8 @@ class HeaderAccount extends StatelessWidget {
                                   InkWell(
                                     onTap: () {
                                       showQR(
-                                        controller.profile.value?.loyalty
-                                                    ?.toLowerCase() ==
-                                                'silver'
-                                            ? GradientColor.silver
-                                            : controller.profile.value?.loyalty
-                                                        ?.toLowerCase() ==
-                                                    'gold'
-                                                ? GradientColor.gold
-                                                : GradientColor.platinum,
-                                        controller.profile.value?.noMember ??
-                                            '',
-                                        controller.profile.value?.noMember ??
-                                            '',
-                                        controller.profile.value?.contact ?? '',
-                                      );
+                                          controller.profile.value?.noMember ??
+                                              '');
                                     },
                                     child: Image.network(
                                       '${ApiUrl.baseStorageUrl}/${StorageUrl.qr}/${controller.profile.value?.noMember}.png',
