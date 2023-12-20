@@ -10,7 +10,7 @@ import 'package:triwarna_rebuild/app/core/utils/api_url.dart';
 import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/core/values/gradients.dart';
-import 'package:triwarna_rebuild/app/modules/dashboard/components/home/show_qr.dart';
+import 'package:triwarna_rebuild/app/modules/dashboard/components/show_qr.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/member_card.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
 
@@ -194,8 +194,9 @@ class HeaderAccount extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 15),
-                          Text(
+                          SelectableText(
                             controller.noMember.value ?? '',
+                            textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 18,
                               fontFamily: 'OCR-A',

@@ -74,7 +74,7 @@ void showQR(
                     text: 'Barcode ID Saya',
                     size: 16,
                   ),
-                  Text(
+                  SelectableText(
                     AppHelpers.addSpaces(noMember),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
