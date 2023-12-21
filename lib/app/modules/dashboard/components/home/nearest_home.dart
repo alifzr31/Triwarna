@@ -95,14 +95,24 @@ class NearestHome extends StatelessWidget {
                               storeName: store.storeName ?? '',
                               address: store.address ?? '',
                               distance: distance,
-                              onTap: () async {
+                              onTap: () {
                                 controller.tabIndex.value = 2;
-                                controller.boxController.value.closeBox();
+                                controller.nameDetail.value = store.storeName;
+                                controller.addressDetail.value =
+                                    store.address;
+                                controller.phoneDetail.value = store.phone;
+                                if (store.distance != null) {
+                                  final parser =
+                                      double.parse(store.distance ?? '');
+                                  controller.distanceDetail.value =
+                                      '${parser.toStringAsFixed(2)} KM';
+                                }
                                 controller.selectedLat.value =
-                                    double.parse(store.lat ?? '');
+                                    double.parse(store.lat ?? '0');
                                 controller.selectedLong.value =
-                                    double.parse(store.long ?? '');
-                                await controller.moveStore();
+                                    double.parse(store.long ?? '0');
+                                controller.moveStore();
+                                controller.showDetail.value = true;
                               },
                             );
                           },

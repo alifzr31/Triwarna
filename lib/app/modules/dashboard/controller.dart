@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_sliding_box/flutter_sliding_box.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -52,7 +51,6 @@ class DashboardController extends GetxController {
 
   final googleMapController = Completer<GoogleMapController>().obs;
   final mapController = Rx<GoogleMapController?>(null);
-  final boxController = BoxController().obs;
 
   final positionStream = Rx<StreamSubscription<Position>?>(null);
   final lat = Rx<double?>(null);
