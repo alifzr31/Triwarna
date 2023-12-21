@@ -79,7 +79,7 @@ class TrackingBody extends StatelessWidget {
                                     width: 350,
                                     child: PhotoView(
                                       imageProvider: Image.network(
-                                              'https://member.triwarna.co.id/storage/attachments/${controller.tracking.value?.receipt?.image}')
+                                              ApiUrl.baseStorageUrl+'/attachments/${controller.tracking.value?.receipt?.image}')
                                           .image,
                                       backgroundDecoration: const BoxDecoration(
                                         color: Colors.transparent,
