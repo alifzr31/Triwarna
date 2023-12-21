@@ -5,6 +5,11 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 void showLoading() {
   Get.dialog(
     barrierDismissible: false,
-    const Center(child: CircularProgressIndicator(color: yellowColor)),
+    const Center(
+      child: CircularProgressIndicator(
+        color: yellowColor,
+        backgroundColor: softYellowColor,
+      ),
+    ),
   );
 }
