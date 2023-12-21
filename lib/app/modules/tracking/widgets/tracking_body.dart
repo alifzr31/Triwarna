@@ -48,7 +48,18 @@ class TrackingBody extends StatelessWidget {
               ),
               Expanded(
                 child: controller.tracking.value == null
-                    ? const Center(child: CircularProgressIndicator())
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          return TrackingItemLoading(
+                            index: index,
+                            length: 4,
+                          );
+                        },
+                      )
                     : ListView.builder(
                         shrinkWrap: true,
                         physics: const ClampingScrollPhysics(),
