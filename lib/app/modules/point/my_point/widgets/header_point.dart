@@ -38,6 +38,7 @@ class HeaderPoint extends StatelessWidget {
             ),
             MyPointCard(
               loyaltyPoint: userController.profile.value?.loyaltyPoint ?? '0',
+              pointLoading: controller.pointLoading.value,
             ),
           ],
         ),

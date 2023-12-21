@@ -12,11 +12,17 @@ class PointPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const BaseAppBar(
+      appBar: BaseAppBar(
         bgColor: purpleColor,
         fgColor: Colors.white,
         title: 'Poin',
-        preferredSize: Size.fromHeight(kToolbarHeight),
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        action: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.help_outline),
+          ),
+        ],
       ),
       body: PointBody(),
     );

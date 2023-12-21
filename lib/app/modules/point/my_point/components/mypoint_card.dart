@@ -8,9 +8,11 @@ class MyPointCard extends StatelessWidget {
   const MyPointCard({
     Key? key,
     required this.loyaltyPoint,
+    required this.pointLoading,
   }) : super(key: key);
 
   final String loyaltyPoint;
+  final bool pointLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -99,23 +101,24 @@ class MyPointCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  InkWell(
-                    onTap: () => Get.toNamed('/historyPoint'),
-                    child: const Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Icon(
-                            Icons.history,
-                            size: 20,
-                          ),
-                          SizedBox(width: 3),
-                          BaseText(text: 'Riwayat Poin'),
-                        ],
+                  if (pointLoading == false)
+                    InkWell(
+                      onTap: () => Get.toNamed('/historyPoint'),
+                      child: const Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Icon(
+                              Icons.history,
+                              size: 20,
+                            ),
+                            SizedBox(width: 3),
+                            BaseText(text: 'Riwayat Poin'),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
                 ],
               ),
             ],

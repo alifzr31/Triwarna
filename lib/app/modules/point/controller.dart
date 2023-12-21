@@ -17,9 +17,11 @@ class PointController extends GetxController {
 
   PointController({required this.pointProvider});
 
+  final currentTabHistory = 0.obs;
   final lastPoint = Rx<String?>(null);
   final lastTransaction = Rx<String?>(null);
-  final point = <Point>[].obs;
+  final increasePoint = <Point>[].obs;
+  final decreasePoint = <Point>[].obs;
   final pointLoading = true.obs;
 
   final searchPrize = Rx<String?>(null);
@@ -64,7 +66,8 @@ class PointController extends GetxController {
 
   @override
   void onClose() {
-    point.clear();
+    increasePoint.clear();
+    decreasePoint.clear();
     prize.clear();
     city.clear();
     store.clear();
@@ -81,7 +84,10 @@ class PointController extends GetxController {
           ? []
           : listPointFromJson(jsonEncode(response.data['point_history']));
 
-      point.value = body;
+      increasePoint.value =
+          body.where((e) => e.info.toString().contains('0')).toList();
+      decreasePoint.value =
+          body.where((e) => e.info.toString().contains('1')).toList();
     } on DioException catch (e) {
       failedSnackbar(
         'Load Point Gagal',
