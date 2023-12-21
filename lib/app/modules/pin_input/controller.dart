@@ -19,11 +19,10 @@ class PinInputController extends GetxController {
   final prize = Rx<Prize?>(null);
   final seletedStore = Rx<String?>(null);
   final storeName = Rx<String?>(null);
-  final pinDigits = List.filled(6, '').obs;
-  final currentDigitIndex = 0.obs;
-  final visible = false.obs;
 
   final canVibrate = true.obs;
+  final enteredPin = ''.obs;
+  final hasError = false.obs;
 
   @override
   void onInit() {
@@ -32,6 +31,35 @@ class PinInputController extends GetxController {
     seletedStore.value = Get.arguments['storeCode'];
     storeName.value = Get.arguments['storeName'];
     super.onInit();
+  }
+
+  void enterPin(BuildContext context, int number) async {
+    hasError.value = false;
+    if (enteredPin.value.length < 6) {
+      enteredPin.value += number.toString();
+    }
+
+    if (enteredPin.value.length == 6) {
+      if (enteredPin.value == userController.profile.value?.pin) {
+        hasError.value = false;
+
+        redeemPoint(context, prize.value?.prizeCode ?? '');
+      } else {
+        hasError.value = true;
+        enteredPin.value = '';
+        if (canVibrate.value) {
+          Vibrate.feedback(FeedbackType.error);
+        }
+      }
+    }
+  }
+
+  void deletePin() {
+    hasError.value = false;
+    if (enteredPin.value.isNotEmpty) {
+      enteredPin.value =
+          enteredPin.value.substring(0, enteredPin.value.length - 1);
+    }
   }
 
   void redeemPoint(BuildContext context, String prizeCode) async {
@@ -66,35 +94,5 @@ class PinInputController extends GetxController {
   Future<void> vibrateCheck() async {
     final check = await Vibrate.canVibrate;
     canVibrate.value = check;
-  }
-
-  void updatePinDigit(BuildContext context, String digit) async {
-    if (currentDigitIndex.value < 6) {
-      pinDigits[currentDigitIndex.value] = digit;
-      currentDigitIndex.value++;
-    }
-
-    if (currentDigitIndex.value == 6) {
-      final pin = pinDigits.join().obs;
-      if (pin.value == userController.profile.value?.pin) {
-        visible.value = false;
-
-        redeemPoint(context, prize.value?.prizeCode ?? '');
-      } else {
-        visible.value = true;
-        if (canVibrate.value) {
-          Vibrate.feedback(FeedbackType.error);
-        }
-      }
-    }
-  }
-
-  void deletePinDigit() {
-    if (currentDigitIndex.value > 0) {
-      currentDigitIndex.value--;
-      pinDigits[currentDigitIndex.value] = '';
-    }
-
-    visible.value = false;
   }
 }

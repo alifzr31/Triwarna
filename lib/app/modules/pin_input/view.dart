@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:triwarna_rebuild/app/components/base_appbar.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
-import 'package:triwarna_rebuild/app/modules/pin_input/widgets/pin_number.dart';
+import 'package:triwarna_rebuild/app/modules/pin_input/widgets/pin_body.dart';
+import 'package:triwarna_rebuild/app/modules/pin_input/widgets/pin_header.dart';
 
 class PinInputPage extends StatelessWidget {
   const PinInputPage({super.key});
@@ -15,7 +16,12 @@ class PinInputPage extends StatelessWidget {
         title: 'Tukar Poin',
         preferredSize: Size.fromHeight(kToolbarHeight),
       ),
-      body: PinNumber(),
+      body: Column(
+        children: [
+          PinHeader(),
+          PinBody(),
+        ],
+      ),
     );
   }
 }
