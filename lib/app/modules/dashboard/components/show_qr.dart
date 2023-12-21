@@ -57,6 +57,23 @@ void showQR(String noMember) async {
                       child: Image.network(
                         '${ApiUrl.baseStorageUrl}/qr/members/$noMember.png',
                         fit: BoxFit.cover,
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent? loadingProgress) {
+                          return loadingProgress == null
+                              ? child
+                              : Center(
+                                  child: CircularProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes !=
+                                            null
+                                        ? loadingProgress
+                                                .cumulativeBytesLoaded /
+                                            (loadingProgress
+                                                    .expectedTotalBytes ??
+                                                1)
+                                        : null,
+                                  ),
+                                );
+                        },
                       ),
                     ),
                     BaseText(

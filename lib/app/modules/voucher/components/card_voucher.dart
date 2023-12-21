@@ -49,7 +49,23 @@ class CardVoucher extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Image.network(
-                      '${ApiUrl.baseStorageUrl}/qr/points/$qrImage'),
+                    '${ApiUrl.baseStorageUrl}/qr/points/$qrImage',
+                    loadingBuilder: (BuildContext context, Widget child,
+                        ImageChunkEvent? loadingProgress) {
+                      return loadingProgress == null
+                          ? child
+                          : Center(
+                              child: CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes !=
+                                        null
+                                    ? loadingProgress.cumulativeBytesLoaded /
+                                        (loadingProgress.expectedTotalBytes ??
+                                            1)
+                                    : null,
+                              ),
+                            );
+                    },
+                  ),
                 ),
                 Expanded(
                   child: Padding(
@@ -98,8 +114,25 @@ class CardVoucher extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: Image.network(
-                              '${ApiUrl.baseStorageUrl}${StorageUrl.prize}/$image')
-                          .image,
+                        '${ApiUrl.baseStorageUrl}${StorageUrl.prize}/$image',
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent? loadingProgress) {
+                          return loadingProgress == null
+                              ? child
+                              : Center(
+                                  child: CircularProgressIndicator(
+                                    value: loadingProgress.expectedTotalBytes !=
+                                            null
+                                        ? loadingProgress
+                                                .cumulativeBytesLoaded /
+                                            (loadingProgress
+                                                    .expectedTotalBytes ??
+                                                1)
+                                        : null,
+                                  ),
+                                );
+                        },
+                      ).image,
                     ),
                   ),
                 ),

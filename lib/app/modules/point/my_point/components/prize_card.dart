@@ -61,7 +61,23 @@ class PrizeCard extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Image.network(
-                        '${ApiUrl.baseStorageUrl}${StorageUrl.prize}/$image'),
+                      '${ApiUrl.baseStorageUrl}${StorageUrl.prize}/$image',
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        return loadingProgress == null
+                            ? child
+                            : Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          (loadingProgress.expectedTotalBytes ??
+                                              1)
+                                      : null,
+                                ),
+                              );
+                      },
+                    ),
                   ),
                   const SizedBox(height: 5),
                   BaseText(

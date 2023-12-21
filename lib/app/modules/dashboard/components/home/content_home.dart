@@ -102,8 +102,27 @@ class ContentHome extends StatelessWidget {
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
                               image: Image.network(
-                                      '${ApiUrl.baseStorageUrl}/contents/${content.featuredImage}')
-                                  .image,
+                                '${ApiUrl.baseStorageUrl}/contents/${content.featuredImage}',
+                                loadingBuilder: (BuildContext context,
+                                    Widget child,
+                                    ImageChunkEvent? loadingProgress) {
+                                  return loadingProgress == null
+                                      ? child
+                                      : Center(
+                                          child: CircularProgressIndicator(
+                                            value: loadingProgress
+                                                        .expectedTotalBytes !=
+                                                    null
+                                                ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                    (loadingProgress
+                                                            .expectedTotalBytes ??
+                                                        1)
+                                                : null,
+                                          ),
+                                        );
+                                },
+                              ).image,
                               fit: BoxFit.cover,
                             ),
                           ),

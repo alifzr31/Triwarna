@@ -72,13 +72,32 @@ class HeaderEditProfile extends StatelessWidget {
                                 userController.profile.value?.image == null
                                     ? softPurpleColor
                                     : null,
-                            backgroundImage: userController
-                                        .profile.value?.image ==
-                                    null
-                                ? null
-                                : Image.network(
-                                        '${ApiUrl.baseStorageUrl}/profile/${userController.profile.value?.image}')
-                                    .image,
+                            backgroundImage:
+                                userController.profile.value?.image == null
+                                    ? null
+                                    : Image.network(
+                                        '${ApiUrl.baseStorageUrl}/profile/${userController.profile.value?.image}',
+                                        loadingBuilder: (BuildContext context,
+                                            Widget child,
+                                            ImageChunkEvent? loadingProgress) {
+                                          return loadingProgress == null
+                                              ? child
+                                              : Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    value: loadingProgress
+                                                                .expectedTotalBytes !=
+                                                            null
+                                                        ? loadingProgress
+                                                                .cumulativeBytesLoaded /
+                                                            (loadingProgress
+                                                                    .expectedTotalBytes ??
+                                                                1)
+                                                        : null,
+                                                  ),
+                                                );
+                                        },
+                                      ).image,
                             child: userController.profile.value?.image == null
                                 ? const Icon(
                                     EvaIcons.person,
