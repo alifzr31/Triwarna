@@ -48,4 +48,6 @@ class StorageUrl {
   static const String profile = '/profile';
   static const String qr = '/qr/members';
   static const String prize = '/prizes';
+  static const String attachments = '/attachments';
+  static const String signatures = '/signatures';
 }
