@@ -13,16 +13,20 @@ class TrackingController extends GetxController {
 
   final isLoading = true.obs;
   final tracking = Rx<Tracking?>(null);
+  final serialNumber = Rx<String?>(null);
+  final complete = false.obs;
 
   @override
   void onInit() {
+    serialNumber.value = Get.arguments['serialNumber'];
+    complete.value = Get.arguments['complete'];
     fetchTracking();
     super.onInit();
   }
 
   Future<void> fetchTracking() async {
     try {
-      final response = await trackingProvider.fetchTracking(Get.arguments);
+      final response = await trackingProvider.fetchTracking(serialNumber.value);
       tracking.value = trackingFromJson(jsonEncode(response.data['data']));
     } on DioException catch (e) {
       failedSnackbar(

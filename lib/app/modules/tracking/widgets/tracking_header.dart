@@ -28,12 +28,12 @@ class TrackingHeader extends StatelessWidget {
               color: Colors.grey.shade600,
             ),
             const SizedBox(height: 10),
-            controller.isLoading.value
-                ? const ItemVoucherBoxLoading()
-                : ItemVoucherBox(
-                    prizeName: controller.tracking.value?.hadiah?.deskripsiBarang ?? '',
-                    voucherCode: controller.tracking.value?.code ?? '',
-                  ),
+            ItemVoucherBox(
+              prizeName:
+                  controller.tracking.value?.hadiah?.deskripsiBarang ?? '',
+              voucherCode: controller.tracking.value?.code ?? '',
+              complete: controller.complete.value,
+            ),
           ],
         ),
       ),
