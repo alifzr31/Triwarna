@@ -28,7 +28,8 @@ class VoucherComplete extends StatelessWidget {
                     bold: FontWeight.w600,
                   ),
                   BaseText(
-                    text: 'Lihat data voucher penukaran poin yang sudah anda terima disini!',
+                    text:
+                        'Lihat data voucher penukaran poin yang sudah anda terima disini!',
                     size: 12,
                     color: Colors.grey.shade600,
                   ),
@@ -88,7 +89,10 @@ class VoucherComplete extends StatelessWidget {
                               onTap: () {
                                 Get.toNamed(
                                   '/tracking',
-                                  arguments: voucher.serialNumber,
+                                  arguments: {
+                                    'serialNumber': voucher.serialNumber,
+                                    'complete': true,
+                                  },
                                 );
                               },
                             );

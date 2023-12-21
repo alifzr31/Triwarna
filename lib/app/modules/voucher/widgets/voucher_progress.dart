@@ -88,7 +88,10 @@ class VoucherProgress extends StatelessWidget {
                               onTap: () {
                                 Get.toNamed(
                                   '/tracking',
-                                  arguments: voucher.serialNumber,
+                                  arguments: {
+                                    'serialNumber': voucher.serialNumber,
+                                    'complete': false,
+                                  },
                                 );
                               },
                             );
