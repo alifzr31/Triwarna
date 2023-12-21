@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_shimmer.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
+import 'package:triwarna_rebuild/app/core/utils/api_url.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class CardVoucher extends StatelessWidget {
@@ -44,7 +45,7 @@ class CardVoucher extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Image.network(
-                      'https://member.triwarna.co.id/storage/qr/points/$qrImage'),
+                      '${ApiUrl.baseStorageUrl}/qr/points/$qrImage'),
                 ),
                 Expanded(
                   child: Padding(
