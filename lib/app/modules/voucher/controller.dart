@@ -12,7 +12,9 @@ class VoucherController extends GetxController {
 
   VoucherController({required this.voucherProvider});
 
-  final voucher = <Voucher>[].obs;
+  final currentTab = 0.obs;
+  final voucherProgress = <Voucher>[].obs;
+  final voucherComplete = <Voucher>[].obs;
   final isLoading = true.obs;
   final loyaltyLevel = Rx<String?>(null);
 
@@ -30,7 +32,8 @@ class VoucherController extends GetxController {
 
   @override
   void onClose() {
-    voucher.clear();
+    voucherProgress.clear();
+    voucherComplete.clear();
     super.onClose();
   }
 
@@ -41,7 +44,20 @@ class VoucherController extends GetxController {
           ? []
           : listVoucherFromJson(jsonEncode(response.data['data']));
 
-      voucher.value = body;
+      voucherProgress.value = body
+          .where((e) => !e.statusHadiah!.status
+              .toString()
+              .toLowerCase()
+              .trim()
+              .contains('terima'))
+          .toList();
+      voucherComplete.value = body
+          .where((e) => e.statusHadiah!.status
+              .toString()
+              .toLowerCase()
+              .trim()
+              .contains('terima'))
+          .toList();
     } on DioException catch (e) {
       failedSnackbar(
         'Ups sepertinya terjadi kesalahan',

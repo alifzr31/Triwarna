@@ -14,6 +14,7 @@ class CardVoucher extends StatelessWidget {
     required this.serialNumber,
     required this.status,
     required this.medalImage,
+    this.bgColor,
     this.onTap,
   }) : super(key: key);
 
@@ -22,12 +23,14 @@ class CardVoucher extends StatelessWidget {
   final String serialNumber;
   final String status;
   final String medalImage;
+  final Color? bgColor;
   final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       color: Colors.white,
+      surfaceTintColor: Colors.white,
       elevation: 3,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
@@ -39,7 +42,7 @@ class CardVoucher extends StatelessWidget {
           Container(
             height: 100,
             width: Get.width,
-            color: softPurpleColor,
+            color: bgColor,
             child: Row(
               children: [
                 Padding(
@@ -59,18 +62,28 @@ class CardVoucher extends StatelessWidget {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           bold: FontWeight.w600,
+                          color: bgColor == purpleColor
+                              ? Colors.white
+                              : purpleColor,
                         ),
                         const SizedBox(height: 3),
                         Container(
-                          padding: const EdgeInsets.all(5),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 3,
+                          ),
                           decoration: BoxDecoration(
-                            color: purpleColor,
+                            color: bgColor == purpleColor
+                                ? softPurpleColor
+                                : purpleColor,
                             borderRadius: BorderRadius.circular(5),
                           ),
                           child: BaseText(
                             text: serialNumber,
                             bold: FontWeight.w500,
-                            color: softPurpleColor,
+                            color: bgColor == purpleColor
+                                ? purpleColor
+                                : softPurpleColor,
                           ),
                         ),
                       ],

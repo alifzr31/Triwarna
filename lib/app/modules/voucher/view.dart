@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:triwarna_rebuild/app/components/base_appbar.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/modules/voucher/widgets/voucher_body.dart';
-import 'package:triwarna_rebuild/app/modules/voucher/widgets/vouhcer_header.dart';
 
 class VoucherPage extends StatelessWidget {
   const VoucherPage({super.key});
@@ -16,12 +15,7 @@ class VoucherPage extends StatelessWidget {
         title: 'Voucher',
         preferredSize: Size.fromHeight(kToolbarHeight),
       ),
-      body: Column(
-        children: [
-          const VoucherHeader(),
-          VoucherBody(),
-        ],
-      ),
+      body: VoucherBody(),
     );
   }
 }
