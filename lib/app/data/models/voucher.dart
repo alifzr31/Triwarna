@@ -68,11 +68,13 @@ class Hadiah extends Equatable {
   final int? kodeBarang;
   final String? namaBarang;
   final String? deskripsiBarang;
+  final String? gambar;
 
   const Hadiah({
     this.kodeBarang,
     this.namaBarang,
     this.deskripsiBarang,
+    this.gambar,
   });
 
   @override
@@ -80,18 +82,21 @@ class Hadiah extends Equatable {
         kodeBarang,
         namaBarang,
         deskripsiBarang,
+        gambar,
       ];
 
   factory Hadiah.fromJson(Map<String, dynamic> json) => Hadiah(
         kodeBarang: json["kode_barang"],
         namaBarang: json["nama_barang"],
         deskripsiBarang: json["deskripsi_barang"],
+        gambar: json["gambar"],
       );
 
   Map<String, dynamic> toJson() => {
         "kode_barang": kodeBarang,
         "nama_barang": namaBarang,
         "deskripsi_barang": deskripsiBarang,
+        "gambar": gambar,
       };
 }
 

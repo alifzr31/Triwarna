@@ -72,6 +72,7 @@ class VoucherProgress extends StatelessWidget {
                             return CardVoucher(
                               qrImage: voucher.qrcode ?? '',
                               namaBarang: voucher.hadiah?.deskripsiBarang ?? '',
+                              image: voucher.hadiah?.gambar ?? '',
                               serialNumber: voucher.code ?? '',
                               status: voucher.statusHadiah?.status ?? '',
                               bgColor: softPurpleColor,

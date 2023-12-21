@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_shimmer.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
@@ -12,6 +11,7 @@ class CardVoucher extends StatelessWidget {
     required this.qrImage,
     required this.namaBarang,
     required this.serialNumber,
+    required this.image,
     required this.status,
     required this.medalImage,
     this.bgColor,
@@ -20,6 +20,7 @@ class CardVoucher extends StatelessWidget {
 
   final String qrImage;
   final String namaBarang;
+  final String image;
   final String serialNumber;
   final String status;
   final String medalImage;
@@ -90,27 +91,16 @@ class CardVoucher extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 80,
-                  child: Stack(
-                    children: [
-                      const Positioned(
-                        top: -30,
-                        right: -12,
-                        child: CircleAvatar(
-                          radius: 40,
-                          backgroundColor: Color(0xFFbdb2cd),
-                        ),
-                      ),
-                      Positioned(
-                        top: 3,
-                        right: 16,
-                        child: SvgPicture.asset(
-                          'assets/images/$medalImage',
-                          width: 28,
-                        ),
-                      ),
-                    ],
+                Container(
+                  width: 65,
+                  height: 65,
+                  margin: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: Image.network(
+                              '${ApiUrl.baseStorageUrl}${StorageUrl.prize}/$image')
+                          .image,
+                    ),
                   ),
                 ),
               ],
