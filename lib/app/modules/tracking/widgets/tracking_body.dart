@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
+import 'package:triwarna_rebuild/app/core/utils/api_url.dart';
 import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/modules/tracking/components/tracking_item.dart';
 import 'package:triwarna_rebuild/app/modules/tracking/controller.dart';
@@ -78,7 +79,7 @@ class TrackingBody extends StatelessWidget {
                                     width: 350,
                                     child: PhotoView(
                                       imageProvider: Image.network(
-                                              'http://staging.triwarna.co.id/storage/attachments/${controller.tracking.value?.receipt?.image}')
+                                              'https://member.triwarna.co.id/storage/attachments/${controller.tracking.value?.receipt?.image}')
                                           .image,
                                       backgroundDecoration: const BoxDecoration(
                                         color: Colors.transparent,
@@ -98,7 +99,7 @@ class TrackingBody extends StatelessWidget {
                                     width: 350,
                                     child: PhotoView(
                                       imageProvider: Image.network(
-                                              'http://staging.triwarna.co.id/storage/signatures/${controller.tracking.value?.receipt?.signature}')
+                                              ApiUrl.baseStorageUrl+'/signatures/${controller.tracking.value?.receipt?.signature}')
                                           .image,
                                       backgroundDecoration: const BoxDecoration(
                                         color: Colors.white,
