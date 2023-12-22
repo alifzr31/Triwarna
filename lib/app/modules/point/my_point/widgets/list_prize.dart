@@ -81,7 +81,7 @@ class ListPrize extends StatelessWidget {
                     )
                   : GridView.builder(
                       shrinkWrap: true,
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
@@ -105,21 +105,6 @@ class ListPrize extends StatelessWidget {
                             prizeDesc: prize.prizeDesc ?? '',
                             onPressed: userPoint < 50 || userPoint < point
                                 ? null
-                                // : () {
-                                //     redeemDialog(
-                                //       context,
-                                //       prize,
-                                //       controller.cityLoading.value,
-                                //       controller.city,
-                                //       controller.selectedCity.value,
-                                //       controller.storeLoading.value,
-                                //       controller.store,
-                                //       controller.selectedStore.value,
-                                //       controller.formKey.value,
-                                //       userController.profile.value?.pin,
-                                //       controller.completeProfile.value,
-                                //     );
-                                //   },
                                 : () {
                                     customBottomSheet(
                                       330,
