@@ -301,6 +301,7 @@ class HeaderAccount extends StatelessWidget {
                     int.parse(controller.profile.value?.loyaltyPoint ?? '0')),
                 totalVoucher: AppHelpers.thousandFormat(
                     int.parse(controller.profile.value?.voucherTotal ?? '0')),
+                token: controller.token.value,
               ),
           ],
         ),
