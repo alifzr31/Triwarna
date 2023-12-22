@@ -35,11 +35,9 @@ class PinHeader extends StatelessWidget {
                       height: 20,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: controller.hasError.value
-                            ? Colors.red.shade800
-                            : index < controller.enteredPin.value.length
-                                ? purpleColor
-                                : softPurpleColor,
+                        color: index < controller.enteredPin.value.length
+                            ? purpleColor
+                            : softPurpleColor,
                       ),
                     );
                   },
