@@ -25,7 +25,7 @@ class MemberProgress extends StatelessWidget {
             child: Center(
               child: category == ''
                   ? BaseShimmer(
-                    child: Container(
+                      child: Container(
                         height: 15,
                         width: Get.width,
                         decoration: BoxDecoration(
@@ -33,7 +33,7 @@ class MemberProgress extends StatelessWidget {
                           borderRadius: BorderRadius.circular(5),
                         ),
                       ),
-                  )
+                    )
                   : currentTransaction < 100000000
                       ? Stack(
                           children: [
@@ -109,47 +109,82 @@ class MemberProgress extends StatelessWidget {
             ),
           ),
           if (category == '') const SizedBox(height: 5),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                children: [
-                  SvgPicture.asset(
-                    'assets/images/silver_medal.svg',
-                    width: category == 'silver' ? 30 : 25,
+          category == ''
+              ? BaseShimmer(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/silver_medal.svg',
+                            width: 25,
+                          ),
+                          const BaseText(text: ''),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/gold_medal.svg',
+                            width: 25,
+                          ),
+                          const BaseText(text: ''),
+                        ],
+                      ),
+                      Column(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/platinum_medal.svg',
+                            width: 25,
+                          ),
+                          const BaseText(text: ''),
+                        ],
+                      ),
+                    ],
                   ),
-                  BaseText(
-                    text: 'Silver',
-                    bold: category == 'silver' ? FontWeight.w600 : null,
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  SvgPicture.asset(
-                    'assets/images/gold_medal.svg',
-                    width: category == 'gold' ? 30 : 25,
-                  ),
-                  BaseText(
-                    text: 'Gold',
-                    bold: category == 'gold' ? FontWeight.w600 : null,
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  SvgPicture.asset(
-                    'assets/images/platinum_medal.svg',
-                    width: category == 'platinum' ? 30 : 25,
-                  ),
-                  BaseText(
-                    text: 'Platinum',
-                    bold: category == 'platinum' ? FontWeight.w600 : null,
-                  ),
-                ],
-              ),
-            ],
-          ),
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/silver_medal.svg',
+                          width: category == 'silver' ? 30 : 25,
+                        ),
+                        BaseText(
+                          text: 'Silver',
+                          bold: category == 'silver' ? FontWeight.w600 : null,
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/gold_medal.svg',
+                          width: category == 'gold' ? 30 : 25,
+                        ),
+                        BaseText(
+                          text: 'Gold',
+                          bold: category == 'gold' ? FontWeight.w600 : null,
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/platinum_medal.svg',
+                          width: category == 'platinum' ? 30 : 25,
+                        ),
+                        BaseText(
+                          text: 'Platinum',
+                          bold: category == 'platinum' ? FontWeight.w600 : null,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
         ],
       ),
     );
