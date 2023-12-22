@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:triwarna_rebuild/app/modules/benefit/components/gold_member.dart';
-import 'package:triwarna_rebuild/app/modules/benefit/components/platinum_member.dart';
-import 'package:triwarna_rebuild/app/modules/benefit/components/silver_member.dart';
+import 'package:triwarna_rebuild/app/components/base_tabbar.dart';
+import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/modules/benefit/controller.dart';
+import 'package:triwarna_rebuild/app/modules/benefit/widgets/about_benefit.dart';
+import 'package:triwarna_rebuild/app/modules/benefit/widgets/faq_benefit.dart';
 
 class BodyBenefit extends StatelessWidget {
   BodyBenefit({super.key});
@@ -11,48 +12,30 @@ class BodyBenefit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.fromLTRB(15, 15, 15, 10),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Apa saja keuntungan membership?',
-                style: TextStyle(fontWeight: FontWeight.w600),
+    return Obx(
+      () => DefaultTabController(
+        length: 2,
+        initialIndex: controller.currentTab.value,
+        child: Column(
+          children: [
+            BaseTabBar(
+              onTap: (index) => controller.currentTab.value = index,
+              tabs: const [
+                BaseText(text: 'Tentang Benefit'),
+                BaseText(text: 'FAQ'),
+              ],
+            ),
+            Expanded(
+              child: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  AboutBeneffit(),
+                  FaqBenefit(),
+                ],
               ),
             ),
-          ),
-          Obx(
-            () => DefaultTabController(
-              length: controller.tabBar.length,
-              child: Expanded(
-                child: Column(
-                  children: [
-                    TabBar(
-                      indicatorSize: TabBarIndicatorSize.tab,
-                      tabs: List.generate(
-                        controller.tabBar.length,
-                        (index) => controller.tabBar[index],
-                      ),
-                    ),
-                    Expanded(
-                      child: TabBarView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          SilverMember(),
-                          GoldMember(),
-                          PlatinumMember(),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
