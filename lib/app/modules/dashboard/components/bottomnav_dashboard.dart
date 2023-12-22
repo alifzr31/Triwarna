@@ -14,7 +14,17 @@ class BottomNavDashboard extends StatelessWidget {
       () => SalomonBottomBar(
         backgroundColor: Colors.transparent,
         currentIndex: controller.tabIndex.value,
-        onTap: (index) => controller.tabIndex.value = index,
+        onTap: (index) {
+          if (controller.token.value == null) {
+            if (index == 3 || index == 1) {
+              Get.toNamed('/login');
+            } else {
+              controller.tabIndex.value = index;
+            }
+          } else {
+            controller.tabIndex.value = index;
+          }
+        },
         items: [
           SalomonBottomBarItem(
             icon: const Icon(EvaIcons.home),
