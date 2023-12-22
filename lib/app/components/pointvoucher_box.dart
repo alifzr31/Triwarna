@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_shimmer.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class PointVoucherBox extends StatelessWidget {
@@ -89,7 +90,9 @@ class PointVoucherBox extends StatelessWidget {
                                           ),
                                         ),
                                       )
-                                    : BaseText(text: totalPoint),
+                                    : BaseText(
+                                        text: AppHelpers.thousandFormat(
+                                            int.parse(totalPoint))),
                               ],
                             ),
                           ),
@@ -135,7 +138,9 @@ class PointVoucherBox extends StatelessWidget {
                                           ),
                                         ),
                                       )
-                                    : BaseText(text: totalVoucher),
+                                    : BaseText(
+                                        text: AppHelpers.thousandFormat(
+                                            int.parse(totalVoucher))),
                               ],
                             ),
                           ),
