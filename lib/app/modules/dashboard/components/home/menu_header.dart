@@ -140,10 +140,10 @@ class MenuHeader extends StatelessWidget {
         ),
         SizedBox(
           height: 40,
-          child: BaseOutlineButtonIcon(
-            borderColor: purpleColor,
-            icon: Icons.info,
-            label: 'Benefit Member',
+          child: BaseButton(
+            bgColor: purpleColor,
+            fgColor: Colors.white,
+            label: 'Lihat Semua Benefit',
             onPressed: () {
               Get.toNamed('/benefit');
             },
