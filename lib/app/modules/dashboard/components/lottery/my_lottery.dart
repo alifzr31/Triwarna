@@ -4,6 +4,7 @@ import 'package:triwarna_rebuild/app/components/base_nodata.dart';
 import 'package:triwarna_rebuild/app/components/base_shimmer.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
+import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/data/models/lottery.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/lottery/carditem_lottery.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/lottery/detail_card.dart';
@@ -17,22 +18,24 @@ class MyLottery extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(15),
+          Container(
+            color: softPurpleColor,
+            width: Get.width,
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 BaseText(
                   text:
                       'Kupon undian hadiah ini berlaku sampai\n${controller.currentDate.value}',
+                  textAlign: TextAlign.center,
                   size: 16,
                   bold: FontWeight.w600,
                 ),
                 BaseText(
                   text:
                       'Kupon undian hanya berlaku dalam waktu 1 tahun periode!',
+                  textAlign: TextAlign.center,
                   size: 12,
                   color: Colors.grey.shade600,
                 ),
