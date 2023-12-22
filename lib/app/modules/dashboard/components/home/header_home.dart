@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/pointvoucher_box.dart';
-import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/home/greeting_headerhome.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/home/info_headerhome.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
@@ -44,12 +43,10 @@ class HeaderHome extends StatelessWidget {
                   child: PointVoucherBox(
                     totalPoint: controller.profile.value == null
                         ? ''
-                        : AppHelpers.thousandFormat(int.parse(
-                            controller.profile.value?.loyaltyPoint ?? '0')),
+                        : controller.profile.value?.loyaltyPoint ?? '0',
                     totalVoucher: controller.profile.value == null
                         ? ''
-                        : AppHelpers.thousandFormat(int.parse(
-                            controller.profile.value?.voucherTotal ?? '0')),
+                        : controller.profile.value?.voucherTotal ?? '0',
                     token: controller.token.value,
                   ),
                 ),
