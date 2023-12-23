@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
+import 'package:triwarna_rebuild/app/modules/benefit/components/term_item.dart';
 import 'package:triwarna_rebuild/app/modules/benefit/controller.dart';
 
 class FaqBenefit extends StatelessWidget {
@@ -98,29 +99,9 @@ class FaqBenefit extends StatelessWidget {
                     physics: const ClampingScrollPhysics(),
                     itemCount: 5,
                     itemBuilder: (context, index) {
-                      return const Column(
-                        children: [
-                          Row(
-                            children: [
-                              CircleAvatar(
-                                radius: 12,
-                                backgroundColor: Color(0xFFbaa9d0),
-                                foregroundColor: purpleColor,
-                                child: Icon(
-                                  Icons.star,
-                                  size: 16,
-                                ),
-                              ),
-                              SizedBox(width: 10),
-                              Expanded(
-                                child: BaseText(
-                                    text:
-                                        'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id es'),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 5),
-                        ],
+                      return const TermItem(
+                        text:
+                            'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
                       );
                     },
                   ),
