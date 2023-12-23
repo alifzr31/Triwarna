@@ -130,26 +130,6 @@ class ContentHome extends StatelessWidget {
                       },
                     ),
             ),
-            if (controller.contentLoading.isFalse) const SizedBox(height: 15),
-            if (controller.contentLoading.isFalse)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  controller.content.length,
-                  (index) => AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    width: controller.contentIndex.value == index ? 12 : 8,
-                    height: controller.contentIndex.value == index ? 12 : 8,
-                    margin: const EdgeInsets.only(right: 8),
-                    decoration: BoxDecoration(
-                      color: controller.contentIndex.value == index
-                          ? purpleColor
-                          : yellowColor,
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                ),
-              ),
           ],
         ),
       ),
