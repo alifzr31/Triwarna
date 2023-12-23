@@ -44,28 +44,27 @@ class WinnerLottery extends StatelessWidget {
                     controller.findWinner.isEmpty
                 ? Center(
                     child: SingleChildScrollView(
-                      padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Lottie.asset(
-                            'assets/lotties/winner_notfound.json',
-                            width: 150,
-                            frameRate: FrameRate(144),
-                          ),
-                          const BaseText(
-                            text: 'Pencarian Tidak Ditemukan',
-                            textAlign: TextAlign.center,
-                            size: 16,
-                            bold: FontWeight.w500,
-                          ),
-                          BaseText(
-                            text:
-                                'Pencarian "${controller.searchWinner.value}" tidak ditemukan',
-                            textAlign: TextAlign.center,
-                            color: Colors.grey.shade600,
-                          ),
-                        ],
+                      child: Center(
+                        child: Column(
+                          children: [
+                            Lottie.asset('assets/lotties/winner_notfound.json',
+                                width: 180,
+                                frameRate: FrameRate(144),
+                                repeat: false),
+                            const BaseText(
+                              text: 'Pencarian Tidak Ditemukan',
+                              textAlign: TextAlign.center,
+                              size: 16,
+                              bold: FontWeight.w500,
+                            ),
+                            BaseText(
+                              text:
+                                  'Pencarian "${controller.searchWinner.value}" tidak ditemukan',
+                              textAlign: TextAlign.center,
+                              color: Colors.grey.shade600,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   )
