@@ -2,15 +2,18 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/core/values/gradients.dart';
 import 'package:triwarna_rebuild/app/modules/benefit/components/benefit_item.dart';
 import 'package:triwarna_rebuild/app/modules/benefit/components/card_benefit.dart';
 import 'package:triwarna_rebuild/app/modules/benefit/controller.dart';
+import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
 
 class AboutBeneffit extends StatelessWidget {
   AboutBeneffit({super.key});
   final controller = Get.find<BenefitController>();
+  final userController = Get.find<DashboardController>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,36 +35,194 @@ class AboutBeneffit extends StatelessWidget {
             ),
           ),
           Container(
-            height: 190,
+            height: 200,
             width: Get.width,
             padding: const EdgeInsets.only(bottom: 15),
             child: Column(
               children: [
                 Expanded(
-                  child: Swiper(
+                  child: Swiper.children(
                     loop: false,
                     index: controller.cardIndex.value,
                     onIndexChanged: (index) =>
                         controller.cardIndex.value = index,
                     scale: 0.9,
                     onTap: (index) => controller.cardIndex.value = index,
-                    itemCount: controller.barColor.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 15, bottom: 5),
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15, bottom: 8),
                         child: CardBenefit(
-                          cardIndex: controller.cardIndex.value,
-                          gradients: controller.barColor[index],
-                          levels: controller.level[index],
+                          loyaltyLevel: 'Silver',
+                          color: const Color(0xFFF5F5F5),
+                          token: controller.token.value,
+                          progressColor: silverSolidLabel,
+                          desc: userController.profile.value?.loyalty
+                                      ?.toLowerCase() ==
+                                  'silver'
+                              ? RichText(
+                                  text: TextSpan(
+                                    style: DefaultTextStyle.of(context).style,
+                                    children: [
+                                      const TextSpan(
+                                        text: 'Transaksi ',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                      TextSpan(
+                                        text: AppHelpers.rupiahFormat(10000000 -
+                                            int.parse(userController.profile
+                                                    .value?.spendingTotal ??
+                                                '0')),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      const TextSpan(
+                                        text:
+                                            ' lagi untuk meningkatkan level member anda',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : const BaseText(
+                                  text: 'Level member ini sudah tercapai',
+                                  size: 12,
+                                  bold: FontWeight.w600,
+                                  color: purpleColor,
+                                ),
                         ),
-                      );
-                    },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15, bottom: 8),
+                        child: CardBenefit(
+                          loyaltyLevel: 'Gold',
+                          gradient: GradientColor.gold,
+                          token: controller.token.value,
+                          progressColor: softYellowColor,
+                          desc: userController.profile.value?.loyalty
+                                      ?.toLowerCase() ==
+                                  'silver'
+                              ? RichText(
+                                  text: TextSpan(
+                                    style: DefaultTextStyle.of(context).style,
+                                    children: [
+                                      const TextSpan(
+                                        text: 'Transaksi ',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                      TextSpan(
+                                        text: AppHelpers.rupiahFormat(10000000 -
+                                            int.parse(userController.profile
+                                                    .value?.spendingTotal ??
+                                                '0')),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      const TextSpan(
+                                        text:
+                                            ' lagi untuk mencapai level member ini',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : userController.profile.value?.loyalty
+                                          ?.toLowerCase() ==
+                                      'gold'
+                                  ? RichText(
+                                      text: TextSpan(
+                                        style:
+                                            DefaultTextStyle.of(context).style,
+                                        children: [
+                                          const TextSpan(
+                                            text: 'Transaksi ',
+                                            style: TextStyle(fontSize: 12),
+                                          ),
+                                          TextSpan(
+                                            text: AppHelpers.rupiahFormat(
+                                                100000000 -
+                                                    int.parse(userController
+                                                            .profile
+                                                            .value
+                                                            ?.spendingTotal ??
+                                                        '0')),
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          const TextSpan(
+                                            text:
+                                                ' lagi untuk meningkatkan level member anda',
+                                            style: TextStyle(fontSize: 12),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  : const BaseText(
+                                      text: 'Level member ini sudah tercapai',
+                                      size: 12,
+                                      bold: FontWeight.w600,
+                                      color: purpleColor,
+                                    ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15, bottom: 8),
+                        child: CardBenefit(
+                          loyaltyLevel: 'Platinum',
+                          gradient: GradientColor.platinum,
+                          token: controller.token.value,
+                          progressColor: Colors.grey.shade400,
+                          desc: userController.profile.value?.loyalty
+                                      ?.toLowerCase() !=
+                                  'platinum'
+                              ? RichText(
+                                  text: TextSpan(
+                                    style: DefaultTextStyle.of(context).style,
+                                    children: [
+                                      const TextSpan(
+                                        text: 'Transaksi ',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                      TextSpan(
+                                        text: AppHelpers.rupiahFormat(
+                                            100000000 -
+                                                int.parse(userController.profile
+                                                        .value?.spendingTotal ??
+                                                    '0')),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      const TextSpan(
+                                        text:
+                                            ' lagi untuk mencapai level member ini',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : const BaseText(
+                                  text:
+                                      'Selamat 🎉 anda mencapai level member paling tinggi',
+                                  size: 12,
+                                  bold: FontWeight.w600,
+                                  color: purpleColor,
+                                ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: List.generate(
-                    controller.barColor.length,
+                    3,
                     (index) => AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.easeInOutCubic,
@@ -70,8 +231,8 @@ class AboutBeneffit extends StatelessWidget {
                       margin: const EdgeInsets.only(right: 8),
                       decoration: BoxDecoration(
                         color: controller.cardIndex.value == index
-                            ? purpleColor
-                            : yellowColor,
+                            ? yellowColor
+                            : Colors.grey.shade400,
                         shape: BoxShape.circle,
                       ),
                     ),

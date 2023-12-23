@@ -1,89 +1,108 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
-import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class CardBenefit extends StatelessWidget {
   const CardBenefit({
     Key? key,
-    required this.cardIndex,
-    required this.gradients,
-    required this.levels,
+    required this.loyaltyLevel,
+    this.desc,
+    this.color,
+    this.gradient,
+    this.token,
+    this.progressColor,
+    this.progressGradient,
   }) : super(key: key);
 
-  final int cardIndex;
-  final Gradient gradients;
-  final String levels;
+  final String loyaltyLevel;
+  final Widget? desc;
+  final Color? color;
+  final Gradient? gradient;
+  final String? token;
+  final Color? progressColor;
+  final Gradient? progressGradient;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 3,
-      clipBehavior: Clip.antiAlias,
-      margin: const EdgeInsets.symmetric(horizontal: 15),
-      child: Container(
-        padding: const EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: cardIndex == 0 ? const Color(0xFFF5F5F5) : null,
-          gradient: cardIndex == 0 ? null : gradients,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          children: [
-            BaseText(
-              text: levels,
-              size: 18,
-              bold: FontWeight.w600,
-            ),
-            const SizedBox(height: 15),
-            Expanded(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: RichText(
-                        text: TextSpan(
-                          style: DefaultTextStyle.of(context).style,
-                          children: const [
-                            TextSpan(
-                              text: 'Transaksi Belanja sudah tercapai ',
-                              style: TextStyle(fontSize: 12),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Material(
+        elevation: 3,
+        clipBehavior: Clip.antiAlias,
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          padding: const EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: color,
+            gradient: gradient,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Column(
+            children: [
+              BaseText(
+                text: loyaltyLevel,
+                size: 18,
+                bold: FontWeight.w600,
+              ),
+              const SizedBox(height: 15),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      token == null
+                          ? const BaseText(
+                              text: 'Segera daftarkan diri anda menjadi member',
+                              textAlign: TextAlign.center,
+                            )
+                          : Align(
+                              alignment: Alignment.centerLeft,
+                              child: desc,
                             ),
-                            TextSpan(
-                              text: 'Rp 10.000.000',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
+                      const SizedBox(height: 5),
+                      token == null
+                          ? Expanded(
+                              child: Center(
+                                child: Material(
+                                  elevation: 2,
+                                  borderRadius: BorderRadius.circular(5),
+                                  clipBehavior: Clip.antiAlias,
+                                  child: Container(
+                                    height: 15,
+                                    width: Get.width,
+                                    decoration: BoxDecoration(
+                                      color: progressColor,
+                                      gradient: progressGradient,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          : Material(
+                              elevation: 2,
+                              borderRadius: BorderRadius.circular(5),
+                              clipBehavior: Clip.antiAlias,
+                              child: Container(
+                                height: 15,
+                                width: Get.width,
+                                color: progressColor,
                               ),
                             ),
-                          ],
+                      if (token != null) const SizedBox(height: 5),
+                      if (token != null)
+                        BaseText(
+                          text:
+                              'Pertahankan level membermu sampai tahun berikutnya!',
+                          size: 12,
+                          color: Colors.grey.shade600,
                         ),
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    Container(
-                      height: 15,
-                      width: Get.width,
-                      decoration: BoxDecoration(
-                        color: silverSolidLabel,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    BaseText(
-                      text:
-                          'Pertahankan level membermu sampai tahun berikutnya!',
-                      size: 12,
-                      color: Colors.grey.shade600,
-                    )
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

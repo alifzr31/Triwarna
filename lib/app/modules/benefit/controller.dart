@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
-import 'package:triwarna_rebuild/app/core/values/gradients.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
 
 class BenefitController extends GetxController {
@@ -28,16 +27,4 @@ class BenefitController extends GetxController {
     }
     super.onInit();
   }
-
-  final level = [
-    'Silver',
-    'Gold',
-    'Platinum',
-  ].obs;
-
-  final barColor = [
-    GradientColor.silver,
-    GradientColor.gold,
-    GradientColor.platinum,
-  ];
 }
