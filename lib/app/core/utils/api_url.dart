@@ -19,6 +19,7 @@ class EndPoint {
   static const String profile = '/profile';
   static const String content = '/content';
   static const String lottery = '/undian';
+  static const String winner = '/undian/pemenang';
   static const String store = '/triwarna_store';
 
   static const String contents = '/contents';

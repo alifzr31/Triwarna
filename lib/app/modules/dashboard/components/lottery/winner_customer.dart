@@ -25,7 +25,7 @@ class WinnerCustomer extends StatelessWidget {
           : null,
       decoration: name.toLowerCase() == searchCustomer.toString().toLowerCase()
           ? BoxDecoration(
-              color: softPurpleColor.withOpacity(0.6),
+              color: softPurpleColor,
               borderRadius: BorderRadius.circular(5),
             )
           : null,

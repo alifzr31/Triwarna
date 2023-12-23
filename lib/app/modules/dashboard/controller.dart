@@ -16,6 +16,7 @@ import 'package:triwarna_rebuild/app/data/models/content.dart';
 import 'package:triwarna_rebuild/app/data/models/lottery.dart';
 import 'package:triwarna_rebuild/app/data/models/profile.dart';
 import 'package:triwarna_rebuild/app/data/models/store.dart';
+import 'package:triwarna_rebuild/app/data/models/winner.dart';
 import 'package:triwarna_rebuild/app/data/providers/dashboard_provider.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/bottomnav_checkprofile.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -47,7 +48,11 @@ class DashboardController extends GetxController {
   final itemLottery = 20;
   final scrollController = ScrollController().obs;
   final currentDate = Rx<String?>(null);
+  final winner = <Winner>[].obs;
+  final winnerLoading = true.obs;
+  final searchWinnerController = TextEditingController().obs;
   final searchWinner = Rx<String?>(null);
+  final findWinner = <Winner>[].obs;
 
   final googleMapController = Completer<GoogleMapController>().obs;
   final mapController = Rx<GoogleMapController?>(null);
@@ -89,8 +94,6 @@ class DashboardController extends GetxController {
 
     if (token.value != null) {
       await fetchProfile();
-      await fetchLottery();
-      scrollController.value.addListener(onScroll);
 
       if (profile.value != null) {
         if (profile.value?.birthDate != null) {
@@ -103,6 +106,9 @@ class DashboardController extends GetxController {
           await checkProfile();
         }
       }
+      await fetchLottery();
+      scrollController.value.addListener(onScroll);
+      await fetchWinner();
     }
     await fetchContent();
     await fetchLocation();
@@ -236,20 +242,51 @@ class DashboardController extends GetxController {
     }
   }
 
+  Future<void> fetchWinner() async {
+    try {
+      final response = await dashboardProvider.fetchWinner();
+
+      if (response.statusCode == 200) {
+        final List<Winner> body = response.data['data'] == null
+            ? []
+            : listWinnerFromJson(jsonEncode(response.data['data']));
+
+        winner.value = body;
+      }
+    } on DioException catch (e) {
+      failedSnackbar(
+        'Ups sepertinya terjadi kesalahan',
+        'code:${e.response?.statusCode}',
+      );
+    } finally {
+      winnerLoading.value = false;
+      update();
+    }
+  }
+
   void findCustomer(String customerName) {
     searchWinner.value = customerName;
-    // List<WinnerModel> filteredWinner = [];
+    List<Winner> filteredWinner = [];
 
-    // for (WinnerModel winner in winners) {
-    //   for (CustomerModel customer in winner.customerModel) {
-    //     if (customer.name.toLowerCase().contains(customerName.toLowerCase())) {
-    //       filteredWinner.add(winner);
-    //       break;
-    //     }
-    //   }
-    // }
+    for (var wnr in winner) {
+      if (wnr.memberWinner!.memberName
+          .toString()
+          .toLowerCase()
+          .contains(searchWinner.value?.toLowerCase() ?? '')) {
+        filteredWinner.add(wnr);
+      }
+      // for (var customer in wnr.memberWinner) {
+      //   if (customer.memberName
+      //       .toString()
+      //       .toLowerCase()
+      //       .contains(customerName.toLowerCase())) {
+      //     filteredWinner.add(wnr);
+      //     break;
+      //   }
+      // }
+    }
 
-    // winnerWithSearchCustomer.value = filteredWinner;
+    findWinner.value = filteredWinner;
   }
 
   Future<void> fetchLocation() async {

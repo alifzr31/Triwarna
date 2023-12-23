@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
+import 'package:triwarna_rebuild/app/core/utils/api_url.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class WinnerCard extends StatelessWidget {
@@ -60,9 +61,24 @@ class WinnerCard extends StatelessWidget {
                   child: SizedBox(
                     height: 75,
                     width: 75,
-                    child: Image.asset(
-                      'assets/images/$prizeImage',
+                    child: Image.network(
+                      '${ApiUrl.baseStorageUrl}/undian/$prizeImage',
                       fit: BoxFit.cover,
+                      loadingBuilder: (BuildContext context, Widget child,
+                          ImageChunkEvent? loadingProgress) {
+                        return loadingProgress == null
+                            ? child
+                            : Center(
+                                child: CircularProgressIndicator(
+                                  value: loadingProgress.expectedTotalBytes !=
+                                          null
+                                      ? loadingProgress.cumulativeBytesLoaded /
+                                          (loadingProgress.expectedTotalBytes ??
+                                              1)
+                                      : null,
+                                ),
+                              );
+                      },
                     ),
                   ),
                 ),

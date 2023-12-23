@@ -15,10 +15,11 @@ class SearchLottery extends StatelessWidget {
         child: Column(
           children: [
             TextFormField(
+              controller: controller.searchWinnerController.value,
               onChanged: (value) => controller.findCustomer(value),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.all(10),
-                hintText: 'Masukkan no. undian anda',
+                hintText: 'Masukkan nama atau no. undian',
                 prefixIcon: const Icon(Icons.search),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -32,6 +33,7 @@ class SearchLottery extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     controller.searchWinner.value = null;
+                    controller.searchWinnerController.value.text = '';
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(5),

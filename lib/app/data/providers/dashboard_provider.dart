@@ -6,7 +6,7 @@ class DashboardProvider extends DioClient {
   Future<Response> sendDeviceToken() async {
     return await get(EndPoint.fcmtoken);
   }
-  
+
   Future<Response> fetchProfile() async {
     return await get(EndPoint.profile);
   }
@@ -14,7 +14,7 @@ class DashboardProvider extends DioClient {
   Future<Response> fetchContent() async {
     return await get(EndPoint.content);
   }
-  
+
   Future<Response> fetchLottery(page, limit) async {
     return await get(
       EndPoint.lottery,
@@ -23,6 +23,10 @@ class DashboardProvider extends DioClient {
         'limit': limit,
       },
     );
+  }
+
+  Future<Response> fetchWinner() async {
+    return await get(EndPoint.winner);
   }
 
   Future<Response> fetchStore(lat, long) async {
