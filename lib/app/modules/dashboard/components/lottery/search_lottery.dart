@@ -1,6 +1,6 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
 
 class SearchLottery extends StatelessWidget {
@@ -24,26 +24,20 @@ class SearchLottery extends StatelessWidget {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
+                suffixIcon: controller.searchWinner.value != '' &&
+                        controller.searchWinner.value != null
+                    ? IconButton(
+                        onPressed: () {
+                          controller.searchWinner.value = null;
+                          controller.searchWinnerController.value.text = '';
+                          controller.findWinner.value = [];
+                        },
+                        icon: const Icon(EvaIcons.close),
+                        tooltip: 'Hapus Pencarian',
+                      )
+                    : null,
               ),
             ),
-            if (controller.searchWinner.value != '' &&
-                controller.searchWinner.value != null)
-              Align(
-                alignment: Alignment.centerRight,
-                child: InkWell(
-                  onTap: () {
-                    controller.searchWinner.value = null;
-                    controller.searchWinnerController.value.text = '';
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.all(5),
-                    child: BaseText(
-                      text: 'Hapus Pencarian',
-                      color: Colors.red,
-                    ),
-                  ),
-                ),
-              ),
           ],
         ),
       ),

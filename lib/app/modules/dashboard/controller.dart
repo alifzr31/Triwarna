@@ -120,6 +120,8 @@ class DashboardController extends GetxController {
   void onClose() {
     content.clear();
     lottery.clear();
+    winner.clear();
+    findWinner.clear();
     store.clear();
     positionStream.value?.cancel();
     googleMapController.value = Completer();
@@ -269,21 +271,19 @@ class DashboardController extends GetxController {
     List<Winner> filteredWinner = [];
 
     for (var wnr in winner) {
-      if (wnr.memberWinner!.memberName
-          .toString()
-          .toLowerCase()
-          .contains(searchWinner.value?.toLowerCase() ?? '')) {
-        filteredWinner.add(wnr);
+      for (var element in wnr.memberWinner!) {
+        if (element.memberName
+                .toString()
+                .toLowerCase()
+                .contains(searchWinner.value?.toLowerCase() ?? '') ||
+            element.couponNumber
+                .toString()
+                .toLowerCase()
+                .contains(searchWinner.value?.toLowerCase() ?? '')) {
+          filteredWinner.add(wnr);
+          break;
+        }
       }
-      // for (var customer in wnr.memberWinner) {
-      //   if (customer.memberName
-      //       .toString()
-      //       .toLowerCase()
-      //       .contains(customerName.toLowerCase())) {
-      //     filteredWinner.add(wnr);
-      //     break;
-      //   }
-      // }
     }
 
     findWinner.value = filteredWinner;
@@ -483,6 +483,15 @@ class DashboardController extends GetxController {
       lottery.clear();
 
       await fetchLottery();
+    });
+  }
+
+  Future<void> refreshWinner() async {
+    await Future.delayed(const Duration(milliseconds: 2500), () async {
+      winnerLoading.value = true;
+      winner.clear();
+      findWinner.clear();
+      await fetchWinner();
     });
   }
 

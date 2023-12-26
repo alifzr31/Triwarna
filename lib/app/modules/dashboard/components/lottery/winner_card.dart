@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:triwarna_rebuild/app/components/base_shimmer.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/utils/api_url.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
@@ -46,11 +47,21 @@ class WinnerCard extends StatelessWidget {
                       const Spacer(),
                       Expanded(
                         flex: 2,
-                        child: BaseText(
-                          text: prizeName,
-                          size: 16,
-                          bold: FontWeight.w600,
-                        ),
+                        child: prizeName == ''
+                            ? BaseShimmer(
+                                child: Container(
+                                  height: 17,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.circular(3),
+                                  ),
+                                ),
+                              )
+                            : BaseText(
+                                text: prizeName,
+                                size: 16,
+                                bold: FontWeight.w600,
+                              ),
                       ),
                     ],
                   ),
@@ -58,29 +69,43 @@ class WinnerCard extends StatelessWidget {
                 Positioned(
                   top: 0,
                   left: 20,
-                  child: SizedBox(
-                    height: 75,
-                    width: 75,
-                    child: Image.network(
-                      '${ApiUrl.baseStorageUrl}/undian/$prizeImage',
-                      fit: BoxFit.cover,
-                      loadingBuilder: (BuildContext context, Widget child,
-                          ImageChunkEvent? loadingProgress) {
-                        return loadingProgress == null
-                            ? child
-                            : Center(
-                                child: CircularProgressIndicator(
-                                  value: loadingProgress.expectedTotalBytes !=
-                                          null
-                                      ? loadingProgress.cumulativeBytesLoaded /
-                                          (loadingProgress.expectedTotalBytes ??
-                                              1)
-                                      : null,
-                                ),
-                              );
-                      },
-                    ),
-                  ),
+                  child: prizeImage == ''
+                      ? BaseShimmer(
+                          child: Container(
+                            height: 75,
+                            width: 75,
+                            decoration: BoxDecoration(
+                              color: Colors.grey,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                          ),
+                        )
+                      : SizedBox(
+                          height: 75,
+                          width: 75,
+                          child: Image.network(
+                            '${ApiUrl.baseStorageUrl}/undian/$prizeImage',
+                            fit: BoxFit.cover,
+                            loadingBuilder: (BuildContext context, Widget child,
+                                ImageChunkEvent? loadingProgress) {
+                              return loadingProgress == null
+                                  ? child
+                                  : Center(
+                                      child: CircularProgressIndicator(
+                                        value: loadingProgress
+                                                    .expectedTotalBytes !=
+                                                null
+                                            ? loadingProgress
+                                                    .cumulativeBytesLoaded /
+                                                (loadingProgress
+                                                        .expectedTotalBytes ??
+                                                    1)
+                                            : null,
+                                      ),
+                                    );
+                            },
+                          ),
+                        ),
                 ),
               ],
             ),
