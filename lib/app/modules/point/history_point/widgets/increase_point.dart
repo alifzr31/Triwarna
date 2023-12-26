@@ -26,7 +26,6 @@ class IncreasePoint extends StatelessWidget {
                     title: 'Riwayat Poin Kosong',
                     subtitle:
                         'Transaksi barang untuk mendapatkan poin, lalu tukarkan dengan hadiah menarik.',
-                    labelButton: 'Refresh Riwayat Poin',
                     onPressed: () {
                       controller.pointLoading.value = true;
                       controller.fetchPoint();

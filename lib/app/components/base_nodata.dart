@@ -8,14 +8,14 @@ class BaseNoData extends StatelessWidget {
     required this.image,
     required this.title,
     required this.subtitle,
-    required this.labelButton,
+    this.labelButton,
     this.onPressed,
   }) : super(key: key);
 
   final String image;
   final String title;
   final String subtitle;
-  final String labelButton;
+  final String? labelButton;
   final void Function()? onPressed;
 
   @override
@@ -43,7 +43,9 @@ class BaseNoData extends StatelessWidget {
           TextButton.icon(
             onPressed: onPressed,
             icon: const Icon(Icons.refresh),
-            label: BaseText(text: labelButton),
+            label: labelButton == null
+                ? const BaseText(text: 'Muat Ulang')
+                : BaseText(text: labelButton ?? ''),
           ),
         ],
       ),

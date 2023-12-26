@@ -124,7 +124,6 @@ class _DetailContentPageState extends State<DetailContentPage> {
                               image: 'logo.svg',
                               title: 'Ups sepertinya terjadi kesalahan',
                               subtitle: '',
-                              labelButton: 'Refresh Konten',
                               onPressed: () {},
                             );
                           },

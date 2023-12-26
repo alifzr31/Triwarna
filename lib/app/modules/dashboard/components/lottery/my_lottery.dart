@@ -68,7 +68,6 @@ class MyLottery extends StatelessWidget {
                         title: 'Data Undian Kosong',
                         subtitle:
                             'Dapatkan undian di setiap pembelian barang di Triwarna.',
-                        labelButton: 'Refresh Undian',
                         onPressed: () {
                           controller.lotteryLoading.value = true;
                           controller.currentPageLottery.value = 1;

@@ -54,7 +54,6 @@ class VoucherProgress extends StatelessWidget {
                           title: 'Voucher Tidak Ada',
                           subtitle:
                               'Untuk mendapatkan voucher, tukar point dengan hadiah yang tersedia.',
-                          labelButton: 'Refresh Voucher',
                           onPressed: () {
                             controller.isLoading.value = true;
                             controller.fetchVoucher();
