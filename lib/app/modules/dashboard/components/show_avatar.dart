@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:triwarna_rebuild/app/core/utils/api_url.dart';
 
-void showPictProfile(String image) {
+void showAvatar(String image) {
   Get.dialog(
     Center(
       child: SizedBox(

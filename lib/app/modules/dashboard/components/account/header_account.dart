@@ -8,7 +8,7 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/core/values/gradients.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/account/profile_box.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/member_progress.dart';
-import 'package:triwarna_rebuild/app/modules/dashboard/components/show_pictprofile.dart';
+import 'package:triwarna_rebuild/app/modules/dashboard/components/show_avatar.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
 
 class HeaderAccount extends StatelessWidget {
@@ -83,7 +83,7 @@ class HeaderAccount extends StatelessWidget {
                       ),
                     )
                   : InkWell(
-                      onTap: () => showPictProfile(
+                      onTap: () => showAvatar(
                         controller.profile.value?.image ?? '',
                       ),
                       child: CircleAvatar(
