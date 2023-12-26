@@ -8,6 +8,7 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/core/values/gradients.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/account/profile_box.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/member_progress.dart';
+import 'package:triwarna_rebuild/app/modules/dashboard/components/show_pictprofile.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
 
 class HeaderAccount extends StatelessWidget {
@@ -81,28 +82,34 @@ class HeaderAccount extends StatelessWidget {
                         ),
                       ),
                     )
-                  : CircleAvatar(
-                      radius: 35,
-                      backgroundImage: Image.network(
-                        '${ApiUrl.baseStorageUrl}${StorageUrl.profile}/${controller.profile.value?.image}',
-                        fit: BoxFit.cover,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          return loadingProgress == null
-                              ? child
-                              : Center(
-                                  child: CircularProgressIndicator(
-                                    value: loadingProgress.expectedTotalBytes !=
-                                            null
-                                        ? loadingProgress
-                                                .cumulativeBytesLoaded /
-                                            (loadingProgress
-                                                    .expectedTotalBytes ??
-                                                1)
-                                        : null,
-                                  ),
-                                );
-                        },
-                      ).image,
+                  : InkWell(
+                      onTap: () => showPictProfile(
+                        controller.profile.value?.image ?? '',
+                      ),
+                      child: CircleAvatar(
+                        radius: 35,
+                        backgroundImage: Image.network(
+                          '${ApiUrl.baseStorageUrl}${StorageUrl.profile}/${controller.profile.value?.image}',
+                          fit: BoxFit.cover,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            return loadingProgress == null
+                                ? child
+                                : Center(
+                                    child: CircularProgressIndicator(
+                                      value:
+                                          loadingProgress.expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  (loadingProgress
+                                                          .expectedTotalBytes ??
+                                                      1)
+                                              : null,
+                                    ),
+                                  );
+                          },
+                        ).image,
+                      ),
                     ),
             ),
           ),
