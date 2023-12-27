@@ -26,153 +26,156 @@ class FormRegister extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
-              child: Form(
-                key: controller.formKey.value,
-                child: Column(
-                  children: [
-                    BaseFormGroupFieldAuth(
-                      label: 'Nama Lengkap',
-                      hint: 'Masukkan nama lengkap anda',
-                      controller: controller.namaController.value,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Nama lengkap tidak boleh kosong';
-                        }
-
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 15),
-                    BaseFormGroupFieldAuth(
-                      label: 'Email',
-                      hint: 'Masukkan email anda',
-                      helper: controller.username.value == null ||
-                              controller.username.value == ''
-                          ? null
-                          : '${controller.username.value} akan menjadi username anda',
-                      keyboardType: TextInputType.emailAddress,
-                      controller: controller.emailController.value,
-                      onChanged: (value) =>
-                          controller.username.value = value?.split('@').first,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Email tidak boleh kosong';
-                        } else {
-                          if (!value.isEmail) {
-                            return 'Email tidak valid';
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+                child: Form(
+                  key: controller.formKey.value,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      BaseFormGroupFieldAuth(
+                        label: 'Nama Lengkap',
+                        hint: 'Masukkan nama lengkap anda',
+                        controller: controller.namaController.value,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Nama lengkap tidak boleh kosong';
                           }
-                        }
-
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 15),
-                    BaseFormGroupFieldAuth(
-                      label: 'No. Telepon',
-                      hint: 'Masukkan no. telepon anda',
-                      controller: controller.phoneController.value,
-                      keyboardType: TextInputType.phone,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'No. telepon tidak boleh kosong';
-                        } else {
-                          if (!value.isPhoneNumber) {
-                            return 'No. telepon tidak valid';
-                          }
-                        }
-
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 15),
-                    BaseFormGroupFieldAuth(
-                      label: 'Password',
-                      hint: 'Masukkan password anda',
-                      controller: controller.passwordController.value,
-                      obscureText: controller.showPass.value,
-                      suffixIcon: IconButton(
-                        color: Colors.white,
-                        onPressed: () => controller.showPass.value =
-                            !controller.showPass.value,
-                        icon: Icon(controller.showPass.value
-                            ? EvaIcons.eye
-                            : EvaIcons.eyeOff),
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Password tidak boleh kosong';
-                        } else {
-                          if (value.length < 8) {
-                            return 'Password minimal berjumlah 8 karakter';
-                          }
-                        }
-
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 15),
-                    BaseFormGroupFieldAuth(
-                      label: 'Konfirmasi Password',
-                      hint: 'Masukkan kembali password anda',
-                      controller: controller.confirmPasswordController.value,
-                      obscureText: controller.showConfirmPass.value,
-                      suffixIcon: IconButton(
-                        color: Colors.white,
-                        onPressed: () => controller.showConfirmPass.value =
-                            !controller.showConfirmPass.value,
-                        icon: Icon(controller.showConfirmPass.value
-                            ? EvaIcons.eye
-                            : EvaIcons.eyeOff),
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Konfirmasi password tidak boleh kosong';
-                        } else {
-                          if (value !=
-                              controller.passwordController.value.text) {
-                            return 'Konfirmasi password tidak cocok';
-                          }
-                        }
-
-                        return null;
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                    SizedBox(
-                      width: Get.width,
-                      child: BaseButton(
-                        bgColor: softPurpleColor,
-                        fgColor: purpleColor,
-                        label: 'Register',
-                        onPressed: () {
-                          if (controller.formKey.value.currentState!
-                              .validate()) {
-                            controller.register();
-                          }
+            
+                          return null;
                         },
                       ),
-                    ),
-                    const SizedBox(height: 3),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const BaseText(
-                          text: 'Sudah punya akun? ',
+                      const SizedBox(height: 15),
+                      BaseFormGroupFieldAuth(
+                        label: 'Email',
+                        hint: 'Masukkan email anda',
+                        helper: controller.username.value == null ||
+                                controller.username.value == ''
+                            ? null
+                            : '${controller.username.value} akan menjadi username anda',
+                        keyboardType: TextInputType.emailAddress,
+                        controller: controller.emailController.value,
+                        onChanged: (value) =>
+                            controller.username.value = value?.split('@').first,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Email tidak boleh kosong';
+                          } else {
+                            if (!value.isEmail) {
+                              return 'Email tidak valid';
+                            }
+                          }
+            
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      BaseFormGroupFieldAuth(
+                        label: 'No. Telepon',
+                        hint: 'Masukkan no. telepon anda',
+                        controller: controller.phoneController.value,
+                        keyboardType: TextInputType.phone,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'No. telepon tidak boleh kosong';
+                          } else {
+                            if (!value.isPhoneNumber) {
+                              return 'No. telepon tidak valid';
+                            }
+                          }
+            
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      BaseFormGroupFieldAuth(
+                        label: 'Password',
+                        hint: 'Masukkan password anda',
+                        controller: controller.passwordController.value,
+                        obscureText: controller.showPass.value,
+                        suffixIcon: IconButton(
                           color: Colors.white,
+                          onPressed: () => controller.showPass.value =
+                              !controller.showPass.value,
+                          icon: Icon(controller.showPass.value
+                              ? EvaIcons.eye
+                              : EvaIcons.eyeOff),
                         ),
-                        GestureDetector(
-                          onTap: () => Get.offAndToNamed('/login'),
-                          child: const BaseText(
-                            text: 'Masuk disini',
-                            color: yellowColor,
-                            bold: FontWeight.w500,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Password tidak boleh kosong';
+                          } else {
+                            if (value.length < 8) {
+                              return 'Password minimal berjumlah 8 karakter';
+                            }
+                          }
+            
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 15),
+                      BaseFormGroupFieldAuth(
+                        label: 'Konfirmasi Password',
+                        hint: 'Masukkan kembali password anda',
+                        controller: controller.confirmPasswordController.value,
+                        obscureText: controller.showConfirmPass.value,
+                        suffixIcon: IconButton(
+                          color: Colors.white,
+                          onPressed: () => controller.showConfirmPass.value =
+                              !controller.showConfirmPass.value,
+                          icon: Icon(controller.showConfirmPass.value
+                              ? EvaIcons.eye
+                              : EvaIcons.eyeOff),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Konfirmasi password tidak boleh kosong';
+                          } else {
+                            if (value !=
+                                controller.passwordController.value.text) {
+                              return 'Konfirmasi password tidak cocok';
+                            }
+                          }
+            
+                          return null;
+                        },
+                      ),
+                      const SizedBox(height: 20),
+                      SizedBox(
+                        width: Get.width,
+                        child: BaseButton(
+                          bgColor: softPurpleColor,
+                          fgColor: purpleColor,
+                          label: 'Register',
+                          onPressed: () {
+                            if (controller.formKey.value.currentState!
+                                .validate()) {
+                              controller.register();
+                            }
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 3),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const BaseText(
+                            text: 'Sudah punya akun? ',
+                            color: Colors.white,
                           ),
-                        ),
-                      ],
-                    )
-                  ],
+                          GestureDetector(
+                            onTap: () => Get.offAndToNamed('/login'),
+                            child: const BaseText(
+                              text: 'Masuk disini',
+                              color: yellowColor,
+                              bold: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
