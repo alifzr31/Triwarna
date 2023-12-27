@@ -10,30 +10,6 @@ class AuthController extends GetxController {
 
   AuthController({required this.authProvider});
 
-  final email = Rx<String?>(null);
-  final verifyLoading = false.obs;
-  final hasSent = false.obs;
-
-  void verify() async {
-    final formData = dio.FormData.fromMap({
-      'email': email.value,
-    });
-
-    verifyLoading.value = true;
-
-    try {
-      await authProvider.verify(formData);
-    } on dio.DioException catch (e) {
-      Get.back();
-      if (e.response?.statusCode == 500) {
-        failedSnackbar('Verifikasi Gagal', 'Ups sepertinya terjadi kesalahan');
-      }
-    } finally {
-      verifyLoading.value = false;
-      hasSent.value = true;
-    }
-  }
-
   void logout() async {
     showLoading();
 
