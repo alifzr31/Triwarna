@@ -44,7 +44,7 @@ class WinnerLottery extends StatelessWidget {
             child: controller.winnerLoading.value
                 ? ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+                    padding: const EdgeInsets.all(15),
                     itemCount: 25,
                     itemBuilder: (context, index) {
                       return WinnerCard(
