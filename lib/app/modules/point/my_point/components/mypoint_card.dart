@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class MyPointCard extends StatelessWidget {
@@ -73,7 +74,7 @@ class MyPointCard extends StatelessWidget {
                                   style: DefaultTextStyle.of(context).style,
                                   children: [
                                     TextSpan(
-                                      text: loyaltyPoint,
+                                      text: AppHelpers.thousandFormat(int.parse(loyaltyPoint)),
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 16,
