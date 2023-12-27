@@ -30,8 +30,6 @@ class LoginController extends GetxController {
       'password': passwordController.value.text,
     });
 
-    print(formData.fields);
-
     loading.value = true;
 
     showLoading();
@@ -40,8 +38,17 @@ class LoginController extends GetxController {
       final response = await loginProvider.login(formData);
       if (response.data['verify'] == '0') {
         Get.back();
-        infoSnackbar('Akun Belum Aktif', 'Silahkan verifikasi email untuk mengaktifkan akun anda');
-        Get.offAndToNamed('/verify', arguments: response.data['email']);
+        infoSnackbar(
+          'Akun Belum Aktif',
+          'Silahkan verifikasi akun anda terlebih dahulu',
+        );
+        Get.offAndToNamed(
+          '/verify',
+          arguments: {
+            'email': response.data['email'],
+            'phoneNumber': response.data['phone_number'],
+          },
+        );
       } else {
         SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
@@ -53,9 +60,15 @@ class LoginController extends GetxController {
     } on dio.DioException catch (e) {
       Get.back();
       if (e.response?.statusCode == 500) {
-        failedSnackbar('Log In Gagal', 'Ups sepertinya terjadi kesalahan');
+        failedSnackbar(
+          'Log In Gagal',
+          'Ups sepertinya terjadi kesalahan. code:${e.response?.statusCode}',
+        );
       } else {
-        infoSnackbar('Log In Gagal', e.response?.data['message']);
+        infoSnackbar(
+          'Log In Gagal',
+          e.response?.data['message'],
+        );
       }
     } finally {
       loading.value = false;

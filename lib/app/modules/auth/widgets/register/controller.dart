@@ -54,7 +54,10 @@ class RegisterController extends GetxController {
             'Register Berhasil',
             'Register sudah berhasil, silahkan verifikasi akun anda',
           );
-          Get.offAndToNamed('/verify', arguments: response.data['email']);
+          Get.offAndToNamed('/verify', arguments: {
+            'email': response.data['email'],
+            'phoneNumber': phoneController.value.text,
+          });
         }
       }
     } on dio.DioException catch (e) {
