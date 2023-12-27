@@ -29,7 +29,10 @@ class BaseButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
       ),
       onPressed: onPressed,
-      child: BaseText(text: label),
+      child: BaseText(
+        text: label,
+        bold: FontWeight.w600,
+      ),
     );
   }
 }
@@ -106,7 +109,7 @@ class BaseButtonIcon extends StatelessWidget {
       icon: Icon(icon),
       label: BaseText(
         text: label,
-        bold: FontWeight.bold,
+        bold: FontWeight.w600,
       ),
     );
   }
