@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_appbar.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
@@ -17,18 +18,24 @@ class LotteryTab extends StatelessWidget {
         title: '',
         preferredSize: Size.zero,
       ),
-      body: Column(
-        children: [
-          const HeaderDashboard(
-            child: BaseText(
-              text: 'Undian',
-              size: 26,
-              color: Colors.white,
-              bold: FontWeight.w600,
-            ),
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: Get.height * 0.9,
+          width: Get.width,
+          child: Column(
+            children: [
+              const HeaderDashboard(
+                child: BaseText(
+                  text: 'Undian',
+                  size: 26,
+                  color: Colors.white,
+                  bold: FontWeight.w600,
+                ),
+              ),
+              BodyLottery(),
+            ],
           ),
-          BodyLottery(),
-        ],
+        ),
       ),
     );
   }

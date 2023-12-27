@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 import 'package:triwarna_rebuild/app/components/base_nodata.dart';
+import 'package:triwarna_rebuild/app/components/base_searchnotfound.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/lottery/search_lottery.dart';
@@ -82,33 +82,9 @@ class WinnerLottery extends StatelessWidget {
                     : controller.searchWinner.value != null &&
                             controller.searchWinner.value != '' &&
                             controller.findWinner.isEmpty
-                        ? Center(
-                            child: SingleChildScrollView(
-                              child: Center(
-                                child: Column(
-                                  children: [
-                                    Lottie.asset(
-                                      'assets/lotties/winner_notfound.json',
-                                      width: 180,
-                                      frameRate: FrameRate(144),
-                                      repeat: false,
-                                    ),
-                                    const BaseText(
-                                      text: 'Pencarian Tidak Ditemukan',
-                                      textAlign: TextAlign.center,
-                                      size: 16,
-                                      bold: FontWeight.w500,
-                                    ),
-                                    BaseText(
-                                      text:
-                                          'Pencarian "${controller.searchWinner.value}" tidak ditemukan',
-                                      textAlign: TextAlign.center,
-                                      color: Colors.grey.shade600,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                        ? BaseSearchNotFound(
+                            title: 'Pemenang Tidak Ditemukan',
+                            subtitle: 'Pemenang "${controller.searchWinner.value}" tidak ditemukan',
                           )
                         : RefreshIndicator(
                             onRefresh: controller.refreshWinner,
