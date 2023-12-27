@@ -4,6 +4,7 @@ import 'package:triwarna_rebuild/app/components/base_button.dart';
 import 'package:triwarna_rebuild/app/components/base_shimmer.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/utils/api_url.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class PrizeCard extends StatelessWidget {
@@ -49,7 +50,7 @@ class PrizeCard extends StatelessWidget {
                   horizontal: 5,
                 ),
                 child: BaseText(
-                  text: '$point Poin',
+                  text: '${AppHelpers.thousandFormat(int.parse(point))} Poin',
                   color: Colors.white,
                   bold: FontWeight.w600,
                 ),

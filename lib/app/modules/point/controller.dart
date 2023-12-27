@@ -25,6 +25,7 @@ class PointController extends GetxController {
   final pointLoading = true.obs;
 
   final searchPrize = Rx<String?>(null);
+  final searchController = TextEditingController().obs;
   final prize = <Prize>[].obs;
   final filteredPrize = <Prize>[].obs;
   final prizeLoading = true.obs;
@@ -66,6 +67,7 @@ class PointController extends GetxController {
 
   @override
   void onClose() {
+    searchController.value.dispose();
     increasePoint.clear();
     decreasePoint.clear();
     prize.clear();

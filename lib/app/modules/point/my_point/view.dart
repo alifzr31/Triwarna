@@ -135,7 +135,7 @@ class PointBody extends StatelessWidget {
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         child: SizedBox(
-          height: Get.height * 0.888,
+          height: Get.height * 0.9,
           width: Get.width,
           child: Column(
             children: [
