@@ -15,13 +15,14 @@ class SendLinkController extends GetxController {
   SendLinkController({required this.sendLinkProvider});
 
   final email = Rx<String?>(null);
+  final maskedEmail = Rx<String?>(null);
   final sent = false.obs;
   final tunggu = false.obs;
 
   @override
   void onInit() {
-    final maskedEmail = AppHelpers.maskEmail(Get.arguments);
-    email.value = maskedEmail;
+    maskedEmail.value = AppHelpers.maskEmail(Get.arguments);
+    email.value = Get.arguments;
     super.onInit();
   }
 

@@ -69,7 +69,7 @@ class FormSendLink extends StatelessWidget {
                             style: TextStyle(color: Colors.white70),
                           ),
                     TextSpan(
-                      text: controller.email.value,
+                      text: controller.maskedEmail.value,
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
