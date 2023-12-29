@@ -39,7 +39,7 @@ class MenuAccount extends StatelessWidget {
 
   Widget normalPhone(BuildContext context) {
     return SizedBox(
-      height: 500,
+      height: 580,
       width: Get.width,
       child: Padding(
         padding: const EdgeInsets.only(top: 15),
@@ -51,6 +51,18 @@ class MenuAccount extends StatelessWidget {
                 Expanded(
                   child: Column(
                     children: [
+                      BaseListTile(
+                        leading: const Icon(
+                          EvaIcons.edit2,
+                          size: 30,
+                          color: purpleColor,
+                        ),
+                        title: 'Ubah Profil',
+                        subtitle: 'Ubah informasi data diri anda',
+                        onTap: () {
+                          Get.toNamed('/editProfile');
+                        },
+                      ),
                       BaseListTile(
                         leading: SvgPicture.asset(
                           'assets/images/shopping_history.svg',
