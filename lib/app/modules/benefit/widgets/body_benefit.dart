@@ -21,8 +21,8 @@ class BodyBenefit extends StatelessWidget {
             BaseTabBar(
               onTap: (index) => controller.currentTab.value = index,
               tabs: const [
-                BaseText(text: 'Tentang Benefit'),
-                BaseText(text: 'FAQ'),
+                BaseText(text: 'Benefit'),
+                BaseText(text: 'Bantuan'),
               ],
             ),
             Expanded(
