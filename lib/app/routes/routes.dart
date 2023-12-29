@@ -12,6 +12,7 @@ class Routes {
 
   static const String dashboard = '/dashboard';
   static const String benefit = '/benefit';
+  static const String answerFaq = '/answerFaq';
 
   static const String contents = '/contents';
   static const String detailContent = '/detailContent';

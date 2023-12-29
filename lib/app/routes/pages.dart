@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:triwarna_rebuild/app/modules/answer_faq/binding.dart';
 import 'package:triwarna_rebuild/app/modules/auth/widgets/forgot_password/identify/binding.dart';
 import 'package:triwarna_rebuild/app/modules/auth/widgets/forgot_password/identify/view.dart';
 import 'package:triwarna_rebuild/app/modules/auth/widgets/forgot_password/send_link/binding.dart';
@@ -9,6 +10,7 @@ import 'package:triwarna_rebuild/app/modules/auth/widgets/register/binding.dart'
 import 'package:triwarna_rebuild/app/modules/auth/widgets/register/view.dart';
 import 'package:triwarna_rebuild/app/modules/auth/widgets/verify/binding.dart';
 import 'package:triwarna_rebuild/app/modules/auth/widgets/verify/view.dart';
+import 'package:triwarna_rebuild/app/modules/answer_faq/view.dart';
 import 'package:triwarna_rebuild/app/modules/benefit/binding.dart';
 import 'package:triwarna_rebuild/app/modules/benefit/view.dart';
 import 'package:triwarna_rebuild/app/modules/contents/all_contents/view.dart';
@@ -97,6 +99,11 @@ abstract class AppPages {
       name: Routes.benefit,
       page: () => const BenefitPage(),
       binding: BenefitBinding(),
+    ),
+    GetPage(
+      name: Routes.answerFaq,
+      page: () => const AnswerFaqPage(),
+      binding: AnswerFaqBinding(),
     ),
 
     GetPage(
