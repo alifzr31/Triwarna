@@ -30,7 +30,7 @@ class ChooseVerify extends StatelessWidget {
               children: const [
                 TextSpan(
                   text:
-                      'Pilih metode verikasi akun Anda untuk mendapatkan OTP\nvia ',
+                      'Pilih metode verifikasi akun anda, mendapatkan kode OTP\nvia ',
                   style: TextStyle(
                     color: Colors.white70,
                   ),

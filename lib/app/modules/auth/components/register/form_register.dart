@@ -18,13 +18,15 @@ class FormRegister extends StatelessWidget {
       () => Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(15),
+            padding: Get.height > 750
+                ? const EdgeInsets.fromLTRB(15, 40, 15, 0)
+                : const EdgeInsets.all(15),
             child: SvgPicture.asset(
               'assets/images/logo_tri_white.svg',
               width: 200,
             ),
           ),
-          const SizedBox(height: 10),
+          if (Get.height < 750) const SizedBox(height: 10),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
@@ -41,7 +43,7 @@ class FormRegister extends StatelessWidget {
                         if (value!.isEmpty) {
                           return 'Nama lengkap tidak boleh kosong';
                         }
-            
+
                         return null;
                       },
                     ),
@@ -65,25 +67,21 @@ class FormRegister extends StatelessWidget {
                             return 'Email tidak valid';
                           }
                         }
-            
+
                         return null;
                       },
                     ),
                     const SizedBox(height: 15),
                     BaseFormGroupFieldAuth(
-                      label: 'No. Telepon',
+                      label: 'No. Telepon (Opsional)',
                       hint: 'Masukkan no. telepon anda',
                       controller: controller.phoneController.value,
                       keyboardType: TextInputType.phone,
                       validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'No. telepon tidak boleh kosong';
-                        } else {
-                          if (!value.isPhoneNumber) {
-                            return 'No. telepon tidak valid';
-                          }
+                        if (value!.isNotEmpty && !value.isPhoneNumber) {
+                          return 'No. telepon tidak valid';
                         }
-            
+
                         return null;
                       },
                     ),
@@ -109,7 +107,7 @@ class FormRegister extends StatelessWidget {
                             return 'Password minimal berjumlah 8 karakter';
                           }
                         }
-            
+
                         return null;
                       },
                     ),
@@ -136,7 +134,7 @@ class FormRegister extends StatelessWidget {
                             return 'Konfirmasi password tidak cocok';
                           }
                         }
-            
+
                         return null;
                       },
                     ),
