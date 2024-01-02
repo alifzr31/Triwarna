@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart' as dio;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:open_mail_app/open_mail_app.dart';
@@ -54,6 +55,10 @@ class VerifyController extends GetxController {
 
     await Future.delayed(const Duration(milliseconds: 1500), () {
       Get.back();
+
+      if (kDebugMode) {
+        print(formData.fields);
+      }
 
       pageController.value.animateToPage(
         1,
