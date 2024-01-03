@@ -23,8 +23,8 @@ class HeaderPoint extends StatelessWidget {
               width: Get.width,
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(15),
-                  bottomRight: Radius.circular(15),
+                  bottomLeft: Radius.circular(28),
+                  bottomRight: Radius.circular(28),
                 ),
                 gradient: LinearGradient(
                   colors: [
