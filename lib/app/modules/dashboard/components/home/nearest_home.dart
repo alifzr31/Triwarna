@@ -1,6 +1,8 @@
+import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:triwarna_rebuild/app/components/base_button.dart';
 import 'package:triwarna_rebuild/app/components/base_shimmer.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/components/nearest_box.dart';
@@ -52,19 +54,35 @@ class NearestHome extends StatelessWidget {
           const SizedBox(height: 20),
           Expanded(
             child: Obx(
-              () => controller.servicestatus.isFalse ||
-                      controller.haspermission.isFalse
+              () => controller.haspermission.isFalse ||
+                      controller.servicestatus.isFalse
                   ? Center(
-                      child: SizedBox(
-                        height: 40,
-                        child: BaseButton(
-                          bgColor: purpleColor,
-                          fgColor: Colors.white,
-                          label: 'Cari Toko Terdekat',
-                          onPressed: () async {
-                            await controller.fetchLocation();
-                          },
-                        ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/no_location.svg',
+                            width: 60,
+                          ),
+                          TextButton.icon(
+                            onPressed: () async {
+                              controller.servicestatus.value =
+                                  await Geolocator.isLocationServiceEnabled();
+
+                              if (controller.servicestatus.value) {
+                                await controller.fetchLocation();
+                              } else {
+                                await Geolocator.openLocationSettings();
+                              }
+                            },
+                            icon: const Icon(
+                              EvaIcons.refresh,
+                              size: 20,
+                            ),
+                            label:
+                                const BaseText(text: 'Nyalakan Akses Lokasi'),
+                          ),
+                        ],
                       ),
                     )
                   : controller.storeLoading.isTrue ||
@@ -98,8 +116,7 @@ class NearestHome extends StatelessWidget {
                               onTap: () {
                                 controller.tabIndex.value = 2;
                                 controller.nameDetail.value = store.storeName;
-                                controller.addressDetail.value =
-                                    store.address;
+                                controller.addressDetail.value = store.address;
                                 controller.phoneDetail.value = store.phone;
                                 if (store.distance != null) {
                                   final parser =
