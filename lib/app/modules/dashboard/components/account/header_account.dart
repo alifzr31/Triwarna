@@ -82,22 +82,34 @@ class HeaderAccount extends StatelessWidget {
                         ),
                       ),
                     )
-                  : InkWell(
-                      onTap: () => showAvatar(
-                        controller.profile.value?.image ?? '',
-                      ),
-                      child: CircleAvatar(
-                        radius: 35,
-                        backgroundImage: Image.network(
-                          '${ApiUrl.baseStorageUrl}${StorageUrl.profile}/${controller.profile.value?.image}',
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            return loadingProgress == null
-                                ? child
-                                : Center(
-                                    child: CircularProgressIndicator(
-                                      value:
-                                          loadingProgress.expectedTotalBytes !=
+                  : controller.profile.value?.image == null
+                      ? const CircleAvatar(
+                          radius: 35,
+                          backgroundColor: softPurpleColor,
+                          foregroundColor: purpleColor,
+                          child: Icon(
+                            Icons.person,
+                            size: 35,
+                          ),
+                        )
+                      : InkWell(
+                          onTap: () => showAvatar(
+                            controller.profile.value?.image ?? '',
+                          ),
+                          child: CircleAvatar(
+                            radius: 35,
+                            backgroundColor: Colors.transparent,
+                            backgroundImage: Image.network(
+                              '${ApiUrl.baseStorageUrl}${StorageUrl.profile}/${controller.profile.value?.image}',
+                              fit: BoxFit.cover,
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                return loadingProgress == null
+                                    ? child
+                                    : Center(
+                                        child: CircularProgressIndicator(
+                                          value: loadingProgress
+                                                      .expectedTotalBytes !=
                                                   null
                                               ? loadingProgress
                                                       .cumulativeBytesLoaded /
@@ -105,12 +117,12 @@ class HeaderAccount extends StatelessWidget {
                                                           .expectedTotalBytes ??
                                                       1)
                                               : null,
-                                    ),
-                                  );
-                          },
-                        ).image,
-                      ),
-                    ),
+                                        ),
+                                      );
+                              },
+                            ).image,
+                          ),
+                        ),
             ),
           ),
           Positioned(
