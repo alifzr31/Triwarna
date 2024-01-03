@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AnswerFaqController extends GetxController {
+  final token = Rx<String?>(null);
   final chooseQuestion = Rx<String?>(null);
   final questionTrigger = Rx<int?>(null);
 
@@ -18,7 +20,9 @@ class AnswerFaqController extends GetxController {
   ].obs;
 
   @override
-  void onInit() {
+  void onInit() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    token.value = sharedPreferences.getString('token');
     chooseQuestion.value = Get.arguments['question'];
     questionTrigger.value = Get.arguments['questionTrigger'];
     super.onInit();

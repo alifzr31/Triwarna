@@ -53,7 +53,11 @@ class AnswerFaqBody extends StatelessWidget {
                                     decoration: TextDecoration.underline),
                                 recognizer: TapGestureRecognizer()
                                   ..onTap = () {
-                                    Get.toNamed('/point');
+                                    if (controller.token.value == null) {
+                                      Get.toNamed('/login');
+                                    } else {
+                                      Get.toNamed('/point');
+                                    }
                                   },
                               ),
                               const TextSpan(
