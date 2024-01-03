@@ -192,6 +192,18 @@ class MenuAccount extends StatelessWidget {
                     child: Column(
                       children: [
                         BaseListTile(
+                          leading: const Icon(
+                            EvaIcons.edit2,
+                            size: 30,
+                            color: purpleColor,
+                          ),
+                          title: 'Ubah Profil',
+                          subtitle: 'Ubah informasi data diri anda',
+                          onTap: () {
+                            Get.toNamed('/editProfile');
+                          },
+                        ),
+                        BaseListTile(
                           leading: SvgPicture.asset(
                             'assets/images/shopping_history.svg',
                             width: 30,
