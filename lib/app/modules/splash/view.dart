@@ -31,7 +31,7 @@ class SplashBody extends StatelessWidget {
           children: [
             Center(
               child: Lottie.asset(
-                'assets/lotties/spl.json',
+                'assets/lotties/splash.json',
                 width: 250,
                 frameRate: FrameRate(240),
                 repeat: true,
