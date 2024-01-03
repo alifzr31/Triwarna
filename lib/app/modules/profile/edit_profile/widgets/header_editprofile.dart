@@ -101,7 +101,7 @@ class HeaderEditProfile extends StatelessWidget {
                             child: userController.profile.value?.image == null
                                 ? const Icon(
                                     EvaIcons.person,
-                                    size: 60,
+                                    size: 50,
                                   )
                                 : null,
                           ),

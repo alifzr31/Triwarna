@@ -35,6 +35,7 @@ class PointVoucherBox extends StatelessWidget {
                 child: Row(
                   children: [
                     CircleAvatar(
+                      backgroundColor: softPurpleColor,
                       foregroundColor: purpleColor,
                       child: Icon(EvaIcons.person),
                     ),
