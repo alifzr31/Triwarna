@@ -79,3 +79,15 @@ class BadCertException extends DioException {
     return '${response?.data}';
   }
 }
+
+class SomeOtherException implements Exception {
+  final RequestOptions requestOptions;
+  final Response? response;
+
+  SomeOtherException(this.requestOptions, this.response);
+
+  @override
+  String toString() {
+    return 'SomeOtherException: An unknown exception occurred.\nRequest Options: $requestOptions\nResponse: $response';
+  }
+}
