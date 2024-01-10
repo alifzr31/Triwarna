@@ -3,6 +3,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_nodata.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
+import 'package:triwarna_rebuild/app/core/values/custom_bottomsheet.dart';
+import 'package:triwarna_rebuild/app/modules/dashboard/components/locationdesc_widget.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/store/custom_map.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/components/store/detail_box.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
@@ -42,11 +44,19 @@ class BodyStore extends StatelessWidget {
                       onPressed: () async {
                         controller.servicestatus.value =
                             await Geolocator.isLocationServiceEnabled();
+                        final permission = await Geolocator.checkPermission();
 
                         if (controller.servicestatus.value) {
-                          await controller.fetchLocation();
+                          if (permission == LocationPermission.denied) {
+                            customBottomSheet(280, LocationDescWidget());
+                          } else if (permission ==
+                              LocationPermission.deniedForever) {
+                            customBottomSheet(280, LocationDescWidget());
+                          } else {
+                            controller.fetchLocation();
+                          }
                         } else {
-                          await Geolocator.openLocationSettings();
+                          customBottomSheet(280, LocationDescWidget());
                         }
                       },
                     ),

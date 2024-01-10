@@ -291,11 +291,9 @@ class DashboardController extends GetxController {
 
   Future<void> fetchLocation() async {
     locationLoading.value = true;
+
     try {
       late Position position;
-
-      servicestatus.value = false;
-      haspermission.value = false;
       late LocationPermission permission;
 
       servicestatus.value = await Geolocator.isLocationServiceEnabled();
@@ -306,9 +304,9 @@ class DashboardController extends GetxController {
         if (permission == LocationPermission.denied) {
           permission = await Geolocator.requestPermission();
           if (permission == LocationPermission.denied) {
-            await Geolocator.openAppSettings();
+            // await Geolocator.openAppSettings();
           } else if (permission == LocationPermission.deniedForever) {
-            await Geolocator.openAppSettings();
+            // await Geolocator.openAppSettings();
           } else {
             haspermission.value = true;
           }
