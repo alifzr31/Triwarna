@@ -6,7 +6,7 @@ import 'package:triwarna_rebuild/app/core/utils/api_url.dart';
 
 class CardContents extends StatelessWidget {
   const CardContents({
-    Key? key,
+    super.key,
     required this.image,
     required this.label,
     required this.title,
@@ -14,7 +14,7 @@ class CardContents extends StatelessWidget {
     required this.date,
     this.labelColor,
     this.onTap,
-  }) : super(key: key);
+  });
 
   final String image;
   final String label;

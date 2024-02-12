@@ -4,7 +4,7 @@ import 'package:triwarna_rebuild/app/components/base_text.dart';
 
 class CardBenefit extends StatelessWidget {
   const CardBenefit({
-    Key? key,
+    super.key,
     required this.loyaltyLevel,
     this.desc,
     this.color,
@@ -12,7 +12,7 @@ class CardBenefit extends StatelessWidget {
     this.token,
     this.progressColor,
     this.progressGradient,
-  }) : super(key: key);
+  });
 
   final String loyaltyLevel;
   final Widget? desc;

@@ -5,9 +5,9 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class TermItem extends StatelessWidget {
   const TermItem({
-    Key? key,
+    super.key,
     this.text,
-  }) : super(key: key);
+  });
 
   final String? text;
 

@@ -8,11 +8,11 @@ import 'package:triwarna_rebuild/app/modules/dashboard/components/show_qr.dart';
 
 class GreetingHeaderHome extends StatelessWidget {
   const GreetingHeaderHome({
-    Key? key,
+    super.key,
     required this.name,
     required this.noMember,
     this.token,
-  }) : super(key: key);
+  });
 
   final String name;
   final String noMember;

@@ -4,7 +4,7 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class BaseFormGroupField extends StatelessWidget {
   const BaseFormGroupField({
-    Key? key,
+    super.key,
     this.controller,
     required this.label,
     this.hint,
@@ -19,7 +19,7 @@ class BaseFormGroupField extends StatelessWidget {
     this.onChanged,
     this.initialValue,
     this.helper,
-  }) : super(key: key);
+  });
 
   final TextEditingController? controller;
   final String label;
@@ -80,7 +80,7 @@ class BaseFormGroupField extends StatelessWidget {
 
 class BaseFormGroupFieldAuth extends StatelessWidget {
   const BaseFormGroupFieldAuth({
-    Key? key,
+    super.key,
     this.controller,
     required this.label,
     this.hint,
@@ -95,7 +95,7 @@ class BaseFormGroupFieldAuth extends StatelessWidget {
     this.onChanged,
     this.initialValue,
     this.helper,
-  }) : super(key: key);
+  });
 
   final TextEditingController? controller;
   final String label;
@@ -149,6 +149,7 @@ class BaseFormGroupFieldAuth extends StatelessWidget {
               color: yellowColor,
               fontStyle: FontStyle.italic,
             ),
+            errorMaxLines: 2,
             contentPadding: const EdgeInsets.all(10),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),

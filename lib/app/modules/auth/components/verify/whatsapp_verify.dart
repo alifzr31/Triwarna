@@ -26,6 +26,7 @@ class WhatsAppVerify extends StatelessWidget {
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.easeInOutCubic,
                   );
+                  controller.otpController.value.clear();
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(5),
@@ -93,7 +94,9 @@ class WhatsAppVerify extends StatelessWidget {
                       onPressed: () {
                         if (controller.formKeyOTP.value.currentState
                                 ?.validate() ??
-                            false) {}
+                            false) {
+                          controller.verifyOtpWhatsapp();
+                        }
                       },
                     ),
                   ),

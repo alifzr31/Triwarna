@@ -7,11 +7,11 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class WinnerCard extends StatelessWidget {
   const WinnerCard({
-    Key? key,
+    super.key,
     required this.prizeImage,
     required this.prizeName,
     required this.listCustomer,
-  }) : super(key: key);
+  });
 
   final String prizeImage;
   final String prizeName;

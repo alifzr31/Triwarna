@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart' as dio;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:open_mail_app/open_mail_app.dart';
@@ -48,29 +47,71 @@ class VerifyController extends GetxController {
 
   void verifyWhatsApp() async {
     final formData = dio.FormData.fromMap({
-      'phone_number': phoneNumber.value,
+      'type': 'wa',
+      'value': phoneNumber.value,
     });
 
     showLoading();
 
-    await Future.delayed(const Duration(milliseconds: 1500), () {
-      Get.back();
+    try {
+      final response = await verifyProvider.verifyWhatsApp(formData);
 
-      if (kDebugMode) {
-        print(formData.fields);
+      if (response.statusCode == 200) {
+        Get.back();
+
+        pageController.value.animateToPage(
+          1,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOutCubic,
+        );
       }
+    } on dio.DioException catch (e) {
+      Get.back();
+      if (e.response?.statusCode == 500) {
+        failedSnackbar(
+          'Verifikasi Gagal',
+          'Ups sepertinya terjadi kesalahan. code:${e.response?.statusCode}',
+        );
+      }
+    }
+  }
 
-      pageController.value.animateToPage(
-        1,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOutCubic,
-      );
+  void verifyOtpWhatsapp() async {
+    final formData = dio.FormData.fromMap({
+      'value': phoneNumber.value,
+      'otp': otpController.value.text,
     });
+
+    showLoading();
+
+    try {
+      final response = await verifyProvider.verifyOtpWhatsapp(formData);
+
+      if (response.statusCode == 200) {
+        Get.back();
+
+        successSnackbar(
+          'Verifikasi Berhasil',
+          'Akun anda sudah aktif. Silahkan log in untuk menikmati berbagai fitur menarik',
+        );
+
+        Get.offAndToNamed('/login');
+      }
+    } on dio.DioException catch (e) {
+      Get.back();
+      if (e.response?.statusCode == 500) {
+        failedSnackbar(
+          'Verifikasi Gagal',
+          'Ups sepertinya terjadi kesalahan. code:${e.response?.statusCode}',
+        );
+      }
+    }
   }
 
   void verifyEmail() async {
     final formData = dio.FormData.fromMap({
-      'email': email.value,
+      'type': 'email',
+      'value': email.value,
     });
 
     showLoading();
@@ -82,11 +123,11 @@ class VerifyController extends GetxController {
         Get.back();
         hasSent.value = true;
 
-        // pageController.value.animateToPage(
-        //   1,
-        //   duration: const Duration(milliseconds: 500),
-        //   curve: Curves.easeInOutCubic,
-        // );
+        pageController.value.animateToPage(
+          1,
+          duration: const Duration(milliseconds: 500),
+          curve: Curves.easeInOutCubic,
+        );
       }
     } on dio.DioException catch (e) {
       Get.back();

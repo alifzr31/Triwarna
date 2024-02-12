@@ -6,12 +6,12 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class CardItemLottery extends StatelessWidget {
   const CardItemLottery({
-    Key? key,
+    super.key,
     required this.total,
     required this.noStruk,
     required this.tanggal,
     required this.detailData,
-  }) : super(key: key);
+  });
 
   final String total;
   final String noStruk;

@@ -3,9 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class DetailCard extends StatelessWidget {
   const DetailCard({
-    Key? key,
+    super.key,
     required this.noUndian,
-  }) : super(key: key);
+  });
 
   final String noUndian;
 

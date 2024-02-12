@@ -4,12 +4,12 @@ import 'package:triwarna_rebuild/app/components/base_text.dart';
 
 class HeaderOtp extends StatelessWidget {
   const HeaderOtp({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
     required this.email,
     this.showAlert = false,
-  }) : super(key: key);
+  });
 
   final String title;
   final String subtitle;

@@ -7,10 +7,10 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class MyPointCard extends StatelessWidget {
   const MyPointCard({
-    Key? key,
+    super.key,
     required this.loyaltyPoint,
     required this.pointLoading,
-  }) : super(key: key);
+  });
 
   final String loyaltyPoint;
   final bool pointLoading;

@@ -8,11 +8,11 @@ import 'package:triwarna_rebuild/app/modules/dashboard/components/member_progres
 
 class InfoHeaderHome extends StatelessWidget {
   const InfoHeaderHome({
-    Key? key,
+    super.key,
     required this.category,
     required this.spendingTotal,
     this.token,
-  }) : super(key: key);
+  });
 
   final String category;
   final String spendingTotal;

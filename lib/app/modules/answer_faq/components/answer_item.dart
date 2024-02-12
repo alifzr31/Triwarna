@@ -3,10 +3,10 @@ import 'package:triwarna_rebuild/app/components/base_text.dart';
 
 class AnswerItem extends StatelessWidget {
   const AnswerItem({
-    Key? key,
+    super.key,
     required this.answer,
     this.number,
-  }) : super(key: key);
+  });
 
   final String answer;
   final String? number;

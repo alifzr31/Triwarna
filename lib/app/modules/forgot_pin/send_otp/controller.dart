@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
@@ -13,29 +14,40 @@ class SendOtpController extends GetxController {
 
   final userController = Get.find<DashboardController>();
   final email = Rx<String?>(null);
+  final type = Rx<String?>(null);
 
   @override
   void onInit() {
-    final maskedEmail = AppHelpers.maskEmail(userController.profile.value?.email ?? '');
+    final maskedEmail =
+        AppHelpers.maskEmail(userController.profile.value?.email ?? '');
     email.value = maskedEmail;
     super.onInit();
   }
 
   void sendOtp() async {
+    final formData = dio.FormData.fromMap({
+      'type': type.value,
+    });
+
     showLoading();
 
     try {
-      final response = await sendOtpProvider.sendOtp();
+      final response = await sendOtpProvider.sendOtp(formData);
 
       if (response.statusCode == 200) {
         Get.back();
-        if (response.data['otp_aktif']) {
+        if (response.data['success'] == false) {
           infoSnackbar(
             'Kode OTP Masih Aktif',
-            'Kode OTP sudah dikirim, silahkan cek kembali email anda dengan benar',
+            response.data['message'],
           );
         }
-        Get.offAndToNamed('/verifyOtp');
+        Get.offAndToNamed(
+          '/verifyOtp',
+          arguments: {
+            'type': type.value,
+          },
+        );
       }
     } on DioException catch (e) {
       Get.back();

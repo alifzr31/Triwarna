@@ -11,7 +11,7 @@ import 'package:triwarna_rebuild/app/modules/dashboard/components/show_qr.dart';
 
 class ProfileBox extends StatelessWidget {
   const ProfileBox({
-    Key? key,
+    super.key,
     required this.name,
     required this.noMember,
     required this.totalPoint,
@@ -19,7 +19,7 @@ class ProfileBox extends StatelessWidget {
     required this.category,
     required this.totalTransaction,
     required this.memberProgress,
-  }) : super(key: key);
+  });
 
   final String name;
   final String noMember;

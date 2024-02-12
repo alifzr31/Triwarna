@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/modules/answer_faq/binding.dart';
 import 'package:triwarna_rebuild/app/modules/auth/widgets/forgot_password/identify/binding.dart';
 import 'package:triwarna_rebuild/app/modules/auth/widgets/forgot_password/identify/view.dart';
+import 'package:triwarna_rebuild/app/modules/auth/widgets/forgot_password/reset_password/binding.dart';
+import 'package:triwarna_rebuild/app/modules/auth/widgets/forgot_password/reset_password/view.dart';
 import 'package:triwarna_rebuild/app/modules/auth/widgets/forgot_password/send_link/binding.dart';
 import 'package:triwarna_rebuild/app/modules/auth/widgets/forgot_password/send_link/view.dart';
 import 'package:triwarna_rebuild/app/modules/auth/widgets/login/binding.dart';
@@ -89,6 +91,11 @@ abstract class AppPages {
       name: Routes.sendLink,
       page: () => const SendLinkPage(),
       binding: SendLinkBinding(),
+    ),
+    GetPage(
+      name: Routes.resetPassword,
+      page: () => const ResetPasswordPage(),
+      binding: ResetPasswordBinding(),
     ),
     GetPage(
       name: Routes.dashboard,

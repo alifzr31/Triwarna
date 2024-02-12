@@ -9,12 +9,12 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class PrizeCard extends StatelessWidget {
   const PrizeCard({
-    Key? key,
+    super.key,
     required this.point,
     required this.image,
     required this.prizeDesc,
     this.onPressed,
-  }) : super(key: key);
+  });
 
   final String point;
   final String image;

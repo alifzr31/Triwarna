@@ -22,12 +22,12 @@ class FormLogin extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               BaseFormGroupFieldAuth(
-                label: 'Username/Email',
-                hint: 'Masukkan username atau email anda',
+                label: 'Email/No. Telepon',
+                hint: 'Masukkan email atau no. telepon anda',
                 controller: controller.usernameController.value,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Username/email tidak boleh kosong';
+                    return 'Email/no. telepon tidak boleh kosong';
                   }
                   
                   return null;

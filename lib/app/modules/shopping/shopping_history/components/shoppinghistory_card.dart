@@ -5,13 +5,13 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class ShoppingHistoryCard extends StatelessWidget {
   const ShoppingHistoryCard({
-    Key? key,
+    super.key,
     required this.noStruk,
     required this.totalItem,
     required this.date,
     required this.total,
     this.onTap,
-  }) : super(key: key);
+  });
 
   final String noStruk;
   final String totalItem;

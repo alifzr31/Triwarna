@@ -5,7 +5,7 @@ import 'package:shimmer/shimmer.dart';
 
 class TrackingItem extends StatelessWidget {
   const TrackingItem({
-    Key? key,
+    super.key,
     required this.index,
     required this.length,
     required this.date,
@@ -13,7 +13,7 @@ class TrackingItem extends StatelessWidget {
     this.receipt,
     this.showPhoto,
     this.showSignature,
-  }) : super(key: key);
+  });
 
   final int index;
   final int length;
@@ -143,10 +143,10 @@ class TrackingItem extends StatelessWidget {
 
 class TrackingItemLoading extends StatelessWidget {
   const TrackingItemLoading({
-    Key? key,
+    super.key,
     required this.index,
     required this.length,
-  }) : super(key: key);
+  });
 
   final int index;
   final int length;

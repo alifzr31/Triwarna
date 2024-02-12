@@ -1,8 +1,10 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_button.dart';
 import 'package:triwarna_rebuild/app/components/base_formgrouppin.dart';
+import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
 import 'package:triwarna_rebuild/app/modules/profile/controller.dart';
@@ -100,16 +102,34 @@ class FormChangePin extends StatelessWidget {
           Container(
             width: Get.width,
             padding: const EdgeInsets.all(15),
-            child: BaseButton(
-              bgColor: purpleColor,
-              fgColor: Colors.white,
-              label: 'Ganti PIN',
-              onPressed: () {
-                if (controller.formKeyChangePin.value.currentState!
-                    .validate()) {
-                  controller.changePin();
-                }
-              },
+            child: Column(
+              children: [
+                SizedBox(
+                  width: Get.width,
+                  child: BaseButton(
+                    bgColor: purpleColor,
+                    fgColor: Colors.white,
+                    label: 'Ganti PIN',
+                    onPressed: () {
+                      if (controller.formKeyChangePin.value.currentState!
+                          .validate()) {
+                        controller.changePin();
+                      }
+                    },
+                  ),
+                ),
+                CupertinoButton(
+                  minSize: 25,
+                  padding: EdgeInsets.zero,
+                  onPressed: () => Get.toNamed('/sendOtp'),
+                  child: BaseText(
+                    text: 'Lupa PIN',
+                    size: 12,
+                    color: Colors.grey.shade600,
+                    bold: FontWeight.w500,
+                  ),
+                ),
+              ],
             ),
           ),
         ],

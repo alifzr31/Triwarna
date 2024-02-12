@@ -5,7 +5,7 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class BaseFormGroupPin extends StatelessWidget {
   const BaseFormGroupPin({
-    Key? key,
+    super.key,
     required this.label,
     this.icon,
     this.onPressed,
@@ -15,7 +15,7 @@ class BaseFormGroupPin extends StatelessWidget {
     this.onCompleted,
     this.onChanged,
     this.obscureText = true,
-  }) : super(key: key);
+  });
 
   final String label;
   final IconData? icon;
@@ -53,9 +53,6 @@ class BaseFormGroupPin extends StatelessWidget {
           child: Pinput(
             controller: controller,
             focusNode: focusNode,
-            androidSmsAutofillMethod:
-                AndroidSmsAutofillMethod.smsUserConsentApi,
-            listenForMultipleSmsOnAndroid: true,
             keyboardType: TextInputType.number,
             length: 6,
             defaultPinTheme: PinTheme(
@@ -106,7 +103,7 @@ class BaseFormGroupPin extends StatelessWidget {
 
 class BaseFormGroupForgotPin extends StatelessWidget {
   const BaseFormGroupForgotPin({
-    Key? key,
+    super.key,
     required this.label,
     this.icon,
     this.onPressed,
@@ -116,7 +113,7 @@ class BaseFormGroupForgotPin extends StatelessWidget {
     this.onCompleted,
     this.onChanged,
     this.obscureText = true,
-  }) : super(key: key);
+  });
 
   final String label;
   final IconData? icon;
@@ -156,9 +153,6 @@ class BaseFormGroupForgotPin extends StatelessWidget {
           child: Pinput(
             controller: controller,
             focusNode: focusNode,
-            androidSmsAutofillMethod:
-                AndroidSmsAutofillMethod.smsUserConsentApi,
-            listenForMultipleSmsOnAndroid: true,
             keyboardType: TextInputType.number,
             length: 6,
             defaultPinTheme: PinTheme(

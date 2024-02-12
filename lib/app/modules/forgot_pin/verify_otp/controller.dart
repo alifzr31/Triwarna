@@ -14,17 +14,21 @@ class VerifyOtpController extends GetxController {
 
   final userController = Get.find<DashboardController>();
 
+  final email = Rx<String?>(null);
+  final noTelp = Rx<String?>(null);
+  final type = Rx<String?>(null);
   final formKey = GlobalKey<FormState>().obs;
   final otpController = TextEditingController().obs;
   final showAlert = false.obs;
   final tunggu = false.obs;
-  final email = Rx<String?>(null);
 
   @override
   void onInit() {
-    final maskedEmail =
+    email.value =
         AppHelpers.maskEmail(userController.profile.value?.email ?? '');
-    email.value = maskedEmail;
+    noTelp.value =
+        AppHelpers.maskPhoneNumber(userController.profile.value?.contact ?? '');
+    type.value = Get.arguments['type'];
     super.onInit();
   }
 
@@ -36,6 +40,7 @@ class VerifyOtpController extends GetxController {
 
   void verifyOtp() async {
     final formData = dio.FormData.fromMap({
+      'type': type.value,
       'otp': otpController.value.text,
     });
 
@@ -47,12 +52,20 @@ class VerifyOtpController extends GetxController {
       if (response.statusCode == 200) {
         Get.back();
         showAlert.value = false;
-        Get.offAndToNamed('/resetPin');
+        Get.offAndToNamed(
+          '/resetPin',
+          arguments: {
+            'type': type.value,
+          },
+        );
       }
     } on dio.DioException catch (e) {
       Get.back();
       if (e.response?.statusCode == 422) {
-        showAlert.value = true;
+        infoSnackbar(
+          'Verifikasi OTP Gagal',
+          e.response?.data['message'],
+        );
       } else {
         failedSnackbar(
           'Ups sepertinya terjadi kesalahan',
@@ -64,7 +77,7 @@ class VerifyOtpController extends GetxController {
 
   void resendOtp() async {
     final formData = dio.FormData.fromMap({
-      'resend': true,
+      'type': type.value,
     });
 
     showLoading();
@@ -83,6 +96,10 @@ class VerifyOtpController extends GetxController {
           );
         } else {
           tunggu.value = response.data['tunggu'] ?? false;
+          infoSnackbar(
+            'Kode OTP Masih Aktif',
+            response.data['message'],
+          );
         }
       }
     } on dio.DioException catch (e) {

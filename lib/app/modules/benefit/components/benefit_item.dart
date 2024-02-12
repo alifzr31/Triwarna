@@ -5,10 +5,10 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class BenefitItem extends StatelessWidget {
   const BenefitItem({
-    Key? key,
+    super.key,
     this.text,
     this.textChildren,
-  }) : super(key: key);
+  });
 
   final String? text;
   final List<TextSpan>? textChildren;

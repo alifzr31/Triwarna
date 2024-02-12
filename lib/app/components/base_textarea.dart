@@ -3,7 +3,7 @@ import 'package:triwarna_rebuild/app/components/base_text.dart';
 
 class BaseTextArea extends StatelessWidget {
   const BaseTextArea({
-    Key? key,
+    super.key,
     required this.label,
     required this.hint,
     this.controller,
@@ -11,7 +11,7 @@ class BaseTextArea extends StatelessWidget {
     this.validator,
     this.enabled = true,
     this.keyboardType,
-  }) : super(key: key);
+  });
 
   final String label;
   final String hint;

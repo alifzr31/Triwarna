@@ -6,12 +6,12 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class WinnerCustomer extends StatelessWidget {
   const WinnerCustomer({
-    Key? key,
+    super.key,
     required this.name,
     required this.branch,
     required this.couponNumber,
     this.searchCustomer,
-  }) : super(key: key);
+  });
 
   final String name;
   final String branch;

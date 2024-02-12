@@ -3,7 +3,7 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class DetailBox extends StatelessWidget {
   const DetailBox({
-    Key? key,
+    super.key,
     required this.storeName,
     required this.storeAddress,
     required this.storePhone,
@@ -12,7 +12,7 @@ class DetailBox extends StatelessWidget {
     this.lat,
     this.long,
     this.directionPressed,
-  }) : super(key: key);
+  });
 
   final String storeName;
   final String storeAddress;

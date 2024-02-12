@@ -4,7 +4,6 @@ import 'package:triwarna_rebuild/app/components/base_button.dart';
 import 'package:triwarna_rebuild/app/components/base_formgrouppin.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
-import 'package:triwarna_rebuild/app/modules/forgot_pin/components/header_otp.dart';
 import 'package:triwarna_rebuild/app/modules/forgot_pin/verify_otp/controller.dart';
 
 class VerifyOtpBody extends StatelessWidget {
@@ -19,12 +18,34 @@ class VerifyOtpBody extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            HeaderOtp(
-              title: 'Verifikasi OTP',
-              subtitle:
-                  'Masukkan kode otp yang sudah dikirim ke email anda dengan benar',
-              email: controller.email.value ?? '',
-              showAlert: controller.showAlert.value,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const BaseText(
+                    text: 'Verifikasi OTP',
+                    size: 20,
+                    color: Colors.white,
+                    bold: FontWeight.w600,
+                  ),
+                  BaseText(
+                    text: controller.type.value == 'wa'
+                        ? 'Masukkan kode OTP yang sudah kami kirimkan ke whatsapp anda'
+                        : 'Masukkan kode OTP yang sudah kami kirimkan ke email anda',
+                    size: 12,
+                    color: Colors.white70,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            BaseText(
+              text: controller.type.value == 'wa'
+                  ? 'Kode OTP sudah dikirim ke whatsapp dengan no. telepon\n${controller.noTelp.value}'
+                  : 'Kode OTP sudah dikirim ke email\n${controller.email.value}',
+              color: Colors.white,
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
             Form(

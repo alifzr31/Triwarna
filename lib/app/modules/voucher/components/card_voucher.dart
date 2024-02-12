@@ -7,7 +7,7 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class CardVoucher extends StatelessWidget {
   const CardVoucher({
-    Key? key,
+    super.key,
     required this.qrImage,
     required this.namaBarang,
     required this.serialNumber,
@@ -16,7 +16,7 @@ class CardVoucher extends StatelessWidget {
     required this.medalImage,
     this.bgColor,
     this.onTap,
-  }) : super(key: key);
+  });
 
   final String qrImage;
   final String namaBarang;

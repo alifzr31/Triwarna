@@ -4,10 +4,10 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class ItemField extends StatelessWidget {
   const ItemField({
-    Key? key,
+    super.key,
     required this.label,
     required this.value,
-  }) : super(key: key);
+  });
 
   final String label;
   final String value;

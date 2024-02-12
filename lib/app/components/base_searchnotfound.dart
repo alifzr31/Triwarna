@@ -4,10 +4,10 @@ import 'package:triwarna_rebuild/app/components/base_text.dart';
 
 class BaseSearchNotFound extends StatelessWidget {
   const BaseSearchNotFound({
-    Key? key,
+    super.key,
     required this.title,
     required this.subtitle,
-  }) : super(key: key);
+  });
 
   final String title;
   final String subtitle;
@@ -23,7 +23,7 @@ class BaseSearchNotFound extends StatelessWidget {
             Lottie.asset(
               'assets/lotties/winner_notfound.json',
               width: 180,
-              frameRate: FrameRate(144),
+              frameRate: const FrameRate(144),
               repeat: false,
             ),
             BaseText(

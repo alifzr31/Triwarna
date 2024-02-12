@@ -9,11 +9,11 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class PointVoucherBox extends StatelessWidget {
   const PointVoucherBox({
-    Key? key,
+    super.key,
     required this.totalPoint,
     required this.totalVoucher,
     this.token,
-  }) : super(key: key);
+  });
 
   final String totalPoint;
   final String totalVoucher;

@@ -1,13 +1,21 @@
 import 'package:intl/intl.dart';
 
 class AppHelpers {
+  static final passwordValidation = RegExp(r'^(?=.*[A-Z])(?=.*[0-9])');
+  
   static String maskEmail(String email) {
     List<String> parts = email.split('@');
     String username = parts[0];
     String domain = parts[1];
-    String maskedUsername =
-        username.substring(0, 2) + '*' * (username.length - 1);
+    String maskedUsername = username.substring(0, 2) +
+        '*' * (username.length - 3) + username.substring(username.length - 1);
     return '$maskedUsername@$domain';
+  }
+
+  static String maskPhoneNumber(String phoneNumber) {
+    String maskedPhoneNumber = phoneNumber.substring(0, 3) +
+        '*' * (phoneNumber.length - 5) + phoneNumber.substring(phoneNumber.length - 2);
+    return maskedPhoneNumber;
   }
 
   static String rupiahFormat(int currency) {

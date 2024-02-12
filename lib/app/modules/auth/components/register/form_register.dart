@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_button.dart';
 import 'package:triwarna_rebuild/app/components/base_formgroupfield.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
+import 'package:triwarna_rebuild/app/core/values/app_helpers.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/modules/auth/widgets/register/controller.dart';
 
@@ -73,13 +74,17 @@ class FormRegister extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     BaseFormGroupFieldAuth(
-                      label: 'No. Telepon (Opsional)',
+                      label: 'No. Telepon',
                       hint: 'Masukkan no. telepon anda',
                       controller: controller.phoneController.value,
                       keyboardType: TextInputType.phone,
                       validator: (value) {
-                        if (value!.isNotEmpty && !value.isPhoneNumber) {
-                          return 'No. telepon tidak valid';
+                        if (value!.isEmpty) {
+                          return 'No. telepon tidak boleh kosong';
+                        } else {
+                          if (!value.isPhoneNumber) {
+                            return 'No. telepon tidak valid';
+                          }
                         }
 
                         return null;
@@ -105,6 +110,10 @@ class FormRegister extends StatelessWidget {
                         } else {
                           if (value.length < 8) {
                             return 'Password minimal berjumlah 8 karakter';
+                          } else {
+                            if (!AppHelpers.passwordValidation.hasMatch(value)) {
+                              return 'Setidaknya password harus mengandung 1 huruf besar, 1 huruf kecil, dan 1 angka';
+                            }
                           }
                         }
 
@@ -138,7 +147,7 @@ class FormRegister extends StatelessWidget {
                         return null;
                       },
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 50),
                     SizedBox(
                       width: Get.width,
                       child: BaseButton(

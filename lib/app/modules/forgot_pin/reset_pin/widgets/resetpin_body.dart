@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
@@ -20,6 +21,24 @@ class ResetPinBody extends StatelessWidget {
           return Obx(
             () => Column(
               children: [
+                if (controller.currentPage.value == 1)
+                  Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: CupertinoButton(
+                        minSize: 25,
+                        padding: EdgeInsets.zero,
+                        onPressed: controller.prevPage,
+                        child: const BaseText(
+                          text: 'Ulangi',
+                          size: 12,
+                          color: purpleColor,
+                          bold: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
                 Container(
                   width: Get.width,
                   padding: const EdgeInsets.all(15),

@@ -5,13 +5,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CustomMap extends StatelessWidget {
   const CustomMap({
-    Key? key,
+    super.key,
     required this.lat,
     required this.long,
     required this.markers,
     this.onMapCreated,
     this.onTap,
-  }) : super(key: key);
+  });
 
   final double lat;
   final double long;

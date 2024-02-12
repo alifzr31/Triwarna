@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/components/base_button.dart';
+import 'package:triwarna_rebuild/app/components/base_formgrouppin.dart';
 import 'package:triwarna_rebuild/app/components/base_text.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/modules/auth/widgets/forgot_password/send_link/controller.dart';
@@ -18,8 +19,10 @@ class FormSendLink extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const BaseText(
-              text: 'Cek Email Anda',
+            BaseText(
+              text: controller.type.value == 'wa'
+                  ? 'Cek Whatsapp Anda'
+                  : 'Cek Email Anda',
               size: 20,
               bold: FontWeight.w600,
               color: Colors.white,
@@ -58,53 +61,113 @@ class FormSendLink extends StatelessWidget {
                 text: TextSpan(
                   style: DefaultTextStyle.of(context).style,
                   children: [
-                    controller.sent.value
-                        ? const TextSpan(
-                            text:
-                                'Link reset password sudah dikirim ke email\n',
-                            style: TextStyle(color: Colors.white70),
-                          )
-                        : const TextSpan(
-                            text: 'Link reset password akan dikirim ke email\n',
-                            style: TextStyle(color: Colors.white70),
-                          ),
+                    controller.type.value == 'wa'
+                        ? controller.sent.value
+                            ? const TextSpan(
+                                text: 'Kode OTP sudah dikirim ke whatsapp\n',
+                                style: TextStyle(color: Colors.white70),
+                              )
+                            : const TextSpan(
+                                text: 'Kode OTP akan dikirim ke whatsapp\n',
+                                style: TextStyle(color: Colors.white70),
+                              )
+                        : controller.sent.value
+                            ? const TextSpan(
+                                text:
+                                    'Link reset password sudah dikirim ke email\n',
+                                style: TextStyle(color: Colors.white70),
+                              )
+                            : const TextSpan(
+                                text:
+                                    'Link reset password akan dikirim ke email\n',
+                                style: TextStyle(color: Colors.white70),
+                              ),
                     TextSpan(
-                      text: controller.maskedEmail.value,
+                      text: controller.maskedValue.value,
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     if (controller.sent.value)
-                      const TextSpan(
-                        text: '\nSilahkan cek email anda',
-                        style: TextStyle(color: Colors.white70),
+                      TextSpan(
+                        text: controller.type.value == 'wa'
+                            ? '\nSilahkan cek whatsapp anda'
+                            : '\nSilahkan cek email anda',
+                        style: const TextStyle(color: Colors.white70),
                       ),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 10),
-            SizedBox(
-              width: Get.width,
-              child: BaseButton(
-                bgColor: softPurpleColor,
-                fgColor: purpleColor,
-                label: controller.sent.value
-                    ? 'Buka Email'
-                    : 'Kirim Link Reset Password',
-                onPressed: controller.sent.value
-                    ? controller.openMailApp
-                    : controller.sendLink,
-              ),
-            ),
+            controller.type.value == 'wa'
+                ? controller.sent.isFalse
+                    ? SizedBox(
+                        width: Get.width,
+                        child: BaseButton(
+                          bgColor: softPurpleColor,
+                          fgColor: purpleColor,
+                          label: 'Kirim Kode OTP',
+                          onPressed: controller.sendLink,
+                        ),
+                      )
+                    : Form(
+                        key: controller.formKey.value,
+                        child: Column(
+                          children: [
+                            BaseFormGroupForgotPin(
+                              label: 'Kode OTP',
+                              controller: controller.otpController.value,
+                              obscureText: false,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Kode OTP tidak boleh kosong';
+                                }
+
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 20),
+                            SizedBox(
+                              width: Get.width,
+                              child: BaseButton(
+                                bgColor: Colors.white,
+                                fgColor: purpleColor,
+                                label: 'Submit',
+                                onPressed: () {
+                                  if (controller.formKey.value.currentState
+                                          ?.validate() ??
+                                      false) {
+                                    controller.verifyOtp();
+                                  }
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      )
+                : SizedBox(
+                    width: Get.width,
+                    child: BaseButton(
+                      bgColor: softPurpleColor,
+                      fgColor: purpleColor,
+                      label: controller.sent.value
+                          ? 'Buka Email'
+                          : 'Kirim Link Reset Password',
+                      onPressed: controller.sent.value
+                          ? controller.openMailApp
+                          : controller.sendLink,
+                    ),
+                  ),
             if (controller.sent.value) const SizedBox(height: 5),
             if (controller.sent.value)
               controller.tunggu.value
-                  ? const Text(
-                      'Maaf anda sudah melakukan 3 kali request. Silahkan tunggu beberapa saat untuk melakukan request lagi.\nTerima kasih',
+                  ? const BaseText(
+                      text:
+                          'Maaf anda sudah melakukan 2 kali request. Silahkan tunggu beberapa saat untuk melakukan request lagi.\nTerima kasih',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white70),
+                      color: Colors.white70,
                     )
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.center,

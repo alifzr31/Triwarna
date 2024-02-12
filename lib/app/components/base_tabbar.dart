@@ -3,10 +3,10 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class BaseTabBar extends StatelessWidget {
   const BaseTabBar({
-    Key? key,
+    super.key,
     required this.tabs,
     this.onTap,
-  }) : super(key: key);
+  });
 
   final List<Widget> tabs;
   final void Function(int)? onTap;  

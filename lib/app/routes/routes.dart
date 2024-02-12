@@ -9,6 +9,7 @@ class Routes {
   static const String verify = '/verify';
   static const String identify = '/identify';
   static const String sendLink = '/sendLink';
+  static const String resetPassword = '/resetPassword';
 
   static const String dashboard = '/dashboard';
   static const String benefit = '/benefit';

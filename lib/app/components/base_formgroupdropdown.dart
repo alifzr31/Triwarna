@@ -5,14 +5,14 @@ import 'package:triwarna_rebuild/app/components/base_text.dart';
 
 class BaseFormGroupDropdown extends StatelessWidget {
   const BaseFormGroupDropdown({
-    Key? key,
+    super.key,
     required this.label,
     required this.hint,
     required this.items,
     required this.onChanged,
     this.value,
     this.validator,
-  }) : super(key: key);
+  });
 
   final String label;
   final String hint;

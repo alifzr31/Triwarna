@@ -3,14 +3,14 @@ import 'package:triwarna_rebuild/app/components/base_text.dart';
 
 class BaseListTile extends StatelessWidget {
   const BaseListTile({
-    Key? key,
+    super.key,
     this.leading,
     required this.title,
     required this.subtitle,
     this.trailing,
     this.onTap,
     this.tileColor,
-  }) : super(key: key);
+  });
 
   final Widget? leading;
   final String title;
@@ -45,14 +45,14 @@ class BaseListTile extends StatelessWidget {
 
 class BaseListTileRichText extends StatelessWidget {
   const BaseListTileRichText({
-    Key? key,
+    super.key,
     this.leading,
     required this.richTitle,
     required this.subtitle,
     this.trailing,
     this.onTap,
     this.tileColor,
-  }) : super(key: key);
+  });
 
   final Widget? leading;
   final List<InlineSpan> richTitle;

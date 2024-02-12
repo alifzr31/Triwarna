@@ -36,8 +36,7 @@ class RegisterController extends GetxController {
     final formData = dio.FormData.fromMap({
       'name': namaController.value.text,
       'email': emailController.value.text,
-      if (phoneController.value.text != '')
-        'phone_number': phoneController.value.text,
+      'phone_number': phoneController.value.text,
       'password': passwordController.value.text,
       'password_confirmation': confirmPasswordController.value.text,
     });

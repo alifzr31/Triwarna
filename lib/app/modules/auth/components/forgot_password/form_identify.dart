@@ -33,7 +33,7 @@ class FormIdentify extends StatelessWidget {
                   ),
                   const BaseText(
                     text:
-                        'Masukkan username/email anda dengan benar untuk mereset password',
+                        'Masukkan email/no. telepon anda dengan benar untuk mereset password',
                     color: Colors.white70,
                   ),
                   controller.showAlert.value
@@ -68,12 +68,12 @@ class FormIdentify extends StatelessWidget {
                         )
                       : const SizedBox(height: 40),
                   BaseFormGroupFieldAuth(
-                    label: 'Username/Email',
-                    hint: 'Masukkan username/email anda',
+                    label: 'Email/No. Telepon',
+                    hint: 'Masukkan email/no. telepon anda',
                     controller: controller.userController.value,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Username/email tidak boleh kosong';
+                        return 'Email/no. telepon tidak boleh kosong';
                       }
 
                       return null;

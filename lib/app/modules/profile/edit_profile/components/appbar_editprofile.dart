@@ -7,9 +7,9 @@ import 'package:triwarna_rebuild/app/modules/profile/controller.dart';
 
 class AppBarEditProfile extends StatelessWidget implements PreferredSizeWidget {
   AppBarEditProfile({
-    Key? key,
+    super.key,
     required this.preferredSize,
-  }) : super(key: key);
+  });
 
   @override
   final Size preferredSize;

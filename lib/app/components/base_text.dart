@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class BaseText extends StatelessWidget {
   const BaseText({
-    Key? key,
+    super.key,
     required this.text,
     this.textAlign,
     this.maxLines,
@@ -11,7 +11,7 @@ class BaseText extends StatelessWidget {
     this.color,
     this.bold,
     this.fontFamily,
-  }) : super(key: key);
+  });
 
   final String text;
   final TextAlign? textAlign;

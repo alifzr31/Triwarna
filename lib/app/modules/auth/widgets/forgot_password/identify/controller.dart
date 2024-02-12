@@ -23,7 +23,7 @@ class IdentifyController extends GetxController {
 
   void identifyAccount() async {
     final formData = dio.FormData.fromMap({
-      'email': userController.value.text,
+      'username': userController.value.text,
     });
 
     showLoading();
@@ -33,15 +33,13 @@ class IdentifyController extends GetxController {
 
       if (response.statusCode == 200) {
         Get.back();
-        status.value = response.data['status'];
-        if (status.value == 0) {
-          showAlert.value = true;
-        } else if (status.value == 1) {
-          showAlert.value = false;
-          Get.offAndToNamed('/sendLink', arguments: response.data['email']);
-        } else {
-          showAlert.value = true;
-        }
+        Get.offAndToNamed(
+          '/sendLink',
+          arguments: {
+            'type': response.data['type'],
+            'value': response.data['value'],
+          },
+        );
       }
     } on dio.DioException catch (e) {
       Get.back();

@@ -1,10 +1,11 @@
+import 'package:dio/dio.dart' as dio;
 import 'package:dio/dio.dart%20';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:dio/dio.dart' as dio;
 import 'package:triwarna_rebuild/app/core/values/loading.dart';
 import 'package:triwarna_rebuild/app/core/values/snackbars.dart';
 import 'package:triwarna_rebuild/app/data/providers/forgot_pin/resetpin_provider.dart';
+import 'package:triwarna_rebuild/app/modules/dashboard/controller.dart';
 
 class ResetPinController extends GetxController {
   final ResetPinProvider resetPinProvider;
@@ -13,6 +14,10 @@ class ResetPinController extends GetxController {
 
   final pageController = PageController(initialPage: 0).obs;
   final currentPage = 0.obs;
+
+  final userController = Get.find<DashboardController>();
+
+  final type = Rx<String?>(null);
 
   final title = [
     'Masukkan PIN Baru Anda',
@@ -28,8 +33,27 @@ class ResetPinController extends GetxController {
   final confirmPin = Rx<String?>(null);
   final showAlert = false.obs;
 
+  @override
+  void onInit() {
+    type.value = Get.arguments['type'];
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    pageController.value.dispose();
+    super.onClose();
+  }
+
   void nextPage() {
     pageController.value.nextPage(
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInCirc,
+    );
+  }
+
+  void prevPage() {
+    pageController.value.previousPage(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInCirc,
     );
@@ -84,6 +108,7 @@ class ResetPinController extends GetxController {
 
   void resetPin() async {
     final formData = dio.FormData.fromMap({
+      'type': type.value,
       'pin_baru': newPin.value,
       'pin_konfirmasi': confirmPin.value,
     });
@@ -102,10 +127,13 @@ class ResetPinController extends GetxController {
         );
       }
     } on DioException catch (e) {
+      Get.back();
       failedSnackbar(
         'Ups sepertinya terjadi kesalahan',
         'code:${e.response?.statusCode}',
       );
+    } finally {
+      userController.fetchProfile();
     }
   }
 }

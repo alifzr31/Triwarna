@@ -4,9 +4,9 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class HeaderDashboard extends StatelessWidget {
   const HeaderDashboard({
-    Key? key,
+    super.key,
     required this.child,
-  }) : super(key: key);
+  });
 
   final Widget child;
 

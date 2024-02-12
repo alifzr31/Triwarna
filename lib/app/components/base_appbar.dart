@@ -5,14 +5,14 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class BaseAppBar extends StatelessWidget implements PreferredSizeWidget {
   const BaseAppBar({
-    Key? key,
+    super.key,
     required this.title,
     required this.preferredSize,
     this.action,
     this.bottom,
     this.bgColor,
     this.fgColor,
-  }) : super(key: key);
+  });
 
   final String title;
   @override

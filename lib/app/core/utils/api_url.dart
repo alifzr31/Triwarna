@@ -11,9 +11,12 @@ class EndPoint {
   // AUTH
   static const String login = '/login';
   static const String register = '/register';
-  static const String identifyForgotPassword = '/identify';
-  static const String sendForgotPassword = '/send-forgot-password';
-  static const String verify = '/send-verify-email';
+  static const String sendVerifyOtp = '/register/verify/send';
+  static const String verifyOtpWhatsapp = '/register/verify/wa';
+  static const String identifyForgotPassword = '/password/reset/identify';
+  static const String sendForgotPassword = '/password/reset/send';
+  static const String verifyOtpForgotPassword = '/password/reset/wa';
+  static const String resetPassword = '/password/reset';
   static const String logout = '/logout';
   
   static const String profile = '/profile';
@@ -37,8 +40,8 @@ class EndPoint {
   static const String createPin = '/profile/pin/create';
   static const String changePin = '/profile/pin/update';
 
-  static const String sendOtp = '/profile/pin/send-otp';
-  static const String verifyOtp = '/profile/pin/send-otp/identify';
+  static const String sendOtp = '/profile/pin/send';
+  static const String verifyOtp = '/profile/pin/wa';
   static const String resetPin = '/profile/pin/reset';
 
   static const String deleteAccountOtp = '/profile/delete/send-otp';

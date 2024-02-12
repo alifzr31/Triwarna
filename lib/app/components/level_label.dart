@@ -3,10 +3,10 @@ import 'package:triwarna_rebuild/app/components/base_text.dart';
 
 class LevelLabel extends StatelessWidget {
   const LevelLabel({
-    Key? key,
+    super.key,
     this.labelColor,
     this.labelGradient,
-  }) : super(key: key);
+  });
 
   final Color? labelColor;
   final Gradient? labelGradient;

@@ -4,13 +4,13 @@ import 'package:triwarna_rebuild/app/components/base_text.dart';
 
 class BaseNoData extends StatelessWidget {
   const BaseNoData({
-    Key? key,
+    super.key,
     required this.image,
     required this.title,
     required this.subtitle,
     this.labelButton,
     this.onPressed,
-  }) : super(key: key);
+  });
 
   final String image;
   final String title;

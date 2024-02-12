@@ -10,10 +10,10 @@ import 'package:triwarna_rebuild/app/modules/point/my_point/components/redeem_di
 
 class SelectTokoWidget extends StatelessWidget {
   SelectTokoWidget({
-    Key? key,
+    super.key,
     required this.prize,
     required this.pin,
-  }) : super(key: key);
+  });
 
   final Prize prize;
   final String? pin;

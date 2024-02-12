@@ -4,12 +4,12 @@ import 'package:triwarna_rebuild/app/components/base_text.dart';
 
 class BaseButton extends StatelessWidget {
   const BaseButton({
-    Key? key,
+    super.key,
     required this.label,
     this.onPressed,
     this.bgColor,
     this.fgColor,
-  }) : super(key: key);
+  });
 
   final String label;
   final void Function()? onPressed;
@@ -39,12 +39,12 @@ class BaseButton extends StatelessWidget {
 
 class BaseOutlineButton extends StatelessWidget {
   const BaseOutlineButton({
-    Key? key,
+    super.key,
     required this.label,
     this.onPressed,
     this.borderColor,
     this.fgColor,
-  }) : super(key: key);
+  });
 
   final String label;
   final void Function()? onPressed;
@@ -76,14 +76,14 @@ class BaseOutlineButton extends StatelessWidget {
 
 class BaseButtonIcon extends StatelessWidget {
   const BaseButtonIcon({
-    Key? key,
+    super.key,
     this.bgColor,
     this.fgColor,
     this.ovColor,
     this.onPressed,
     required this.icon,
     required this.label,
-  }) : super(key: key);
+  });
 
   final Color? bgColor;
   final Color? fgColor;
@@ -117,13 +117,13 @@ class BaseButtonIcon extends StatelessWidget {
 
 class BaseOutlineButtonIcon extends StatelessWidget {
   const BaseOutlineButtonIcon({
-    Key? key,
+    super.key,
     this.fgColor,
     this.borderColor,
     required this.icon,
     required this.label,
     this.onPressed,
-  }) : super(key: key);
+  });
 
   final Color? fgColor;
   final Color? borderColor;

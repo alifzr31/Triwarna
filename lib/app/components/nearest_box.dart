@@ -5,12 +5,12 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class NearestBox extends StatelessWidget {
   const NearestBox({
-    Key? key,
+    super.key,
     required this.storeName,
     required this.address,
     required this.distance,
     this.onTap,
-  }) : super(key: key);
+  });
 
   final String storeName;
   final String address;

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart%20';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
@@ -14,21 +15,35 @@ class SendLinkController extends GetxController {
 
   SendLinkController({required this.sendLinkProvider});
 
-  final email = Rx<String?>(null);
-  final maskedEmail = Rx<String?>(null);
+  final type = Rx<String?>(null);
+  final value = Rx<String?>(null);
+  final maskedValue = Rx<String?>(null);
   final sent = false.obs;
   final tunggu = false.obs;
 
+  final formKey = GlobalKey<FormState>().obs;
+  final otpController = TextEditingController().obs;
+
   @override
   void onInit() {
-    maskedEmail.value = AppHelpers.maskEmail(Get.arguments);
-    email.value = Get.arguments;
+    type.value = Get.arguments['type'];
+    maskedValue.value = type.value == 'wa'
+        ? AppHelpers.maskPhoneNumber(Get.arguments['value'])
+        : AppHelpers.maskEmail(Get.arguments['value']);
+    value.value = Get.arguments['value'];
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    otpController.value.dispose();
+    super.onClose();
   }
 
   void sendLink() async {
     final formData = dio.FormData.fromMap({
-      'email': email.value,
+      'type': type.value,
+      'value': value.value,
     });
 
     showLoading();
@@ -40,9 +55,12 @@ class SendLinkController extends GetxController {
         Get.back();
         sent.value = true;
 
-        if (response.data['tunggu'] != null &&
-            response.data['tunggu'] == true) {
-          tunggu.value = response.data['tunggu'] ?? false;
+        if (response.data['success'] == false) {
+          tunggu.value = true;
+          infoSnackbar(
+            'OTP Sudah Terkirim',
+            response.data['message'],
+          );
         }
       }
     } on dio.DioException catch (e) {
@@ -56,7 +74,8 @@ class SendLinkController extends GetxController {
 
   void resendLink() async {
     final formData = dio.FormData.fromMap({
-      'email': email.value,
+      'type': type.value,
+      'value': value.value,
     });
 
     showLoading();
@@ -68,14 +87,13 @@ class SendLinkController extends GetxController {
         Get.back();
         sent.value = true;
 
-        if (response.data['tunggu'] == null ||
-            response.data['tunggu'] == false) {
+        if (response.data['success']) {
           infoSnackbar(
             'Kirim Ulang Berhasil',
             'Link reset password sudah dikirim ulang. Silahkan cek email anda',
           );
         } else {
-          tunggu.value = response.data['tunggu'] ?? false;
+          tunggu.value = true;
         }
       }
     } on dio.DioException catch (e) {
@@ -84,6 +102,44 @@ class SendLinkController extends GetxController {
         'Ups sepertinya terjadi kesalahan',
         'code:(${e.response?.statusCode})',
       );
+    }
+  }
+
+  void verifyOtp() async {
+    final formData = dio.FormData.fromMap({
+      'value': value.value,
+      'otp': otpController.value.text,
+    });
+
+    showLoading();
+
+    try {
+      final response = await sendLinkProvider.verifyOtp(formData);
+
+      if (response.statusCode == 200) {
+        Get.back();
+        successSnackbar(
+          'Verifikasi OTP Berhasil',
+          response.data['message'],
+        );
+        Get.offAndToNamed(
+          '/resetPassword',
+          arguments: value.value,
+        );
+      }
+    } on DioException catch (e) {
+      Get.back();
+      if (e.response?.statusCode == 422) {
+        infoSnackbar(
+          'Verifikasi OTP Gagal',
+          e.response?.data['message'],
+        );
+      } else {
+        failedSnackbar(
+          'Verifikasi OTP Gagal',
+          'Ups sepertinya terjadi kesalahan. code:${e.response?.statusCode}',
+        );
+      }
     }
   }
 

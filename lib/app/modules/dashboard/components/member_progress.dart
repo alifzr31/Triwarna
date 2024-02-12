@@ -7,10 +7,10 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class MemberProgress extends StatelessWidget {
   const MemberProgress({
-    Key? key,
+    super.key,
     required this.category,
     required this.currentTransaction,
-  }) : super(key: key);
+  });
 
   final String category;
   final int currentTransaction;

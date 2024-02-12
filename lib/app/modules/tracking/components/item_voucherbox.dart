@@ -6,11 +6,11 @@ import 'package:triwarna_rebuild/app/core/values/colors.dart';
 
 class ItemVoucherBox extends StatelessWidget {
   const ItemVoucherBox({
-    Key? key,
+    super.key,
     required this.prizeName,
     required this.voucherCode,
     required this.complete,
-  }) : super(key: key);
+  });
 
   final String prizeName;
   final String voucherCode;
