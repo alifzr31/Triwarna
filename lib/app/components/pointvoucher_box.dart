@@ -58,7 +58,8 @@ class PointVoucherBox extends StatelessWidget {
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      Get.toNamed('/point');
+                      //mematikan akses ke halaman poin
+                      //Get.toNamed('/point');
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15),
