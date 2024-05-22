@@ -92,6 +92,7 @@ class PrizeCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 5),
+
             SizedBox(
               height: 35,
               width: Get.width,
@@ -99,7 +100,7 @@ class PrizeCard extends StatelessWidget {
                 bgColor: purpleColor,
                 fgColor: Colors.white,
                 label: 'Tukar Poin',
-                onPressed: onPressed,
+                onPressed: onPressed, 
               ),
             ),
           ],

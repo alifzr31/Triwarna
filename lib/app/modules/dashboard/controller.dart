@@ -152,6 +152,7 @@ class DashboardController extends GetxController {
         'Ups sepertinya terjadi kesalahan',
         'code:${e.response?.statusCode}',
       );
+      print(e.response?.data);
     } finally {
       profileLoading.value = false;
       update();
@@ -193,8 +194,10 @@ class DashboardController extends GetxController {
       final List<Content> body = response.data['data'] == null
           ? []
           : listContentFromJson(jsonEncode(response.data['data']));
+      
 
       content.value = body;
+      print(response.data['data']);
     } on DioException catch (e) {
       failedSnackbar(
         'Ups sepertinya terjadi kesalahan',

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart' as dio;
-import 'package:dio/dio.dart%20';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:triwarna_rebuild/app/core/values/loading.dart';

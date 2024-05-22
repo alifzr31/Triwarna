@@ -1,6 +1,7 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:triwarna_rebuild/app/components/base_button.dart';
 import 'package:triwarna_rebuild/app/components/base_searchnotfound.dart';
 import 'package:triwarna_rebuild/app/core/values/colors.dart';
 import 'package:triwarna_rebuild/app/core/values/custom_bottomsheet.dart';
@@ -94,7 +95,8 @@ class ListPrize extends StatelessWidget {
                             controller.filteredPrize.isEmpty
                         ? BaseSearchNotFound(
                             title: 'Hadiah Tidak Ditemukan',
-                            subtitle: 'Hadiah "${controller.searchPrize.value}" tidak ditemukan',
+                            subtitle:
+                                'Hadiah "${controller.searchPrize.value}" tidak ditemukan',
                           )
                         : GridView.builder(
                             shrinkWrap: true,
@@ -120,7 +122,7 @@ class ListPrize extends StatelessWidget {
                                   point: prize.point ?? '',
                                   image: prize.image ?? '',
                                   prizeDesc: prize.prizeDesc ?? '',
-                                  onPressed: userPoint < 50 || userPoint < point
+                                  onPressed: userPoint < 35 || userPoint < point
                                       ? null
                                       : () {
                                           customBottomSheet(

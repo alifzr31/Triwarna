@@ -1,13 +1,13 @@
 class ApiUrl {
-  static const String baseUrl = 'http://staging.triwarna.co.id/api';
-  static const String baseStorageUrl = 'http://staging.triwarna.co.id/storage';
+  static const String baseUrl = 'https://member.triwarna.co.id/api';
+  static const String baseStorageUrl = 'https://member.triwarna.co.id/storage';
   static EndPoint endPoint = EndPoint();
   static StorageUrl storageUrl = StorageUrl();
 }
 
 class EndPoint {
   static const String fcmtoken = '/fcm_token';
-  
+
   // AUTH
   static const String login = '/login';
   static const String register = '/register';
@@ -18,7 +18,7 @@ class EndPoint {
   static const String verifyOtpForgotPassword = '/password/reset/wa';
   static const String resetPassword = '/password/reset';
   static const String logout = '/logout';
-  
+
   static const String profile = '/profile';
   static const String content = '/content';
   static const String lottery = '/undian';
